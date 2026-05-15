@@ -1,0 +1,218 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Energy Radio Stations",
+    "description": "Provides various radio stations with different music genres and themes. Access to Energy Radio's playlist and station information.",
+    "version": "1.0.0",
+    "contact": {
+      "url": "https://energy.ch"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://energy.ch",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/stations/{station}/playlist": {
+      "get": {
+        "summary": "Get station playlist",
+        "description": "Retrieves the current and recent playlist for a specific Energy radio station",
+        "operationId": "getStationPlaylist",
+        "tags": [
+          "Playlist"
+        ],
+        "parameters": [
+          {
+            "name": "station",
+            "in": "path",
+            "required": true,
+            "description": "The station identifier",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "energy-zurich",
+                "energy-basel",
+                "energy-bern",
+                "energy-me-time",
+                "energy-love",
+                "energy-at-work",
+                "energy-hits",
+                "made-in-switzerland",
+                "energy-workout",
+                "energy-latin",
+                "energy-party-vibes",
+                "energy-summer-vibes",
+                "energy-pop",
+                "energy-top-30",
+                "energy-90s",
+                "energy-80s",
+                "energy-00s",
+                "energy-10s",
+                "energy-dance",
+                "energy-20s",
+                "energy-italy",
+                "energy-deutsch-pop",
+                "energy-womxn",
+                "energy-lounge",
+                "friends-cooking",
+                "energy-deutschrap",
+                "energy-balkan-hits",
+                "energy-rock",
+                "energy-urban",
+                "energy-x-mas"
+              ],
+              "example": "energy-bern"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Number of playlist entries to return",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "minimum": 1,
+              "maximum": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with playlist data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlaylistResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Station not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PlaylistResponse": {
+        "type": "object",
+        "properties": {
+          "station": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "energy-bern"
+              },
+              "name": {
+                "type": "string",
+                "example": "Energy Bern"
+              },
+              "description": {
+                "type": "string",
+                "example": "Die Nummer 1 aus der Hauptstadt."
+              },
+              "frequency": {
+                "type": "string",
+                "example": "101.7 MHz"
+              }
+            }
+          },
+          "playlist": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PlaylistItem"
+            }
+          }
+        }
+      },
+      "PlaylistItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the playlist entry"
+          },
+          "artist": {
+            "type": "string",
+            "description": "Artist name",
+            "example": "Adele"
+          },
+          "title": {
+            "type": "string",
+            "description": "Song title",
+            "example": "Hello"
+          },
+          "album": {
+            "type": "string",
+            "description": "Album name",
+            "example": "25"
+          },
+          "playedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the song was played"
+          },
+          "coverArt": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to album cover image"
+          },
+          "duration": {
+            "type": "integer",
+            "description": "Song duration in seconds"
+          }
+        },
+        "required": [
+          "artist",
+          "title",
+          "playedAt"
+        ]
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Error message"
+          },
+          "code": {
+            "type": "string",
+            "description": "Error code"
+          }
+        },
+        "required": [
+          "error"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Playlist",
+      "description": "Operations related to radio station playlists"
+    }
+  ]
+}

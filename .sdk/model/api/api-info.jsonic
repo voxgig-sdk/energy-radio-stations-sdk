@@ -1,0 +1,23 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      contact: {
+        url: "https://energy.ch"
+      }
+      description: "Provides various radio stations with different music genres and themes. Access to Energy Radio's playlist and station information."
+      servers: [
+        {
+          description: "Production server"
+          url: "https://energy.ch"
+        }
+      ]
+      title: "Energy Radio Stations"
+      version: "1.0.0"
+    }
+  }
+}
+
+}

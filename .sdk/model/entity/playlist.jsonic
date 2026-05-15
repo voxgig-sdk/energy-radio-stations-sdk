@@ -1,0 +1,115 @@
+# Entity: playlist
+
+main: kit: entity: playlist: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "album"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "artist"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "cover_art"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "duration"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "played_at"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "title"
+      req: true
+      type: "`$STRING`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "playlist"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                example: "energy-bern"
+                kind: "param"
+                name: "station_id"
+                orig: "station"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                example: 20
+                kind: "query"
+                name: "limit"
+                orig: "limit"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/stations/{station}/playlist"
+          parts: [
+            "stations"
+            "{station_id}"
+            "playlist"
+          ]
+          rename: {
+            param: {
+              station: "station_id"
+            }
+          }
+          select: {
+            exist: [
+              "limit"
+              "station_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "station"
+      ]
+    ]
+  }
+
+
+
+}
