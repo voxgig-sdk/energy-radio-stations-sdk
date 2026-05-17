@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/energy-radio-stations-sdk"
-	"github.com/voxgig-sdk/energy-radio-stations-sdk/core"
+	sdk "github.com/voxgig-sdk/energy-radio-stations-sdk/go"
+	"github.com/voxgig-sdk/energy-radio-stations-sdk/go/core"
 )
 
 func TestPlaylistDirect(t *testing.T) {

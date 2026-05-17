@@ -1,10 +1,10 @@
 package voxgigenergyradiostationssdk
 
 import (
-	"github.com/voxgig-sdk/energy-radio-stations-sdk/core"
-	"github.com/voxgig-sdk/energy-radio-stations-sdk/entity"
-	"github.com/voxgig-sdk/energy-radio-stations-sdk/feature"
-	_ "github.com/voxgig-sdk/energy-radio-stations-sdk/utility"
+	"github.com/voxgig-sdk/energy-radio-stations-sdk/go/core"
+	"github.com/voxgig-sdk/energy-radio-stations-sdk/go/entity"
+	"github.com/voxgig-sdk/energy-radio-stations-sdk/go/feature"
+	_ "github.com/voxgig-sdk/energy-radio-stations-sdk/go/utility"
 )
 
 // Type aliases preserve external API.

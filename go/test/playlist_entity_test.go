@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/energy-radio-stations-sdk"
-	"github.com/voxgig-sdk/energy-radio-stations-sdk/core"
+	sdk "github.com/voxgig-sdk/energy-radio-stations-sdk/go"
+	"github.com/voxgig-sdk/energy-radio-stations-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/energy-radio-stations-sdk/go/utility/struct"
 )
 
 func TestPlaylistEntity(t *testing.T) {

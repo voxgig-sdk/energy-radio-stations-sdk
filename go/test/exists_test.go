@@ -3,7 +3,7 @@ package sdktest
 import (
 	"testing"
 
-	sdk "github.com/voxgig-sdk/energy-radio-stations-sdk"
+	sdk "github.com/voxgig-sdk/energy-radio-stations-sdk/go"
 )
 
 func TestExists(t *testing.T) {

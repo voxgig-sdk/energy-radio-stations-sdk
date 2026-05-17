@@ -1,7 +1,7 @@
 package feature
 
 import (
-	"github.com/voxgig-sdk/energy-radio-stations-sdk/core"
+	"github.com/voxgig-sdk/energy-radio-stations-sdk/go/core"
 )
 
 type BaseFeature struct {
