@@ -10,9 +10,9 @@ import (
 	"github.com/voxgig-sdk/energy-radio-stations-sdk/go/core"
 )
 
-func TestPlaylistDirect(t *testing.T) {
-	t.Run("direct-list-playlist", func(t *testing.T) {
-		setup := playlistDirectSetup([]any{
+func TestPlayoutDirect(t *testing.T) {
+	t.Run("direct-list-playout", func(t *testing.T) {
+		setup := playoutDirectSetup([]any{
 			map[string]any{"id": "direct01"},
 			map[string]any{"id": "direct02"},
 		})
@@ -20,7 +20,7 @@ func TestPlaylistDirect(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		if _shouldSkip, _reason := isControlSkipped("direct", "direct-list-playlist", _mode); _shouldSkip {
+		if _shouldSkip, _reason := isControlSkipped("direct", "direct-list-playout", _mode); _shouldSkip {
 			if _reason == "" {
 				_reason = "skipped via sdk-test-control.json"
 			}
@@ -39,13 +39,13 @@ func TestPlaylistDirect(t *testing.T) {
 
 		params := map[string]any{}
 		if setup.live {
-			params["station_id"] = setup.idmap["station01"]
+			params["station"] = setup.idmap["station01"]
 		} else {
-			params["station_id"] = "direct01"
+			params["station"] = "direct01"
 		}
 
 		result, err := client.Direct(map[string]any{
-			"path":   "stations/{station_id}/playlist",
+			"path":   "api/channels/{station}/playouts",
 			"method": "GET",
 			"params": params,
 		})
@@ -103,20 +103,20 @@ func TestPlaylistDirect(t *testing.T) {
 
 }
 
-type playlistDirectSetupResult struct {
+type playoutDirectSetupResult struct {
 	client *sdk.EnergyRadioStationsSDK
 	calls  *[]map[string]any
 	live   bool
 	idmap  map[string]any
 }
 
-func playlistDirectSetup(mockres any) *playlistDirectSetupResult {
+func playoutDirectSetup(mockres any) *playoutDirectSetupResult {
 	loadEnvLocal()
 
 	calls := &[]map[string]any{}
 
 	env := envOverride(map[string]any{
-		"ENERGYRADIOSTATIONS_TEST_PLAYLIST_ENTID": map[string]any{},
+		"ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID": map[string]any{},
 		"ENERGYRADIOSTATIONS_TEST_LIVE":    "FALSE",
 		"ENERGYRADIOSTATIONS_APIKEY":       "NONE",
 	})
@@ -130,7 +130,7 @@ func playlistDirectSetup(mockres any) *playlistDirectSetupResult {
 		client := sdk.NewEnergyRadioStationsSDK(mergedOpts)
 
 		idmap := map[string]any{}
-		if entidRaw, ok := env["ENERGYRADIOSTATIONS_TEST_PLAYLIST_ENTID"]; ok {
+		if entidRaw, ok := env["ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID"]; ok {
 			if entidStr, ok := entidRaw.(string); ok && strings.HasPrefix(entidStr, "{") {
 				json.Unmarshal([]byte(entidStr), &idmap)
 			} else if entidMap, ok := entidRaw.(map[string]any); ok {
@@ -138,7 +138,7 @@ func playlistDirectSetup(mockres any) *playlistDirectSetupResult {
 			}
 		}
 
-		return &playlistDirectSetupResult{client: client, calls: calls, live: true, idmap: idmap}
+		return &playoutDirectSetupResult{client: client, calls: calls, live: true, idmap: idmap}
 	}
 
 	mockFetch := func(url string, init map[string]any) (map[string]any, error) {
@@ -163,7 +163,7 @@ func playlistDirectSetup(mockres any) *playlistDirectSetupResult {
 		},
 	})
 
-	return &playlistDirectSetupResult{client: client, calls: calls, live: false, idmap: map[string]any{}}
+	return &playoutDirectSetupResult{client: client, calls: calls, live: false, idmap: map[string]any{}}
 }
 
 var _ = os.Getenv

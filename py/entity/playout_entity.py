@@ -1,10 +1,10 @@
-# EnergyRadioStations SDK Playlist entity
+# EnergyRadioStations SDK Playout entity
 
 from utility.voxgig_struct import voxgig_struct as vs
 from core import helpers
 
 
-class PlaylistEntity:
+class PlayoutEntity:
 
     def __init__(self, client, entopts=None):
         if entopts is None:
@@ -16,7 +16,7 @@ class PlaylistEntity:
         else:
             entopts["active"] = True
 
-        self._name = "playlist"
+        self._name = "playout"
         self._client = client
         self._utility = client.get_utility()
         self._entopts = entopts
@@ -37,7 +37,7 @@ class PlaylistEntity:
         opts = {}
         for k, v in self._entopts.items():
             opts[k] = v
-        return PlaylistEntity(self._client, opts)
+        return PlayoutEntity(self._client, opts)
 
     def data_set(self, args=None):
         if args is not None:

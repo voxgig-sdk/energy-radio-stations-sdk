@@ -36,10 +36,10 @@ client = EnergyRadioStationsSDK.new({
 })
 ```
 
-### 2. List playlists
+### 2. List playouts
 
 ```ruby
-result, err = client.Playlist(nil).list(nil, nil)
+result, err = client.Playout(nil).list(nil, nil)
 raise err if err
 
 if result.is_a?(Array)
@@ -174,7 +174,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> [Hash, err]` | Build an HTTP request definition without sending. |
 | `direct` | `(fetchargs) -> [Hash, err]` | Build and send an HTTP request. |
-| `Playlist` | `(data) -> PlaylistEntity` | Create a Playlist entity instance. |
+| `Playout` | `(data) -> PlayoutEntity` | Create a Playout entity instance. |
 
 ### Entity interface
 
@@ -210,7 +210,7 @@ On error, `ok` is `false` and `err` contains the error value.
 
 ### Entities
 
-#### Playlist
+#### Playout
 
 | Field | Description |
 | --- | --- |
@@ -224,16 +224,16 @@ On error, `ok` is `false` and `err` contains the error value.
 
 Operations: List.
 
-API path: `/stations/{station}/playlist`
+API path: `/api/channels/{station}/playouts`
 
 
 
 ## Entities
 
 
-### Playlist
+### Playout
 
-Create an instance: `const playlist = client.Playlist()`
+Create an instance: `const playout = client.Playout()`
 
 #### Operations
 
@@ -256,7 +256,7 @@ Create an instance: `const playlist = client.Playlist()`
 #### Example: List
 
 ```ts
-const playlists = await client.Playlist().list()
+const playouts = await client.Playout().list()
 ```
 
 

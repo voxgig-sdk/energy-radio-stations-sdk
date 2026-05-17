@@ -16,7 +16,7 @@ import {
 } from '../../utility'
 
 
-describe('PlaylistDirect', async () => {
+describe('PlayoutDirect', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
   // `test.live.delayMs`; only sleeps when ENERGYRADIOSTATIONS_TEST_LIVE=TRUE.
@@ -31,22 +31,22 @@ describe('PlaylistDirect', async () => {
   })
 
 
-  test('direct-list-playlist', async (t: any) => {
+  test('direct-list-playout', async (t: any) => {
     const setup = directSetup([{ id: 'direct01' }, { id: 'direct02' }])
-    if (maybeSkipControl(t, 'direct', 'direct-list-playlist', setup.live)) return
+    if (maybeSkipControl(t, 'direct', 'direct-list-playout', setup.live)) return
     if (skipIfMissingIds(t, setup, ["station01"])) return
     const { client, calls } = setup
 
     const params: any = {}
     const query: any = {}
     if (setup.live) {
-      params.station_id = setup.idmap['station01']
+      params.station = setup.idmap['station01']
     } else {
-      params.station_id = 'direct01'
+      params.station = 'direct01'
     }
 
     const result: any = await client.direct({
-      path: 'stations/{station_id}/playlist',
+      path: 'api/channels/{station}/playouts',
       method: 'GET',
       params,
       query,
@@ -84,7 +84,7 @@ function directSetup(mockres?: any) {
   const calls: any[] = []
 
   const env = envOverride({
-    'ENERGYRADIOSTATIONS_TEST_PLAYLIST_ENTID': {},
+    'ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID': {},
     'ENERGYRADIOSTATIONS_TEST_LIVE': 'FALSE',
     'ENERGYRADIOSTATIONS_APIKEY': 'NONE',
   })
@@ -96,7 +96,7 @@ function directSetup(mockres?: any) {
       apikey: env.ENERGYRADIOSTATIONS_APIKEY,
     })
 
-    let idmap: any = env['ENERGYRADIOSTATIONS_TEST_PLAYLIST_ENTID']
+    let idmap: any = env['ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID']
     if ('string' === typeof idmap && idmap.startsWith('{')) {
       idmap = JSON.parse(idmap)
     }

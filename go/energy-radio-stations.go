@@ -32,8 +32,8 @@ func init() {
 	core.NewTestFeatureFunc = func() core.Feature {
 		return feature.NewTestFeature()
 	}
-	core.NewPlaylistEntityFunc = func(client *core.EnergyRadioStationsSDK, entopts map[string]any) core.EnergyRadioStationsEntity {
-		return entity.NewPlaylistEntity(client, entopts)
+	core.NewPlayoutEntityFunc = func(client *core.EnergyRadioStationsSDK, entopts map[string]any) core.EnergyRadioStationsEntity {
+		return entity.NewPlayoutEntity(client, entopts)
 	}
 }
 

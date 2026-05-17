@@ -23,7 +23,7 @@ import {
 } from '../../utility'
 
 
-describe('PlaylistEntity', async () => {
+describe('PlayoutEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
   // `test.live.delayMs`; only sleeps when ENERGYRADIOSTATIONS_TEST_LIVE=TRUE.
@@ -31,7 +31,7 @@ describe('PlaylistEntity', async () => {
 
   test('instance', async () => {
     const testsdk = EnergyRadioStationsSDK.test()
-    const ent = testsdk.Playlist()
+    const ent = testsdk.Playout()
     assert(null != ent)
   })
 
@@ -40,7 +40,7 @@ describe('PlaylistEntity', async () => {
 
     const live = 'TRUE' === process.env.ENERGY_RADIO_STATIONS_TEST_LIVE
     for (const op of ['list']) {
-      if (maybeSkipControl(t, 'entityOp', 'playlist.' + op, live)) return
+      if (maybeSkipControl(t, 'entityOp', 'playout.' + op, live)) return
     }
 
     const setup = basicSetup()
@@ -48,7 +48,7 @@ describe('PlaylistEntity', async () => {
     // fixture (entity TestData.json). Those don't exist on the live API.
     // Skip live runs unless the user provided a real ENTID env override.
     if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set ENERGY_RADIO_STATIONS_TEST_PLAYLIST_ENTID JSON to run live')
+      t.skip('live entity test uses synthetic IDs from fixture — set ENERGY_RADIO_STATIONS_TEST_PLAYOUT_ENTID JSON to run live')
       return
     }
     const client = setup.client
@@ -57,14 +57,14 @@ describe('PlaylistEntity', async () => {
     const isempty = struct.isempty
     const select = struct.select
 
-    let playlist_ref01_data = Object.values(setup.data.existing.playlist)[0] as any
+    let playout_ref01_data = Object.values(setup.data.existing.playout)[0] as any
 
     // LIST
-    const playlist_ref01_ent = client.Playlist()
-    const playlist_ref01_match: any = {}
-    playlist_ref01_match['station_id'] = setup.idmap['station01']
+    const playout_ref01_ent = client.Playout()
+    const playout_ref01_match: any = {}
+    playout_ref01_match['station'] = setup.idmap['station01']
 
-    const playlist_ref01_list = await playlist_ref01_ent.list(playlist_ref01_match)
+    const playout_ref01_list = await playout_ref01_ent.list(playout_ref01_match)
 
 
   })
@@ -79,7 +79,7 @@ function basicSetup(extra?: any) {
   // TODO: needs test utility to resolve path
   const entityDataFile =
     Path.resolve(__dirname, 
-      '../../../../.sdk/test/entity/playlist/PlaylistTestData.json')
+      '../../../../.sdk/test/entity/playout/PlayoutTestData.json')
 
   // TODO: file ready util needed?
   const entityDataSource = Fs.readFileSync(entityDataFile).toString('utf8')
@@ -95,7 +95,7 @@ function basicSetup(extra?: any) {
   const transform = struct.transform
 
   let idmap = transform(
-    ['playlist01','playlist02','playlist03','station01','station02','station03'],
+    ['playout01','playout02','playout03','channel01','channel02','channel03'],
     {
       '`$PACK`': ['', {
         '`$KEY`': '`$COPY`',
@@ -107,17 +107,17 @@ function basicSetup(extra?: any) {
   // basic flow consumes synthetic IDs from the fixture file; without an
   // override those synthetic IDs reach the live API and 4xx. Surface this
   // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['ENERGY_RADIO_STATIONS_TEST_PLAYLIST_ENTID']
+  const idmapEnvVal = process.env['ENERGY_RADIO_STATIONS_TEST_PLAYOUT_ENTID']
   const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
 
   const env = envOverride({
-    'ENERGY_RADIO_STATIONS_TEST_PLAYLIST_ENTID': idmap,
+    'ENERGY_RADIO_STATIONS_TEST_PLAYOUT_ENTID': idmap,
     'ENERGY_RADIO_STATIONS_TEST_LIVE': 'FALSE',
     'ENERGY_RADIO_STATIONS_TEST_EXPLAIN': 'FALSE',
     'ENERGY_RADIO_STATIONS_APIKEY': 'NONE',
   })
 
-  idmap = env['ENERGY_RADIO_STATIONS_TEST_PLAYLIST_ENTID']
+  idmap = env['ENERGY_RADIO_STATIONS_TEST_PLAYOUT_ENTID']
 
   const live = 'TRUE' === env.ENERGY_RADIO_STATIONS_TEST_LIVE
 

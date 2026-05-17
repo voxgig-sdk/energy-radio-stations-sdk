@@ -1,6 +1,6 @@
-# Entity: playlist
+# Entity: playout
 
-main: kit: entity: playlist: {
+main: kit: entity: playout: {
 
   alias: field: {}
 
@@ -47,7 +47,7 @@ main: kit: entity: playlist: {
     name: "id"
   }
 
-  name: "playlist"
+  name: "playout"
   op: {
     list: {
       name: "list"
@@ -58,7 +58,7 @@ main: kit: entity: playlist: {
               {
                 example: "energy-bern"
                 kind: "param"
-                name: "station_id"
+                name: "station"
                 orig: "station"
                 reqd: true
                 type: "`$STRING`"
@@ -76,21 +76,17 @@ main: kit: entity: playlist: {
             ]
           }
           method: "GET"
-          orig: "/stations/{station}/playlist"
+          orig: "/api/channels/{station}/playouts"
           parts: [
-            "stations"
-            "{station_id}"
-            "playlist"
+            "api"
+            "channels"
+            "{station}"
+            "playouts"
           ]
-          rename: {
-            param: {
-              station: "station_id"
-            }
-          }
           select: {
             exist: [
               "limit"
-              "station_id"
+              "station"
             ]
           }
           transform: {
@@ -105,7 +101,7 @@ main: kit: entity: playlist: {
   relations: {
     ancestors: [
       [
-        "station"
+        "channel"
       ]
     ]
   }

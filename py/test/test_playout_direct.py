@@ -1,4 +1,4 @@
-# Playlist direct test
+# Playout direct test
 
 import json
 import pytest
@@ -9,14 +9,14 @@ from core import helpers
 from test import runner
 
 
-class TestPlaylistDirect:
+class TestPlayoutDirect:
 
-    def test_should_direct_list_playlist(self):
-        setup = _playlist_direct_setup([
+    def test_should_direct_list_playout(self):
+        setup = _playout_direct_setup([
             {"id": "direct01"},
             {"id": "direct02"},
         ])
-        _skip, _reason = runner.is_control_skipped("direct", "direct-list-playlist", "live" if setup["live"] else "unit")
+        _skip, _reason = runner.is_control_skipped("direct", "direct-list-playout", "live" if setup["live"] else "unit")
         if _skip:
             # pytest already imported at module scope
             pytest.skip(_reason or "skipped via sdk-test-control.json")
@@ -32,12 +32,12 @@ class TestPlaylistDirect:
 
         params = {}
         if setup["live"]:
-            params["station_id"] = setup["idmap"]["station01"]
+            params["station"] = setup["idmap"]["station01"]
         else:
-            params["station_id"] = "direct01"
+            params["station"] = "direct01"
 
         result, err = client.direct({
-            "path": "stations/{station_id}/playlist",
+            "path": "api/channels/{station}/playouts",
             "method": "GET",
             "params": params,
         })
@@ -65,13 +65,13 @@ class TestPlaylistDirect:
 
 
 
-def _playlist_direct_setup(mockres):
+def _playout_direct_setup(mockres):
     runner.load_env_local()
 
     calls = []
 
     env = runner.env_override({
-        "ENERGYRADIOSTATIONS_TEST_PLAYLIST_ENTID": {},
+        "ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID": {},
         "ENERGYRADIOSTATIONS_TEST_LIVE": "FALSE",
         "ENERGYRADIOSTATIONS_APIKEY": "NONE",
     })

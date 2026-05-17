@@ -22,11 +22,11 @@ def make_config():
         "content-type": "application/json",
       },
             "entity": {
-                "playlist": {},
+                "playout": {},
             },
         },
         "entity": {
-      "playlist": {
+      "playout": {
         "fields": [
           {
             "name": "album",
@@ -78,7 +78,7 @@ def make_config():
             "index$": 6,
           },
         ],
-        "name": "playlist",
+        "name": "playout",
         "op": {
           "list": {
             "name": "list",
@@ -89,7 +89,7 @@ def make_config():
                     {
                       "example": "energy-bern",
                       "kind": "param",
-                      "name": "station_id",
+                      "name": "station",
                       "orig": "station",
                       "reqd": True,
                       "type": "`$STRING`",
@@ -109,21 +109,17 @@ def make_config():
                   ],
                 },
                 "method": "GET",
-                "orig": "/stations/{station}/playlist",
+                "orig": "/api/channels/{station}/playouts",
                 "parts": [
-                  "stations",
-                  "{station_id}",
-                  "playlist",
+                  "api",
+                  "channels",
+                  "{station}",
+                  "playouts",
                 ],
-                "rename": {
-                  "param": {
-                    "station": "station_id",
-                  },
-                },
                 "select": {
                   "exist": [
                     "limit",
-                    "station_id",
+                    "station",
                   ],
                 },
                 "transform": {
@@ -141,7 +137,7 @@ def make_config():
         "relations": {
           "ancestors": [
             [
-              "station",
+              "channel",
             ],
           ],
         },

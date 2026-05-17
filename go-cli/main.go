@@ -20,7 +20,7 @@ import (
 const prompt = "energy-radio-stations"
 
 // entitiesHelp is the space-separated entity list shown by :help.
-const entitiesHelp = "playlist"
+const entitiesHelp = "playout"
 
 func main() {
 	os.Exit(run(os.Args[1:], os.Stdin, os.Stdout, os.Stderr))

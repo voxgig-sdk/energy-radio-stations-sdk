@@ -42,9 +42,9 @@ client = EnergyRadioStationsSDK.test()
 
 ### Instance Methods
 
-#### `Playlist(data=None)`
+#### `Playout(data=None)`
 
-Create a new `PlaylistEntity` instance. Pass `None` for no initial data.
+Create a new `PlayoutEntity` instance. Pass `None` for no initial data.
 
 #### `options_map() -> dict`
 
@@ -78,10 +78,10 @@ Prepare a fetch definition without sending. Returns `(fetchdef, err)`.
 
 ---
 
-## PlaylistEntity
+## PlayoutEntity
 
 ```python
-playlist = client.Playlist()
+playout = client.Playout()
 ```
 
 ### Fields
@@ -103,7 +103,7 @@ playlist = client.Playlist()
 List entities matching the given criteria. Returns an array.
 
 ```python
-results, err = client.Playlist().list({})
+results, err = client.Playout().list({})
 ```
 
 ### Common Methods
@@ -126,7 +126,7 @@ Set the entity match criteria.
 
 #### `make() -> Entity`
 
-Create a new `PlaylistEntity` instance with the same options.
+Create a new `PlayoutEntity` instance with the same options.
 
 #### `get_name() -> str`
 

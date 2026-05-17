@@ -42,9 +42,9 @@ $client = EnergyRadioStationsSDK::test();
 
 ### Instance Methods
 
-#### `Playlist($data = null)`
+#### `Playout($data = null)`
 
-Create a new `PlaylistEntity` instance. Pass `null` for no initial data.
+Create a new `PlayoutEntity` instance. Pass `null` for no initial data.
 
 #### `optionsMap(): array`
 
@@ -79,10 +79,10 @@ Prepare a fetch definition without sending the request. Returns `[$fetchdef, $er
 
 ---
 
-## PlaylistEntity
+## PlayoutEntity
 
 ```php
-$playlist = $client->Playlist();
+$playout = $client->Playout();
 ```
 
 ### Fields
@@ -104,7 +104,7 @@ $playlist = $client->Playlist();
 List entities matching the given criteria. Returns an array.
 
 ```php
-[$results, $err] = $client->Playlist()->list([]);
+[$results, $err] = $client->Playout()->list([]);
 ```
 
 ### Common Methods
@@ -125,9 +125,9 @@ Get the entity match criteria.
 
 Set the entity match criteria.
 
-#### `make(): PlaylistEntity`
+#### `make(): PlayoutEntity`
 
-Create a new `PlaylistEntity` instance with the same client and
+Create a new `PlayoutEntity` instance with the same client and
 options.
 
 #### `getName(): string`

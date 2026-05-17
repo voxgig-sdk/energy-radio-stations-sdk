@@ -1,9 +1,9 @@
-# EnergyRadioStations SDK Playlist entity
+# EnergyRadioStations SDK Playout entity
 
 require_relative '../utility/struct/voxgig_struct'
 require_relative '../core/helpers'
 
-class PlaylistEntity
+class PlayoutEntity
   def initialize(client, entopts = nil)
     entopts ||= {}
     if entopts["active"].nil?
@@ -14,7 +14,7 @@ class PlaylistEntity
       entopts["active"] = true
     end
 
-    @_name = "playlist"
+    @_name = "playout"
     @_client = client
     @_utility = client.get_utility
     @_entopts = entopts
@@ -35,7 +35,7 @@ class PlaylistEntity
 
   def make
     opts = @_entopts.dup
-    PlaylistEntity.new(@_client, opts)
+    PlayoutEntity.new(@_client, opts)
   end
 
   def data_set(args)

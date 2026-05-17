@@ -21,11 +21,11 @@ func MakeConfig() map[string]any {
 				"content-type": "application/json",
 			},
 			"entity": map[string]any{
-				"playlist": map[string]any{},
+				"playout": map[string]any{},
 			},
 		},
 		"entity": map[string]any{
-			"playlist": map[string]any{
+			"playout": map[string]any{
 				"fields": []any{
 					map[string]any{
 						"name": "album",
@@ -77,7 +77,7 @@ func MakeConfig() map[string]any {
 						"index$": 6,
 					},
 				},
-				"name": "playlist",
+				"name": "playout",
 				"op": map[string]any{
 					"list": map[string]any{
 						"name": "list",
@@ -88,7 +88,7 @@ func MakeConfig() map[string]any {
 										map[string]any{
 											"example": "energy-bern",
 											"kind": "param",
-											"name": "station_id",
+											"name": "station",
 											"orig": "station",
 											"reqd": true,
 											"type": "`$STRING`",
@@ -108,21 +108,17 @@ func MakeConfig() map[string]any {
 									},
 								},
 								"method": "GET",
-								"orig": "/stations/{station}/playlist",
+								"orig": "/api/channels/{station}/playouts",
 								"parts": []any{
-									"stations",
-									"{station_id}",
-									"playlist",
-								},
-								"rename": map[string]any{
-									"param": map[string]any{
-										"station": "station_id",
-									},
+									"api",
+									"channels",
+									"{station}",
+									"playouts",
 								},
 								"select": map[string]any{
 									"exist": []any{
 										"limit",
-										"station_id",
+										"station",
 									},
 								},
 								"transform": map[string]any{
@@ -140,7 +136,7 @@ func MakeConfig() map[string]any {
 				"relations": map[string]any{
 					"ancestors": []any{
 						[]any{
-							"station",
+							"channel",
 						},
 					},
 				},

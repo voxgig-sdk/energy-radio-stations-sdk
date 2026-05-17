@@ -86,8 +86,8 @@ func runOp(client *sdk.EnergyRadioStationsSDK, op string, query *eng.Value, enti
 // emits one `case "<name>":` per entity defined in the SDK model.
 func entityFor(client *sdk.EnergyRadioStationsSDK, name string) (sdk.EnergyRadioStationsEntity, error) {
 	switch strings.ToLower(name) {
-	case "playlist":
-		return client.Playlist(nil), nil
+	case "playout":
+		return client.Playout(nil), nil
 
 	}
 	return nil, fmt.Errorf("unknown entity %q", name)

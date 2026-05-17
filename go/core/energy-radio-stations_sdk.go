@@ -245,8 +245,8 @@ func (sdk *EnergyRadioStationsSDK) Direct(fetchargs map[string]any) (map[string]
 }
 
 
-func (sdk *EnergyRadioStationsSDK) Playlist(data map[string]any) EnergyRadioStationsEntity {
-	return NewPlaylistEntityFunc(sdk, data)
+func (sdk *EnergyRadioStationsSDK) Playout(data map[string]any) EnergyRadioStationsEntity {
+	return NewPlayoutEntityFunc(sdk, data)
 }
 
 

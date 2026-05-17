@@ -42,9 +42,9 @@ client = EnergyRadioStationsSDK.test
 
 ### Instance Methods
 
-#### `Playlist(data = nil)`
+#### `Playout(data = nil)`
 
-Create a new `Playlist` entity instance. Pass `nil` for no initial data.
+Create a new `Playout` entity instance. Pass `nil` for no initial data.
 
 #### `options_map -> Hash`
 
@@ -82,10 +82,10 @@ same parameters as `direct()`.
 
 ---
 
-## PlaylistEntity
+## PlayoutEntity
 
 ```ruby
-playlist = client.Playlist
+playout = client.Playout
 ```
 
 ### Fields
@@ -107,7 +107,7 @@ playlist = client.Playlist
 List entities matching the given criteria. Returns an array.
 
 ```ruby
-results, err = client.Playlist.list(nil)
+results, err = client.Playout.list(nil)
 ```
 
 ### Common Methods
@@ -130,7 +130,7 @@ Set the entity match criteria.
 
 #### `make -> Entity`
 
-Create a new `PlaylistEntity` instance with the same client and
+Create a new `PlayoutEntity` instance with the same client and
 options.
 
 #### `get_name -> String`

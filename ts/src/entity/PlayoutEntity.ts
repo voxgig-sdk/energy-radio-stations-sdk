@@ -16,18 +16,18 @@ import type {
 
 
 // TODO: needs Entity superclass
-class PlaylistEntity extends EnergyRadioStationsEntityBase {
+class PlayoutEntity extends EnergyRadioStationsEntityBase {
 
   constructor(client: EnergyRadioStationsSDK, entopts: any) {
     super(client, entopts)
-    this.name = 'playlist'
-    this.name_ = 'playlist'
-    this.Name = 'Playlist'
+    this.name = 'playout'
+    this.name_ = 'playout'
+    this.Name = 'Playout'
   }
 
 
-  make(this: PlaylistEntity) {
-    return new PlaylistEntity(this._client, this.entopts())
+  make(this: PlayoutEntity) {
+    return new PlayoutEntity(this._client, this.entopts())
   }
 
 
@@ -146,5 +146,5 @@ class PlaylistEntity extends EnergyRadioStationsEntityBase {
 
 
 export {
-  PlaylistEntity
+  PlayoutEntity
 }

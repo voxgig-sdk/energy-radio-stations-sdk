@@ -22,11 +22,11 @@ module EnergyRadioStationsConfig
           "content-type" => "application/json",
         },
         "entity" => {
-          "playlist" => {},
+          "playout" => {},
         },
       },
       "entity" => {
-        "playlist" => {
+        "playout" => {
           "fields" => [
             {
               "name" => "album",
@@ -78,7 +78,7 @@ module EnergyRadioStationsConfig
               "index$" => 6,
             },
           ],
-          "name" => "playlist",
+          "name" => "playout",
           "op" => {
             "list" => {
               "name" => "list",
@@ -89,7 +89,7 @@ module EnergyRadioStationsConfig
                       {
                         "example" => "energy-bern",
                         "kind" => "param",
-                        "name" => "station_id",
+                        "name" => "station",
                         "orig" => "station",
                         "reqd" => true,
                         "type" => "`$STRING`",
@@ -109,21 +109,17 @@ module EnergyRadioStationsConfig
                     ],
                   },
                   "method" => "GET",
-                  "orig" => "/stations/{station}/playlist",
+                  "orig" => "/api/channels/{station}/playouts",
                   "parts" => [
-                    "stations",
-                    "{station_id}",
-                    "playlist",
+                    "api",
+                    "channels",
+                    "{station}",
+                    "playouts",
                   ],
-                  "rename" => {
-                    "param" => {
-                      "station" => "station_id",
-                    },
-                  },
                   "select" => {
                     "exist" => [
                       "limit",
-                      "station_id",
+                      "station",
                     ],
                   },
                   "transform" => {
@@ -141,7 +137,7 @@ module EnergyRadioStationsConfig
           "relations" => {
             "ancestors" => [
               [
-                "station",
+                "channel",
               ],
             ],
           },

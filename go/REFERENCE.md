@@ -40,9 +40,9 @@ client := sdk.TestSDK(nil, nil)
 
 ### Instance Methods
 
-#### `Playlist(data map[string]any) EnergyRadioStationsEntity`
+#### `Playout(data map[string]any) EnergyRadioStationsEntity`
 
-Create a new `Playlist` entity instance. Pass `nil` for no initial data.
+Create a new `Playout` entity instance. Pass `nil` for no initial data.
 
 #### `OptionsMap() map[string]any`
 
@@ -80,10 +80,10 @@ same parameters as `Direct()`.
 
 ---
 
-## PlaylistEntity
+## PlayoutEntity
 
 ```go
-playlist := client.Playlist(nil)
+playout := client.Playout(nil)
 ```
 
 ### Fields
@@ -105,7 +105,7 @@ playlist := client.Playlist(nil)
 List entities matching the given criteria. Returns an array.
 
 ```go
-results, err := client.Playlist(nil).List(nil, nil)
+results, err := client.Playout(nil).List(nil, nil)
 ```
 
 ### Common Methods
@@ -122,7 +122,7 @@ Get or set the entity match criteria. Works the same as `Data()`.
 
 #### `Make() Entity`
 
-Create a new `PlaylistEntity` instance with the same client and
+Create a new `PlayoutEntity` instance with the same client and
 options.
 
 #### `GetName() string`

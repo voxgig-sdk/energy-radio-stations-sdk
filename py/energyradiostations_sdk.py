@@ -213,9 +213,9 @@ class EnergyRadioStationsSDK:
         }, None
 
 
-    def Playlist(self, data=None):
-        from entity.playlist_entity import PlaylistEntity
-        return PlaylistEntity(self, data)
+    def Playout(self, data=None):
+        from entity.playout_entity import PlayoutEntity
+        return PlayoutEntity(self, data)
 
 
 

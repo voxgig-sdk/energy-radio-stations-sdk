@@ -25,10 +25,10 @@ $client = new EnergyRadioStationsSDK([
 ]);
 ```
 
-### 2. List playlists
+### 2. List playouts
 
 ```php
-[$result, $err] = $client->Playlist(null)->list(null, null);
+[$result, $err] = $client->Playout(null)->list(null, null);
 if ($err) { throw new \Exception($err); }
 
 if (is_array($result)) {
@@ -166,7 +166,7 @@ Creates a test-mode client with mock transport. Both arguments may be `null`.
 | `get_utility` | `(): Utility` | Copy of the SDK utility object. |
 | `prepare` | `(array $fetchargs): array` | Build an HTTP request definition without sending. |
 | `direct` | `(array $fetchargs): array` | Build and send an HTTP request. |
-| `Playlist` | `($data): PlaylistEntity` | Create a Playlist entity instance. |
+| `Playout` | `($data): PlayoutEntity` | Create a Playout entity instance. |
 
 ### Entity interface
 
@@ -202,7 +202,7 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 ### Entities
 
-#### Playlist
+#### Playout
 
 | Field | Description |
 | --- | --- |
@@ -216,16 +216,16 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 Operations: List.
 
-API path: `/stations/{station}/playlist`
+API path: `/api/channels/{station}/playouts`
 
 
 
 ## Entities
 
 
-### Playlist
+### Playout
 
-Create an instance: `const playlist = client.Playlist()`
+Create an instance: `const playout = client.Playout()`
 
 #### Operations
 
@@ -248,7 +248,7 @@ Create an instance: `const playlist = client.Playlist()`
 #### Example: List
 
 ```ts
-const playlists = await client.Playlist().list()
+const playouts = await client.Playout().list()
 ```
 
 

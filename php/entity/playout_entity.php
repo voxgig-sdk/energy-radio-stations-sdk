@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-// EnergyRadioStations SDK Playlist entity
+// EnergyRadioStations SDK Playout entity
 
 require_once __DIR__ . '/../utility/struct/Struct.php';
 require_once __DIR__ . '/../core/Helpers.php';
 
 use Voxgig\Struct\Struct;
 
-class PlaylistEntity
+class PlayoutEntity
 {
     private string $_name;
     private $_client;
@@ -29,7 +29,7 @@ class PlaylistEntity
             $entopts["active"] = true;
         }
 
-        $this->_name = "playlist";
+        $this->_name = "playout";
         $this->_client = $client;
         $this->_utility = $client->get_utility();
         $this->_entopts = $entopts;
@@ -52,7 +52,7 @@ class PlaylistEntity
     public function make(): self
     {
         $opts = $this->_entopts;
-        return new PlaylistEntity($this->_client, $opts);
+        return new PlayoutEntity($this->_client, $opts);
     }
 
     public function data_set($args): void

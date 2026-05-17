@@ -22,10 +22,10 @@ const client = new EnergyRadioStationsSDK({
 })
 ```
 
-### 2. List playlists
+### 2. List playouts
 
 ```ts
-const result = await client.Playlist().list()
+const result = await client.Playout().list()
 
 if (result.ok) {
   for (const item of result.data) {
@@ -175,7 +175,7 @@ new EnergyRadioStationsSDK(options?: {
 | `utility()` | `Utility` | Deep copy of the SDK utility object. |
 | `prepare(fetchargs?)` | `Promise<FetchDef>` | Build an HTTP request definition without sending it. |
 | `direct(fetchargs?)` | `Promise<DirectResult>` | Build and send an HTTP request. |
-| `Playlist(data?)` | `PlaylistEntity` | Create a Playlist entity instance. |
+| `Playout(data?)` | `PlayoutEntity` | Create a Playout entity instance. |
 | `tester(testopts?, sdkopts?)` | `EnergyRadioStationsSDK` | Create a test-mode client instance. |
 
 #### Static methods
@@ -246,7 +246,7 @@ The `prepare()` method returns:
 
 ### Entities
 
-#### Playlist
+#### Playout
 
 | Field | Description |
 | --- | --- |
@@ -260,16 +260,16 @@ The `prepare()` method returns:
 
 Operations: list.
 
-API path: `/stations/{station}/playlist`
+API path: `/api/channels/{station}/playouts`
 
 
 
 ## Entities
 
 
-### Playlist
+### Playout
 
-Create an instance: `const playlist = client.Playlist()`
+Create an instance: `const playout = client.Playout()`
 
 #### Operations
 
@@ -292,7 +292,7 @@ Create an instance: `const playlist = client.Playlist()`
 #### Example: List
 
 ```ts
-const playlists = await client.Playlist().list()
+const playouts = await client.Playout().list()
 ```
 
 

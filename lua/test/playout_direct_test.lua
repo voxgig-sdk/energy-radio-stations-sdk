@@ -1,4 +1,4 @@
--- Playlist direct test
+-- Playout direct test
 
 local json = require("dkjson")
 local vs = require("utility.struct.struct")
@@ -6,13 +6,13 @@ local sdk = require("energy-radio-stations_sdk")
 local helpers = require("core.helpers")
 local runner = require("test.runner")
 
-describe("PlaylistDirect", function()
-  it("should direct-list-playlist", function()
-    local setup = playlist_direct_setup({
+describe("PlayoutDirect", function()
+  it("should direct-list-playout", function()
+    local setup = playout_direct_setup({
       { id = "direct01" },
       { id = "direct02" },
     })
-    local _should_skip, _reason = runner.is_control_skipped("direct", "direct-list-playlist", setup.live and "live" or "unit")
+    local _should_skip, _reason = runner.is_control_skipped("direct", "direct-list-playout", setup.live and "live" or "unit")
     if _should_skip then
       pending(_reason or "skipped via sdk-test-control.json")
       return
@@ -29,13 +29,13 @@ describe("PlaylistDirect", function()
 
     local params = {}
     if setup.live then
-      params["station_id"] = setup.idmap["station01"]
+      params["station"] = setup.idmap["station01"]
     else
-      params["station_id"] = "direct01"
+      params["station"] = "direct01"
     end
 
     local result, err = client:direct({
-      path = "stations/{station_id}/playlist",
+      path = "api/channels/{station}/playouts",
       method = "GET",
       params = params,
     })
@@ -69,13 +69,13 @@ describe("PlaylistDirect", function()
 end)
 
 
-function playlist_direct_setup(mockres)
+function playout_direct_setup(mockres)
   runner.load_env_local()
 
   local calls = {}
 
   local env = runner.env_override({
-    ["ENERGYRADIOSTATIONS_TEST_PLAYLIST_ENTID"] = {},
+    ["ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID"] = {},
     ["ENERGYRADIOSTATIONS_TEST_LIVE"] = "FALSE",
     ["ENERGYRADIOSTATIONS_APIKEY"] = "NONE",
   })

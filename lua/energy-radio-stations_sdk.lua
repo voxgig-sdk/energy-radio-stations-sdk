@@ -244,8 +244,8 @@ end
 
 
 
-function EnergyRadioStationsSDK:Playlist(data)
-  local EntityMod = require("entity.playlist_entity")
+function EnergyRadioStationsSDK:Playout(data)
+  local EntityMod = require("entity.playout_entity")
   return EntityMod.new(self, data)
 end
 

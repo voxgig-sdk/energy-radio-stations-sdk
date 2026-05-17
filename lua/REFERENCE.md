@@ -41,9 +41,9 @@ local client = sdk.test(nil, nil)
 
 ### Instance Methods
 
-#### `Playlist(data)`
+#### `Playout(data)`
 
-Create a new `Playlist` entity instance. Pass `nil` for no initial data.
+Create a new `Playout` entity instance. Pass `nil` for no initial data.
 
 #### `options_map() -> table`
 
@@ -81,10 +81,10 @@ same parameters as `direct()`.
 
 ---
 
-## PlaylistEntity
+## PlayoutEntity
 
 ```lua
-local playlist = client:Playlist(nil)
+local playout = client:Playout(nil)
 ```
 
 ### Fields
@@ -106,7 +106,7 @@ local playlist = client:Playlist(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Playlist(nil):list(nil, nil)
+local results, err = client:Playout(nil):list(nil, nil)
 ```
 
 ### Common Methods
@@ -129,7 +129,7 @@ Set the entity match criteria.
 
 #### `make() -> Entity`
 
-Create a new `PlaylistEntity` instance with the same client and
+Create a new `PlayoutEntity` instance with the same client and
 options.
 
 #### `get_name() -> string`

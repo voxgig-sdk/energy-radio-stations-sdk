@@ -6,5 +6,5 @@ var NewBaseFeatureFunc func() Feature
 
 var NewTestFeatureFunc func() Feature
 
-var NewPlaylistEntityFunc func(client *EnergyRadioStationsSDK, entopts map[string]any) EnergyRadioStationsEntity
+var NewPlayoutEntityFunc func(client *EnergyRadioStationsSDK, entopts map[string]any) EnergyRadioStationsEntity
 

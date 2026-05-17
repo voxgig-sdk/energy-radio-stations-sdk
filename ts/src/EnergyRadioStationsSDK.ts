@@ -1,6 +1,6 @@
 // EnergyRadioStations Ts SDK
 
-import { PlaylistEntity } from './entity/PlaylistEntity'
+import { PlayoutEntity } from './entity/PlayoutEntity'
 
 
 import { inspect } from 'node:util'
@@ -202,9 +202,9 @@ class EnergyRadioStationsSDK {
 
 
 
-  Playlist(data?: any) {
+  Playout(data?: any) {
     const self = this
-    return new PlaylistEntity(self,data)
+    return new PlayoutEntity(self,data)
   }
 
 

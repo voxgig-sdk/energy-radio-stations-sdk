@@ -1,22 +1,22 @@
 <?php
 declare(strict_types=1);
 
-// Playlist direct test
+// Playout direct test
 
 require_once __DIR__ . '/../energyradiostations_sdk.php';
 require_once __DIR__ . '/Runner.php';
 
 use PHPUnit\Framework\TestCase;
 
-class PlaylistDirectTest extends TestCase
+class PlayoutDirectTest extends TestCase
 {
-    public function test_direct_list_playlist(): void
+    public function test_direct_list_playout(): void
     {
-        $setup = playlist_direct_setup([
+        $setup = playout_direct_setup([
             ["id" => "direct01"],
             ["id" => "direct02"],
         ]);
-        [$_shouldSkip, $_reason] = Runner::is_control_skipped("direct", "direct-list-playlist", $setup["live"] ? "live" : "unit");
+        [$_shouldSkip, $_reason] = Runner::is_control_skipped("direct", "direct-list-playout", $setup["live"] ? "live" : "unit");
         if ($_shouldSkip) {
             $this->markTestSkipped($_reason ?? "skipped via sdk-test-control.json");
             return;
@@ -33,13 +33,13 @@ class PlaylistDirectTest extends TestCase
 
         $params = [];
         if ($setup["live"]) {
-            $params["station_id"] = $setup["idmap"]["station01"];
+            $params["station"] = $setup["idmap"]["station01"];
         } else {
-            $params["station_id"] = "direct01";
+            $params["station"] = "direct01";
         }
 
         [$result, $err] = $client->direct([
-            "path" => "stations/{station_id}/playlist",
+            "path" => "api/channels/{station}/playouts",
             "method" => "GET",
             "params" => $params,
         ]);
@@ -73,14 +73,14 @@ class PlaylistDirectTest extends TestCase
 }
 
 
-function playlist_direct_setup($mockres)
+function playout_direct_setup($mockres)
 {
     Runner::load_env_local();
 
     $calls = new \ArrayObject();
 
     $env = Runner::env_override([
-        "ENERGYRADIOSTATIONS_TEST_PLAYLIST_ENTID" => [],
+        "ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID" => [],
         "ENERGYRADIOSTATIONS_TEST_LIVE" => "FALSE",
         "ENERGYRADIOSTATIONS_APIKEY" => "NONE",
     ]);

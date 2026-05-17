@@ -31,10 +31,10 @@ client = EnergyRadioStationsSDK({
 })
 ```
 
-### 2. List playlists
+### 2. List playouts
 
 ```python
-result, err = client.Playlist(None).list(None, None)
+result, err = client.Playout(None).list(None, None)
 if err:
     raise Exception(err)
 
@@ -169,7 +169,7 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> (dict, err)` | Build an HTTP request definition without sending. |
 | `direct` | `(fetchargs) -> (dict, err)` | Build and send an HTTP request. |
-| `Playlist` | `(data) -> PlaylistEntity` | Create a Playlist entity instance. |
+| `Playout` | `(data) -> PlayoutEntity` | Create a Playout entity instance. |
 
 ### Entity interface
 
@@ -205,7 +205,7 @@ On error, `ok` is `False` and `err` contains the error value.
 
 ### Entities
 
-#### Playlist
+#### Playout
 
 | Field | Description |
 | --- | --- |
@@ -219,16 +219,16 @@ On error, `ok` is `False` and `err` contains the error value.
 
 Operations: List.
 
-API path: `/stations/{station}/playlist`
+API path: `/api/channels/{station}/playouts`
 
 
 
 ## Entities
 
 
-### Playlist
+### Playout
 
-Create an instance: `const playlist = client.Playlist()`
+Create an instance: `const playout = client.Playout()`
 
 #### Operations
 
@@ -251,7 +251,7 @@ Create an instance: `const playlist = client.Playlist()`
 #### Example: List
 
 ```ts
-const playlists = await client.Playlist().list()
+const playouts = await client.Playout().list()
 ```
 
 

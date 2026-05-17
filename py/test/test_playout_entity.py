@@ -1,4 +1,4 @@
-# Playlist entity test
+# Playout entity test
 
 import json
 import os
@@ -14,21 +14,21 @@ _TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 from test import runner
 
 
-class TestPlaylistEntity:
+class TestPlayoutEntity:
 
     def test_should_create_instance(self):
         testsdk = EnergyRadioStationsSDK.test(None, None)
-        ent = testsdk.Playlist(None)
+        ent = testsdk.Playout(None)
         assert ent is not None
 
     def test_should_run_basic_flow(self):
-        setup = _playlist_basic_setup(None)
+        setup = _playout_basic_setup(None)
         # Per-op sdk-test-control.json skip — basic test exercises a flow with
         # multiple ops; skipping any one skips the whole flow (steps depend
         # on each other).
         _live = setup.get("live", False)
         for _op in ["list"]:
-            _skip, _reason = runner.is_control_skipped("entityOp", "playlist." + _op, "live" if _live else "unit")
+            _skip, _reason = runner.is_control_skipped("entityOp", "playout." + _op, "live" if _live else "unit")
             if _skip:
                 pytest.skip(_reason or "skipped via sdk-test-control.json")
                 return
@@ -36,32 +36,32 @@ class TestPlaylistEntity:
         # without an *_ENTID env override, those IDs hit the live API and 4xx.
         if setup.get("synthetic_only"):
             pytest.skip("live entity test uses synthetic IDs from fixture — "
-                        "set ENERGYRADIOSTATIONS_TEST_PLAYLIST_ENTID JSON to run live")
+                        "set ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID JSON to run live")
         client = setup["client"]
 
         # Bootstrap entity data from existing test data.
-        playlist_ref01_data_raw = vs.items(helpers.to_map(
-            vs.getpath(setup["data"], "existing.playlist")))
-        playlist_ref01_data = None
-        if len(playlist_ref01_data_raw) > 0:
-            playlist_ref01_data = helpers.to_map(playlist_ref01_data_raw[0][1])
+        playout_ref01_data_raw = vs.items(helpers.to_map(
+            vs.getpath(setup["data"], "existing.playout")))
+        playout_ref01_data = None
+        if len(playout_ref01_data_raw) > 0:
+            playout_ref01_data = helpers.to_map(playout_ref01_data_raw[0][1])
 
         # LIST
-        playlist_ref01_ent = client.Playlist(None)
-        playlist_ref01_match = {
-            "station_id": setup["idmap"]["station01"],
+        playout_ref01_ent = client.Playout(None)
+        playout_ref01_match = {
+            "station": setup["idmap"]["station01"],
         }
 
-        playlist_ref01_list_result, err = playlist_ref01_ent.list(playlist_ref01_match, None)
+        playout_ref01_list_result, err = playout_ref01_ent.list(playout_ref01_match, None)
         assert err is None
-        assert isinstance(playlist_ref01_list_result, list)
+        assert isinstance(playout_ref01_list_result, list)
 
 
 
-def _playlist_basic_setup(extra):
+def _playout_basic_setup(extra):
     runner.load_env_local()
 
-    entity_data_file = os.path.join(_TEST_DIR, "../../.sdk/test/entity/playlist/PlaylistTestData.json")
+    entity_data_file = os.path.join(_TEST_DIR, "../../.sdk/test/entity/playout/PlayoutTestData.json")
     with open(entity_data_file, "r") as f:
         entity_data_source = f.read()
 
@@ -74,7 +74,7 @@ def _playlist_basic_setup(extra):
 
     # Generate idmap via transform.
     idmap = vs.transform(
-        ["playlist01", "playlist02", "playlist03", "station01", "station02", "station03"],
+        ["playout01", "playout02", "playout03", "channel01", "channel02", "channel03", "station01"],
         {
             "`$PACK`": ["", {
                 "`$KEY`": "`$COPY`",
@@ -87,18 +87,18 @@ def _playlist_basic_setup(extra):
     # mode is on without a real override, the basic test runs against synthetic
     # IDs from the fixture and 4xx's. We surface this so the test can skip.
     _entid_env_raw = os.environ.get(
-        "ENERGYRADIOSTATIONS_TEST_PLAYLIST_ENTID")
+        "ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID")
     _idmap_overridden = _entid_env_raw is not None and _entid_env_raw.strip().startswith("{")
 
     env = runner.env_override({
-        "ENERGYRADIOSTATIONS_TEST_PLAYLIST_ENTID": idmap,
+        "ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID": idmap,
         "ENERGYRADIOSTATIONS_TEST_LIVE": "FALSE",
         "ENERGYRADIOSTATIONS_TEST_EXPLAIN": "FALSE",
         "ENERGYRADIOSTATIONS_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
-        env.get("ENERGYRADIOSTATIONS_TEST_PLAYLIST_ENTID"))
+        env.get("ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID"))
     if idmap_resolved is None:
         idmap_resolved = helpers.to_map(idmap)
 

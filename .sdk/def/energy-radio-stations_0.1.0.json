@@ -15,7 +15,7 @@
     }
   ],
   "paths": {
-    "/stations/{station}/playlist": {
+    "/api/channels/{station}/playouts": {
       "get": {
         "summary": "Get station playlist",
         "description": "Retrieves the current and recent playlist for a specific Energy radio station",

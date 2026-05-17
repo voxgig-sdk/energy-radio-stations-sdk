@@ -5,11 +5,9 @@ guide: {
   metrics: count: path: 1
   metrics: count: method: 1
 
-  entity: playlist: {
-    path: "/stations/{station}/playlist": {
-      rename: param: "station": *"station_id"
+  entity: playout: {
+    path: "/api/channels/{station}/playouts": {
       op: list: method: *GET
-      op: list: transform: res: *("`body.playlist`")|top
     }
   }
 

@@ -49,9 +49,9 @@ const client = EnergyRadioStationsSDK.test()
 
 ### Instance Methods
 
-#### `Playlist(data?: object)`
+#### `Playout(data?: object)`
 
-Create a new `Playlist` entity instance.
+Create a new `Playout` entity instance.
 
 **Parameters:**
 
@@ -59,7 +59,7 @@ Create a new `Playlist` entity instance.
 | --- | --- | --- |
 | `data` | `object` | Initial entity data. |
 
-**Returns:** `PlaylistEntity` instance.
+**Returns:** `PlayoutEntity` instance.
 
 #### `options()`
 
@@ -107,10 +107,10 @@ Alias for `EnergyRadioStationsSDK.test()`.
 
 ---
 
-## PlaylistEntity
+## PlayoutEntity
 
 ```ts
-const playlist = client.Playlist()
+const playout = client.Playout()
 ```
 
 ### Fields
@@ -132,7 +132,7 @@ const playlist = client.Playlist()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Playlist().list()
+const results = await client.Playout().list()
 ```
 
 ### Common Methods
@@ -149,7 +149,7 @@ Get or set the entity match criteria. Works the same as `data()`.
 
 #### `make()`
 
-Create a new `PlaylistEntity` instance with the same client and
+Create a new `PlayoutEntity` instance with the same client and
 options.
 
 #### `client()`

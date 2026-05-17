@@ -21,11 +21,11 @@ local function make_config()
         ["content-type"] = "application/json",
       },
       entity = {
-        ["playlist"] = {},
+        ["playout"] = {},
       },
     },
     entity = {
-      ["playlist"] = {
+      ["playout"] = {
         ["fields"] = {
           {
             ["name"] = "album",
@@ -77,7 +77,7 @@ local function make_config()
             ["index$"] = 6,
           },
         },
-        ["name"] = "playlist",
+        ["name"] = "playout",
         ["op"] = {
           ["list"] = {
             ["name"] = "list",
@@ -88,7 +88,7 @@ local function make_config()
                     {
                       ["example"] = "energy-bern",
                       ["kind"] = "param",
-                      ["name"] = "station_id",
+                      ["name"] = "station",
                       ["orig"] = "station",
                       ["reqd"] = true,
                       ["type"] = "`$STRING`",
@@ -108,21 +108,17 @@ local function make_config()
                   },
                 },
                 ["method"] = "GET",
-                ["orig"] = "/stations/{station}/playlist",
+                ["orig"] = "/api/channels/{station}/playouts",
                 ["parts"] = {
-                  "stations",
-                  "{station_id}",
-                  "playlist",
-                },
-                ["rename"] = {
-                  ["param"] = {
-                    ["station"] = "station_id",
-                  },
+                  "api",
+                  "channels",
+                  "{station}",
+                  "playouts",
                 },
                 ["select"] = {
                   ["exist"] = {
                     "limit",
-                    "station_id",
+                    "station",
                   },
                 },
                 ["transform"] = {
@@ -140,7 +136,7 @@ local function make_config()
         ["relations"] = {
           ["ancestors"] = {
             {
-              "station",
+              "channel",
             },
           },
         },

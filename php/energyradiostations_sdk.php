@@ -223,10 +223,10 @@ class EnergyRadioStationsSDK
     }
 
 
-    public function Playlist($data = null)
+    public function Playout($data = null)
     {
-        require_once __DIR__ . '/entity/playlist_entity.php';
-        return new PlaylistEntity($this, $data);
+        require_once __DIR__ . '/entity/playout_entity.php';
+        return new PlayoutEntity($this, $data);
     }
 
 

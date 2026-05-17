@@ -11,7 +11,7 @@ The API exposes one entity:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Playlist** |  | `/stations/{station}/playlist` |
+| **Playout** |  | `/api/channels/{station}/playouts` |
 
 Each entity supports the following operations where available: **load**, **list**, **create**,
 **update**, and **remove**.
@@ -65,8 +65,8 @@ client := sdk.NewEnergyRadioStationsSDK(map[string]any{
     "apikey": os.Getenv("ENERGY-RADIO-STATIONS_APIKEY"),
 })
 
-// List all playlists
-playlists, err := client.Playlist(nil).List(nil, nil)
+// List all playouts
+playouts, err := client.Playout(nil).List(nil, nil)
 ```
 
 ### Lua
@@ -78,8 +78,8 @@ local client = sdk.new({
   apikey = os.getenv("ENERGY-RADIO-STATIONS_APIKEY"),
 })
 
--- List all playlists
-local playlists, err = client:Playlist(nil):list(nil, nil)
+-- List all playouts
+local playouts, err = client:Playout(nil):list(nil, nil)
 ```
 
 ### PHP
@@ -92,8 +92,8 @@ $client = new EnergyRadioStationsSDK([
     "apikey" => getenv("ENERGY-RADIO-STATIONS_APIKEY"),
 ]);
 
-// List all playlists
-[$playlists, $err] = $client->Playlist(null)->list(null, null);
+// List all playouts
+[$playouts, $err] = $client->Playout(null)->list(null, null);
 ```
 
 ### Python
@@ -106,8 +106,8 @@ client = EnergyRadioStationsSDK({
     "apikey": os.environ.get("ENERGY-RADIO-STATIONS_APIKEY"),
 })
 
-# List all playlists
-playlists, err = client.Playlist(None).list(None, None)
+# List all playouts
+playouts, err = client.Playout(None).list(None, None)
 ```
 
 ### Ruby
@@ -119,8 +119,8 @@ client = EnergyRadioStationsSDK.new({
   "apikey" => ENV["ENERGY-RADIO-STATIONS_APIKEY"],
 })
 
-# List all playlists
-playlists, err = client.Playlist(nil).list(nil, nil)
+# List all playouts
+playouts, err = client.Playout(nil).list(nil, nil)
 ```
 
 ### TypeScript
@@ -132,8 +132,8 @@ const client = new EnergyRadioStationsSDK({
   apikey: process.env.ENERGY-RADIO-STATIONS_APIKEY,
 })
 
-// List all playlists
-const playlists = await client.Playlist().list()
+// List all playouts
+const playouts = await client.Playout().list()
 ```
 
 
@@ -146,7 +146,7 @@ in-memory mock, so tests run without a network connection.
 
 ```go
 client := sdk.TestSDK(nil, nil)
-result, err := client.Playlist(nil).Load(
+result, err := client.Playout(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
 ```
@@ -155,7 +155,7 @@ result, err := client.Playlist(nil).Load(
 
 ```lua
 local client = sdk.test(nil, nil)
-local result, err = client:Playlist(nil):load(
+local result, err = client:Playout(nil):load(
   { id = "test01" }, nil
 )
 ```
@@ -164,7 +164,7 @@ local result, err = client:Playlist(nil):load(
 
 ```php
 $client = EnergyRadioStationsSDK::test(null, null);
-[$result, $err] = $client->Playlist(null)->load(
+[$result, $err] = $client->Playout(null)->load(
     ["id" => "test01"], null
 );
 ```
@@ -173,7 +173,7 @@ $client = EnergyRadioStationsSDK::test(null, null);
 
 ```python
 client = EnergyRadioStationsSDK.test(None, None)
-result, err = client.Playlist(None).load(
+result, err = client.Playout(None).load(
     {"id": "test01"}, None
 )
 ```
@@ -182,7 +182,7 @@ result, err = client.Playlist(None).load(
 
 ```ruby
 client = EnergyRadioStationsSDK.test(nil, nil)
-result, err = client.Playlist(nil).load(
+result, err = client.Playout(nil).load(
   { "id" => "test01" }, nil
 )
 ```
@@ -191,7 +191,7 @@ result, err = client.Playlist(nil).load(
 
 ```ts
 const client = EnergyRadioStationsSDK.test()
-const result = await client.Playlist().load({ id: 'test01' })
+const result = await client.Playout().load({ id: 'test01' })
 // result.ok === true, result.data contains mock data
 ```
 

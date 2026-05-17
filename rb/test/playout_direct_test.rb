@@ -1,17 +1,17 @@
-# Playlist direct test
+# Playout direct test
 
 require "minitest/autorun"
 require "json"
 require_relative "../EnergyRadioStations_sdk"
 require_relative "runner"
 
-class PlaylistDirectTest < Minitest::Test
-  def test_direct_list_playlist
-    setup = playlist_direct_setup([
+class PlayoutDirectTest < Minitest::Test
+  def test_direct_list_playout
+    setup = playout_direct_setup([
       { "id" => "direct01" },
       { "id" => "direct02" },
     ])
-    _should_skip, _reason = Runner.is_control_skipped("direct", "direct-list-playlist", setup[:live] ? "live" : "unit")
+    _should_skip, _reason = Runner.is_control_skipped("direct", "direct-list-playout", setup[:live] ? "live" : "unit")
     if _should_skip
       skip(_reason || "skipped via sdk-test-control.json")
       return
@@ -28,13 +28,13 @@ class PlaylistDirectTest < Minitest::Test
 
     params = {}
     if setup[:live]
-      params["station_id"] = setup[:idmap]["station01"]
+      params["station"] = setup[:idmap]["station01"]
     else
-      params["station_id"] = "direct01"
+      params["station"] = "direct01"
     end
 
     result, err = client.direct({
-      "path" => "stations/{station_id}/playlist",
+      "path" => "api/channels/{station}/playouts",
       "method" => "GET",
       "params" => params,
     })
@@ -68,13 +68,13 @@ class PlaylistDirectTest < Minitest::Test
 end
 
 
-def playlist_direct_setup(mockres)
+def playout_direct_setup(mockres)
   Runner.load_env_local
 
   calls = []
 
   env = Runner.env_override({
-    "ENERGYRADIOSTATIONS_TEST_PLAYLIST_ENTID" => {},
+    "ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID" => {},
     "ENERGYRADIOSTATIONS_TEST_LIVE" => "FALSE",
     "ENERGYRADIOSTATIONS_APIKEY" => "NONE",
   })

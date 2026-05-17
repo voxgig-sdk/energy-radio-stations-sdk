@@ -27,7 +27,7 @@
         }
       },
       "entity": {
-        "playlist": {
+        "playout": {
           "alias": {
             "field": {}
           },
@@ -79,7 +79,7 @@
             "field": "id",
             "name": "id"
           },
-          "name": "playlist",
+          "name": "playout",
           "op": {
             "list": {
               "name": "list",
@@ -90,7 +90,7 @@
                       {
                         "example": "energy-bern",
                         "kind": "param",
-                        "name": "station_id",
+                        "name": "station",
                         "orig": "station",
                         "reqd": true,
                         "type": "`$STRING`",
@@ -110,21 +110,17 @@
                     ]
                   },
                   "method": "GET",
-                  "orig": "/stations/{station}/playlist",
+                  "orig": "/api/channels/{station}/playouts",
                   "parts": [
-                    "stations",
-                    "{station_id}",
-                    "playlist"
+                    "api",
+                    "channels",
+                    "{station}",
+                    "playouts"
                   ],
-                  "rename": {
-                    "param": {
-                      "station": "station_id"
-                    }
-                  },
                   "select": {
                     "exist": [
                       "limit",
-                      "station_id"
+                      "station"
                     ]
                   },
                   "transform": {
@@ -140,7 +136,7 @@
           "relations": {
             "ancestors": [
               [
-                "station"
+                "channel"
               ]
             ]
           },
@@ -236,21 +232,21 @@
         }
       },
       "flow": {
-        "BasicPlaylistFlow": {
-          "entity": "playlist",
+        "BasicPlayoutFlow": {
+          "entity": "playout",
           "kind": "basic",
-          "name": "BasicPlaylistFlow",
+          "name": "BasicPlayoutFlow",
           "step": [
             {
               "match": {
-                "station_id": "station01"
+                "station": "station01"
               },
               "op": "list",
               "valid": [
                 {
                   "apply": "ItemExists",
                   "def": {
-                    "ref": "playlist_ref01"
+                    "ref": "playout_ref01"
                   }
                 }
               ],
@@ -260,7 +256,7 @@
               "spec": []
             }
           ],
-          "key$": "BasicPlaylistFlow",
+          "key$": "BasicPlayoutFlow",
           "active": true,
           "param": {}
         }

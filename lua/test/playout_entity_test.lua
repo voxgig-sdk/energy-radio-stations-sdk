@@ -1,4 +1,4 @@
--- Playlist entity test
+-- Playout entity test
 
 local json = require("dkjson")
 local vs = require("utility.struct.struct")
@@ -8,19 +8,19 @@ local runner = require("test.runner")
 
 local _test_dir = debug.getinfo(1, "S").source:match("^@(.+/)")  or "./"
 
-describe("PlaylistEntity", function()
+describe("PlayoutEntity", function()
   it("should create instance", function()
     local testsdk = sdk.test(nil, nil)
-    local ent = testsdk:Playlist(nil)
+    local ent = testsdk:Playout(nil)
     assert.is_not_nil(ent)
   end)
 
   it("should run basic flow", function()
-    local setup = playlist_basic_setup(nil)
+    local setup = playout_basic_setup(nil)
     -- Per-op sdk-test-control.json skip.
     local _live = setup.live or false
     for _, _op in ipairs({"list"}) do
-      local _should_skip, _reason = runner.is_control_skipped("entityOp", "playlist." .. _op, _live and "live" or "unit")
+      local _should_skip, _reason = runner.is_control_skipped("entityOp", "playout." .. _op, _live and "live" or "unit")
       if _should_skip then
         pending(_reason or "skipped via sdk-test-control.json")
         return
@@ -29,39 +29,39 @@ describe("PlaylistEntity", function()
     -- The basic flow consumes synthetic IDs from the fixture. In live mode
     -- without an *_ENTID env override, those IDs hit the live API and 4xx.
     if setup.synthetic_only then
-      pending("live entity test uses synthetic IDs from fixture — set ENERGYRADIOSTATIONS_TEST_PLAYLIST_ENTID JSON to run live")
+      pending("live entity test uses synthetic IDs from fixture — set ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID JSON to run live")
       return
     end
     local client = setup.client
 
     -- Bootstrap entity data from existing test data.
-    local playlist_ref01_data_raw = vs.items(helpers.to_map(
-      vs.getpath(setup.data, "existing.playlist")))
-    local playlist_ref01_data = nil
-    if #playlist_ref01_data_raw > 0 then
-      playlist_ref01_data = helpers.to_map(playlist_ref01_data_raw[1][2])
+    local playout_ref01_data_raw = vs.items(helpers.to_map(
+      vs.getpath(setup.data, "existing.playout")))
+    local playout_ref01_data = nil
+    if #playout_ref01_data_raw > 0 then
+      playout_ref01_data = helpers.to_map(playout_ref01_data_raw[1][2])
     end
 
     -- LIST
-    local playlist_ref01_ent = client:Playlist(nil)
-    local playlist_ref01_match = {
-      ["station_id"] = setup.idmap["station01"],
+    local playout_ref01_ent = client:Playout(nil)
+    local playout_ref01_match = {
+      ["station"] = setup.idmap["station01"],
     }
 
-    local playlist_ref01_list_result, err = playlist_ref01_ent:list(playlist_ref01_match, nil)
+    local playout_ref01_list_result, err = playout_ref01_ent:list(playout_ref01_match, nil)
     assert.is_nil(err)
-    assert.is_table(playlist_ref01_list_result)
+    assert.is_table(playout_ref01_list_result)
 
   end)
 end)
 
-function playlist_basic_setup(extra)
+function playout_basic_setup(extra)
   runner.load_env_local()
 
-  local entity_data_file = _test_dir .. "../../.sdk/test/entity/playlist/PlaylistTestData.json"
+  local entity_data_file = _test_dir .. "../../.sdk/test/entity/playout/PlayoutTestData.json"
   local f = io.open(entity_data_file, "r")
   if f == nil then
-    error("failed to read playlist test data: " .. entity_data_file)
+    error("failed to read playout test data: " .. entity_data_file)
   end
   local entity_data_source = f:read("*a")
   f:close()
@@ -75,7 +75,7 @@ function playlist_basic_setup(extra)
 
   -- Generate idmap via transform.
   local idmap = vs.transform(
-    { "playlist01", "playlist02", "playlist03", "station01", "station02", "station03" },
+    { "playout01", "playout02", "playout03", "channel01", "channel02", "channel03", "station01" },
     {
       ["`$PACK`"] = { "", {
         ["`$KEY`"] = "`$COPY`",
@@ -87,18 +87,18 @@ function playlist_basic_setup(extra)
   -- Detect ENTID env override before envOverride consumes it. When live
   -- mode is on without a real override, the basic test runs against synthetic
   -- IDs from the fixture and 4xx's. Surface this so the test can skip.
-  local entid_env_raw = os.getenv("ENERGYRADIOSTATIONS_TEST_PLAYLIST_ENTID")
+  local entid_env_raw = os.getenv("ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID")
   local idmap_overridden = entid_env_raw ~= nil and entid_env_raw:match("^%s*{") ~= nil
 
   local env = runner.env_override({
-    ["ENERGYRADIOSTATIONS_TEST_PLAYLIST_ENTID"] = idmap,
+    ["ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID"] = idmap,
     ["ENERGYRADIOSTATIONS_TEST_LIVE"] = "FALSE",
     ["ENERGYRADIOSTATIONS_TEST_EXPLAIN"] = "FALSE",
     ["ENERGYRADIOSTATIONS_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
-    env["ENERGYRADIOSTATIONS_TEST_PLAYLIST_ENTID"])
+    env["ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID"])
   if idmap_resolved == nil then
     idmap_resolved = helpers.to_map(idmap)
   end

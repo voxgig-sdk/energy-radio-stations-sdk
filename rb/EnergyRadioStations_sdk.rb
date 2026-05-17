@@ -199,9 +199,9 @@ class EnergyRadioStationsSDK
   end
 
 
-  def Playlist(data = nil)
-    require_relative 'entity/playlist_entity'
-    PlaylistEntity.new(self, data)
+  def Playout(data = nil)
+    require_relative 'entity/playout_entity'
+    PlayoutEntity.new(self, data)
   end
 
 

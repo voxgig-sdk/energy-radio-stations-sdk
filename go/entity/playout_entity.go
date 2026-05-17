@@ -6,7 +6,7 @@ import (
 	vs "github.com/voxgig-sdk/energy-radio-stations-sdk/go/utility/struct"
 )
 
-type PlaylistEntity struct {
+type PlayoutEntity struct {
 	name    string
 	client  *core.EnergyRadioStationsSDK
 	utility *core.Utility
@@ -16,7 +16,7 @@ type PlaylistEntity struct {
 	entctx  *core.Context
 }
 
-func NewPlaylistEntity(client *core.EnergyRadioStationsSDK, entopts map[string]any) *PlaylistEntity {
+func NewPlayoutEntity(client *core.EnergyRadioStationsSDK, entopts map[string]any) *PlayoutEntity {
 	if entopts == nil {
 		entopts = map[string]any{}
 	}
@@ -28,8 +28,8 @@ func NewPlaylistEntity(client *core.EnergyRadioStationsSDK, entopts map[string]a
 		entopts["active"] = true
 	}
 
-	e := &PlaylistEntity{
-		name:    "playlist",
+	e := &PlayoutEntity{
+		name:    "playout",
 		client:  client,
 		utility: client.GetUtility(),
 		entopts: entopts,
@@ -47,17 +47,17 @@ func NewPlaylistEntity(client *core.EnergyRadioStationsSDK, entopts map[string]a
 	return e
 }
 
-func (e *PlaylistEntity) GetName() string { return e.name }
+func (e *PlayoutEntity) GetName() string { return e.name }
 
-func (e *PlaylistEntity) Make() core.Entity {
+func (e *PlayoutEntity) Make() core.Entity {
 	opts := map[string]any{}
 	for k, v := range e.entopts {
 		opts[k] = v
 	}
-	return NewPlaylistEntity(e.client, opts)
+	return NewPlayoutEntity(e.client, opts)
 }
 
-func (e *PlaylistEntity) Data(args ...any) any {
+func (e *PlayoutEntity) Data(args ...any) any {
 	if len(args) > 0 && args[0] != nil {
 		e.data = core.ToMapAny(vs.Clone(args[0]))
 		if e.data == nil {
@@ -71,7 +71,7 @@ func (e *PlaylistEntity) Data(args ...any) any {
 	return out
 }
 
-func (e *PlaylistEntity) Match(args ...any) any {
+func (e *PlayoutEntity) Match(args ...any) any {
 	if len(args) > 0 && args[0] != nil {
 		e.match = core.ToMapAny(vs.Clone(args[0]))
 		if e.match == nil {
@@ -85,13 +85,13 @@ func (e *PlaylistEntity) Match(args ...any) any {
 	return out
 }
 
-func (e *PlaylistEntity) Load(_ map[string]any, _ map[string]any) (any, error) {
+func (e *PlayoutEntity) Load(_ map[string]any, _ map[string]any) (any, error) {
 	return core.UnsupportedOp("load", e.name)
 }
 
 
 
-func (e *PlaylistEntity) List(reqmatch map[string]any, ctrl map[string]any) (any, error) {
+func (e *PlayoutEntity) List(reqmatch map[string]any, ctrl map[string]any) (any, error) {
 	utility := e.utility
 	ctx := utility.MakeContext(map[string]any{
 		"opname":   "list",
@@ -112,22 +112,22 @@ func (e *PlaylistEntity) List(reqmatch map[string]any, ctrl map[string]any) (any
 
 
 
-func (e *PlaylistEntity) Create(_ map[string]any, _ map[string]any) (any, error) {
+func (e *PlayoutEntity) Create(_ map[string]any, _ map[string]any) (any, error) {
 	return core.UnsupportedOp("create", e.name)
 }
 
 
-func (e *PlaylistEntity) Update(_ map[string]any, _ map[string]any) (any, error) {
+func (e *PlayoutEntity) Update(_ map[string]any, _ map[string]any) (any, error) {
 	return core.UnsupportedOp("update", e.name)
 }
 
 
-func (e *PlaylistEntity) Remove(_ map[string]any, _ map[string]any) (any, error) {
+func (e *PlayoutEntity) Remove(_ map[string]any, _ map[string]any) (any, error) {
 	return core.UnsupportedOp("remove", e.name)
 }
 
 
-func (e *PlaylistEntity) runOp(ctx *core.Context, postDone func()) (any, error) {
+func (e *PlayoutEntity) runOp(ctx *core.Context, postDone func()) (any, error) {
 	utility := e.utility
 
 	utility.FeatureHook(ctx, "PrePoint")

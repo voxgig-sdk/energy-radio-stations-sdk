@@ -40,10 +40,10 @@ func main() {
     })
 ```
 
-### 2. List playlists
+### 2. List playouts
 
 ```go
-    result, err := client.Playlist(nil).List(nil, nil)
+    result, err := client.Playout(nil).List(nil, nil)
     if err != nil {
         panic(err)
     }
@@ -186,7 +186,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `GetUtility` | `() *Utility` | Copy of the SDK utility object. |
 | `Prepare` | `(fetchargs map[string]any) (map[string]any, error)` | Build an HTTP request definition without sending. |
 | `Direct` | `(fetchargs map[string]any) (map[string]any, error)` | Build and send an HTTP request. |
-| `Playlist` | `(data map[string]any) EnergyRadioStationsEntity` | Create a Playlist entity instance. |
+| `Playout` | `(data map[string]any) EnergyRadioStationsEntity` | Create a Playout entity instance. |
 
 ### Entity interface (EnergyRadioStationsEntity)
 
@@ -220,7 +220,7 @@ On error, `"ok"` is `false` and `"err"` contains the error value.
 
 ### Entities
 
-#### Playlist
+#### Playout
 
 | Field | Description |
 | --- | --- |
@@ -234,16 +234,16 @@ On error, `"ok"` is `false` and `"err"` contains the error value.
 
 Operations: List.
 
-API path: `/stations/{station}/playlist`
+API path: `/api/channels/{station}/playouts`
 
 
 
 ## Entities
 
 
-### Playlist
+### Playout
 
-Create an instance: `playlist := client.Playlist(nil)`
+Create an instance: `playout := client.Playout(nil)`
 
 #### Operations
 
@@ -266,7 +266,7 @@ Create an instance: `playlist := client.Playlist(nil)`
 #### Example: List
 
 ```go
-results, err := client.Playlist(nil).List(nil, nil)
+results, err := client.Playout(nil).List(nil, nil)
 ```
 
 

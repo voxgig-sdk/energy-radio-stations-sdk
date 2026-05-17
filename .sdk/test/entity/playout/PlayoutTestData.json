@@ -1,41 +1,41 @@
 {
   "existing": {
-    "playlist": {
-      "PLAYLIST00": {
+    "playout": {
+      "PLAYOUT00": {
         "album": "s46",
         "artist": "s47",
         "cover_art": "s48",
         "duration": "s49",
-        "id": "PLAYLIST00",
+        "id": "PLAYOUT00",
         "played_at": "s4b",
         "title": "s4c",
-        "station_id": "STATION01"
+        "station": "STATION01"
       },
-      "PLAYLIST01": {
+      "PLAYOUT01": {
         "album": "s8c",
         "artist": "s8d",
         "cover_art": "s8e",
         "duration": "s8f",
-        "id": "PLAYLIST01",
+        "id": "PLAYOUT01",
         "played_at": "s91",
         "title": "s92",
-        "station_id": "STATION01"
+        "station": "STATION01"
       },
-      "PLAYLIST02": {
+      "PLAYOUT02": {
         "album": "sd2",
         "artist": "sd3",
         "cover_art": "sd4",
         "duration": "sd5",
-        "id": "PLAYLIST02",
+        "id": "PLAYOUT02",
         "played_at": "sd7",
         "title": "sd8",
-        "station_id": "STATION01"
+        "station": "STATION01"
       }
     }
   },
   "new": {
-    "playlist": {
-      "playlist_ref01": {
+    "playout": {
+      "playout_ref01": {
         "album": "s118",
         "artist": "s119",
         "cover_art": "s11a",
