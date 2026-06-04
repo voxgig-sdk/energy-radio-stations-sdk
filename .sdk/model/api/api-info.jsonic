@@ -16,8 +16,26 @@ main: {
       ]
       title: "Energy Radio Stations"
       version: "1.0.0"
+      tagline: "Recently played songs from Swiss radio brand Energy's regional channels"
+      homepage: "https://energy.ch"
+      docs_url: "https://freepublicapis.com/energy-radio-stations"
+      license_short: "No public licence stated; data belongs to Energy Schweiz"
+      license_md: `- No explicit licence or terms of use are published for this endpoint.
+- Content (track metadata, station names) belongs to Energy Schweiz.
+- Treat as an undocumented/unofficial endpoint and check with the operator before redistribution or commercial use.
+- CORS is disabled, so browser-side calls from other origins will be blocked.`
+      about_md: `Energy Radio Stations is a small JSON endpoint exposed by [Energy Schweiz](https://energy.ch), the Swiss media group behind the Energy radio brand. The brand operates regional stations for Zürich, Basel and Bern alongside dozens of curated online music channels covering eras (80s–20s), moods (Lounge, Workout, Party Vibes) and genres (Dance, Urban, Rock, Pop, Deutschrap).
+
+What you get from the API:
+
+- The most recently played tracks ("playouts") for a given regional channel, e.g. \`GET https://energy.ch/api/channels/bern/playouts\`.
+- Track metadata as broadcast on the station's live stream.
+
+The endpoint is not formally documented by Energy; it is catalogued on [freepublicapis.com](https://freepublicapis.com/energy-radio-stations) where it is reported as reliable (sub-500 ms response times). No authentication is required, but CORS is disabled, so call it from a server rather than a browser.`
+      entity_desc: {
+        playout: "A recently played track on an Energy regional channel, returned by `GET /api/channels/{channel}/playouts` (e.g. `bern`, `zuerich`, `basel`)."
+      }
+      auth: false
     }
   }
-}
-
 }

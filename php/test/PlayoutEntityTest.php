@@ -88,7 +88,6 @@ function playout_basic_setup($extra)
         "ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID" => $idmap,
         "ENERGYRADIOSTATIONS_TEST_LIVE" => "FALSE",
         "ENERGYRADIOSTATIONS_TEST_EXPLAIN" => "FALSE",
-        "ENERGYRADIOSTATIONS_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -100,7 +99,6 @@ function playout_basic_setup($extra)
     if ($env["ENERGYRADIOSTATIONS_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["ENERGYRADIOSTATIONS_APIKEY"],
             ],
             $extra ?? [],
         ]);

@@ -1,9 +1,97 @@
 # EnergyRadioStations SDK
 
+Recently played songs from Swiss radio brand Energy's regional channels
 
+> TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
 
-Available for [Golang](go/) and [Go CLI](go-cli/) and [Go MCP server](go-mcp/) and [Lua](lua/) and [PHP](php/) and [Python](py/) and [Ruby](rb/) and [TypeScript](ts/).
+## About Energy Radio Stations
 
+Energy Radio Stations is a small JSON endpoint exposed by [Energy Schweiz](https://energy.ch), the Swiss media group behind the Energy radio brand. The brand operates regional stations for Zürich, Basel and Bern alongside dozens of curated online music channels covering eras (80s–20s), moods (Lounge, Workout, Party Vibes) and genres (Dance, Urban, Rock, Pop, Deutschrap).
+
+What you get from the API:
+
+- The most recently played tracks ("playouts") for a given regional channel, e.g. `GET https://energy.ch/api/channels/bern/playouts`.
+- Track metadata as broadcast on the station's live stream.
+
+The endpoint is not formally documented by Energy; it is catalogued on [freepublicapis.com](https://freepublicapis.com/energy-radio-stations) where it is reported as reliable (sub-500 ms response times). No authentication is required, but CORS is disabled, so call it from a server rather than a browser.
+
+## Try it
+
+**TypeScript**
+```bash
+npm install energy-radio-stations
+```
+
+**Python**
+```bash
+pip install energy-radio-stations-sdk
+```
+
+**PHP**
+```bash
+composer require voxgig/energy-radio-stations-sdk
+```
+
+**Golang**
+```bash
+go get github.com/voxgig-sdk/energy-radio-stations-sdk/go
+```
+
+**Ruby**
+```bash
+gem install energy-radio-stations-sdk
+```
+
+**Lua**
+```bash
+luarocks install energy-radio-stations-sdk
+```
+
+## 30-second quickstart
+
+### TypeScript
+
+```ts
+import { EnergyRadioStationsSDK } from 'energy-radio-stations'
+
+const client = new EnergyRadioStationsSDK({})
+
+// List all playouts
+const playouts = await client.Playout().list()
+```
+
+See the [TypeScript README](ts/README.md) for the
+full guide, or scroll down for the same example in other languages.
+
+## What's in the box
+
+| Surface | Use it for | Path |
+| --- | --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
+| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+
+## Use it from an AI agent (MCP)
+
+The generated MCP server exposes every operation in this SDK as an
+[MCP](https://modelcontextprotocol.io) tool that Claude, Cursor or Cline
+can call directly. Build and register it:
+
+```bash
+cd go-mcp && go build -o energy-radio-stations-mcp .
+```
+
+Then add it to your agent's MCP config (Claude Desktop, Cursor, etc.):
+
+```json
+{
+  "mcpServers": {
+    "energy-radio-stations": {
+      "command": "/abs/path/to/energy-radio-stations-mcp"
+    }
+  }
+}
+```
 
 ## Entities
 
@@ -11,75 +99,22 @@ The API exposes one entity:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Playout** |  | `/api/channels/{station}/playouts` |
+| **Playout** | A recently played track on an Energy regional channel, returned by `GET /api/channels/{channel}/playouts` (e.g. `bern`, `zuerich`, `basel`). | `/api/channels/{station}/playouts` |
 
-Each entity supports the following operations where available: **load**, **list**, **create**,
-**update**, and **remove**.
+Each entity supports the following operations where available: **load**,
+**list**, **create**, **update**, and **remove**.
 
+## Quickstart in other languages
 
-## Architecture
+### Python
 
-### Entity-operation model
+```python
+from energyradiostations_sdk import EnergyRadioStationsSDK
 
-Every SDK call follows the same pipeline:
+client = EnergyRadioStationsSDK({})
 
-1. **Point** — resolve the API endpoint from the operation definition.
-2. **Spec** — build the HTTP specification (URL, method, headers, body).
-3. **Request** — send the HTTP request.
-4. **Response** — receive and parse the response.
-5. **Result** — extract the result data for the caller.
-
-At each stage a feature hook fires (e.g. `PrePoint`, `PreSpec`,
-`PreRequest`), allowing features to inspect or modify the pipeline.
-
-### Features
-
-Features are hook-based middleware that extend SDK behaviour.
-
-| Feature | Purpose |
-| --- | --- |
-| **TestFeature** | In-memory mock transport for testing without a live server |
-
-You can add custom features by passing them in the `extend` option at
-construction time.
-
-### Direct and Prepare
-
-For endpoints not covered by the entity model, use the low-level methods:
-
-- **`direct(fetchargs)`** — build and send an HTTP request in one step.
-- **`prepare(fetchargs)`** — build the request without sending it.
-
-Both accept a map with `path`, `method`, `params`, `query`, `headers`,
-and `body`.
-
-
-## Quick start
-
-### Golang
-
-```go
-import sdk "github.com/voxgig-sdk/energy-radio-stations-sdk/go"
-
-client := sdk.NewEnergyRadioStationsSDK(map[string]any{
-    "apikey": os.Getenv("ENERGY-RADIO-STATIONS_APIKEY"),
-})
-
-// List all playouts
-playouts, err := client.Playout(nil).List(nil, nil)
-```
-
-### Lua
-
-```lua
-local sdk = require("energy-radio-stations_sdk")
-
-local client = sdk.new({
-  apikey = os.getenv("ENERGY-RADIO-STATIONS_APIKEY"),
-})
-
--- List all playouts
-local playouts, err = client:Playout(nil):list(nil, nil)
+# List all playouts
+playouts, err = client.Playout(None).list(None, None)
 ```
 
 ### PHP
@@ -88,26 +123,21 @@ local playouts, err = client:Playout(nil):list(nil, nil)
 <?php
 require_once 'energyradiostations_sdk.php';
 
-$client = new EnergyRadioStationsSDK([
-    "apikey" => getenv("ENERGY-RADIO-STATIONS_APIKEY"),
-]);
+$client = new EnergyRadioStationsSDK([]);
 
 // List all playouts
 [$playouts, $err] = $client->Playout(null)->list(null, null);
 ```
 
-### Python
+### Golang
 
-```python
-import os
-from energyradiostations_sdk import EnergyRadioStationsSDK
+```go
+import sdk "github.com/voxgig-sdk/energy-radio-stations-sdk/go"
 
-client = EnergyRadioStationsSDK({
-    "apikey": os.environ.get("ENERGY-RADIO-STATIONS_APIKEY"),
-})
+client := sdk.NewEnergyRadioStationsSDK(map[string]any{})
 
-# List all playouts
-playouts, err = client.Playout(None).list(None, None)
+// List all playouts
+playouts, err := client.Playout(nil).List(nil, nil)
 ```
 
 ### Ruby
@@ -115,48 +145,42 @@ playouts, err = client.Playout(None).list(None, None)
 ```ruby
 require_relative "EnergyRadioStations_sdk"
 
-client = EnergyRadioStationsSDK.new({
-  "apikey" => ENV["ENERGY-RADIO-STATIONS_APIKEY"],
-})
+client = EnergyRadioStationsSDK.new({})
 
 # List all playouts
 playouts, err = client.Playout(nil).list(nil, nil)
 ```
 
-### TypeScript
-
-```ts
-import { EnergyRadioStationsSDK } from 'energy-radio-stations'
-
-const client = new EnergyRadioStationsSDK({
-  apikey: process.env.ENERGY-RADIO-STATIONS_APIKEY,
-})
-
-// List all playouts
-const playouts = await client.Playout().list()
-```
-
-
-## Testing
-
-Both SDKs provide a test mode that replaces the HTTP transport with an
-in-memory mock, so tests run without a network connection.
-
-### Golang
-
-```go
-client := sdk.TestSDK(nil, nil)
-result, err := client.Playout(nil).Load(
-    map[string]any{"id": "test01"}, nil,
-)
-```
-
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:Playout(nil):load(
-  { id = "test01" }, nil
+local sdk = require("energy-radio-stations_sdk")
+
+local client = sdk.new({})
+
+-- List all playouts
+local playouts, err = client:Playout(nil):list(nil, nil)
+```
+
+## Unit testing in offline mode
+
+Every SDK ships a test mode that swaps the HTTP transport for an
+in-memory mock, so unit tests run offline.
+
+### TypeScript
+
+```ts
+const client = EnergyRadioStationsSDK.test()
+const result = await client.Playout().load({ id: 'test01' })
+// result.ok === true, result.data contains mock data
+```
+
+### Python
+
+```python
+client = EnergyRadioStationsSDK.test(None, None)
+result, err = client.Playout(None).load(
+    {"id": "test01"}, None
 )
 ```
 
@@ -169,12 +193,12 @@ $client = EnergyRadioStationsSDK::test(null, null);
 );
 ```
 
-### Python
+### Golang
 
-```python
-client = EnergyRadioStationsSDK.test(None, None)
-result, err = client.Playout(None).load(
-    {"id": "test01"}, None
+```go
+client := sdk.TestSDK(nil, nil)
+result, err := client.Playout(nil).Load(
+    map[string]any{"id": "test01"}, nil,
 )
 ```
 
@@ -187,14 +211,46 @@ result, err = client.Playout(nil).load(
 )
 ```
 
-### TypeScript
+### Lua
 
-```ts
-const client = EnergyRadioStationsSDK.test()
-const result = await client.Playout().load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+```lua
+local client = sdk.test(nil, nil)
+local result, err = client:Playout(nil):load(
+  { id = "test01" }, nil
+)
 ```
 
+## How it works
+
+Every SDK call runs the same five-stage pipeline:
+
+1. **Point** — resolve the API endpoint from the operation definition.
+2. **Spec** — build the HTTP specification (URL, method, headers, body).
+3. **Request** — send the HTTP request.
+4. **Response** — receive and parse the response.
+5. **Result** — extract the result data for the caller.
+
+A feature hook fires at each stage (e.g. `PrePoint`, `PreSpec`,
+`PreRequest`), so features can inspect or modify the pipeline without
+forking the SDK.
+
+### Features
+
+| Feature | Purpose |
+| --- | --- |
+| **TestFeature** | In-memory mock transport for testing without a live server |
+
+Pass custom features via the `extend` option at construction time.
+
+### Direct and Prepare
+
+For endpoints the entity model doesn't cover, use the low-level methods:
+
+- **`direct(fetchargs)`** — build and send an HTTP request in one step.
+- **`prepare(fetchargs)`** — build the request without sending it.
+
+Both accept a map with `path`, `method`, `params`, `query`,
+`headers`, and `body`. See the [How-to guides](#how-to-guides) below.
 
 ## How-to guides
 
@@ -202,21 +258,22 @@ const result = await client.Playout().load({ id: 'test01' })
 
 When the entity interface does not cover an endpoint, use `direct`:
 
-**Go:**
-```go
-result, err := client.Direct(map[string]any{
-    "path":   "/api/resource/{id}",
-    "method": "GET",
-    "params": map[string]any{"id": "example"},
+**TypeScript:**
+```ts
+const result = await client.direct({
+  path: '/api/resource/{id}',
+  method: 'GET',
+  params: { id: 'example' },
 })
+console.log(result.data)
 ```
 
-**Lua:**
-```lua
-local result, err = client:direct({
-  path = "/api/resource/{id}",
-  method = "GET",
-  params = { id = "example" },
+**Python:**
+```python
+result, err = client.direct({
+    "path": "/api/resource/{id}",
+    "method": "GET",
+    "params": {"id": "example"},
 })
 ```
 
@@ -229,12 +286,12 @@ local result, err = client:direct({
 ]);
 ```
 
-**Python:**
-```python
-result, err = client.direct({
-    "path": "/api/resource/{id}",
+**Go:**
+```go
+result, err := client.Direct(map[string]any{
+    "path":   "/api/resource/{id}",
     "method": "GET",
-    "params": {"id": "example"},
+    "params": map[string]any{"id": "example"},
 })
 ```
 
@@ -247,25 +304,34 @@ result, err = client.direct({
 })
 ```
 
-**TypeScript:**
-```ts
-const result = await client.direct({
-  path: '/api/resource/{id}',
-  method: 'GET',
-  params: { id: 'example' },
+**Lua:**
+```lua
+local result, err = client:direct({
+  path = "/api/resource/{id}",
+  method = "GET",
+  params = { id = "example" },
 })
-console.log(result.data)
 ```
 
+## Per-language documentation
 
-## Language-specific documentation
+- [TypeScript](ts/README.md)
+- [Python](py/README.md)
+- [PHP](php/README.md)
+- [Golang](go/README.md)
+- [Ruby](rb/README.md)
+- [Lua](lua/README.md)
 
-- [Golang SDK](go/README.md)
-- [Go CLI SDK](go-cli/README.md)
-- [Go MCP server SDK](go-mcp/README.md)
-- [Lua SDK](lua/README.md)
-- [PHP SDK](php/README.md)
-- [Python SDK](py/README.md)
-- [Ruby SDK](rb/README.md)
-- [TypeScript SDK](ts/README.md)
+## Using the Energy Radio Stations
 
+- Upstream: [https://energy.ch](https://energy.ch)
+- API docs: [https://freepublicapis.com/energy-radio-stations](https://freepublicapis.com/energy-radio-stations)
+
+- No explicit licence or terms of use are published for this endpoint.
+- Content (track metadata, station names) belongs to Energy Schweiz.
+- Treat as an undocumented/unofficial endpoint and check with the operator before redistribution or commercial use.
+- CORS is disabled, so browser-side calls from other origins will be blocked.
+
+---
+
+Generated from the Energy Radio Stations OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
