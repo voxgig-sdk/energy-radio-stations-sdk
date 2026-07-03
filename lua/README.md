@@ -10,7 +10,7 @@ The Lua SDK for the EnergyRadioStations API — an entity-oriented client using 
 
 ## Install
 ```bash
-luarocks install energy-radio-stations-sdk
+luarocks install voxgig-sdk-energy-radio-stations
 ```
 
 If the module is not yet published, add the source directory to

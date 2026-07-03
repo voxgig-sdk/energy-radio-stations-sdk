@@ -10,13 +10,13 @@ The Ruby SDK for the EnergyRadioStations API — an entity-oriented client using
 
 ## Install
 ```bash
-gem install energy-radio-stations-sdk
+gem install voxgig-sdk-energy-radio-stations
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "energy-radio-stations-sdk"
+gem "voxgig-sdk-energy-radio-stations"
 ```
 
 Then run:

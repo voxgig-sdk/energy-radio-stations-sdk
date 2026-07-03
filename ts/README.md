@@ -10,7 +10,7 @@ The TypeScript SDK for the EnergyRadioStations API — a type-safe, entity-orien
 
 ## Install
 ```bash
-npm install energy-radio-stations
+npm install @voxgig-sdk/energy-radio-stations
 ```
 ## Tutorial: your first API call
 

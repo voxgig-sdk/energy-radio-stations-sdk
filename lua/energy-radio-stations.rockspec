@@ -8,12 +8,14 @@ source = {
   dir = "energy-radio-stations-sdk/lua"
 }
 description = {
-  summary = "EnergyRadioStations SDK for Lua",
-  license = "MIT"
+  summary = "Unofficial generated Lua SDK for the Energy Radio Stations public API. Not affiliated with or endorsed by the upstream API provider.",
+  homepage = "https://github.com/voxgig-sdk/energy-radio-stations-sdk",
+  issues_url = "https://github.com/voxgig-sdk/energy-radio-stations-sdk/issues",
+  license = "MIT",
+  labels = { "voxgig", "sdk", "generated-sdk", "openapi", "api-client", "energy-radio-stations" }
 }
 dependencies = {
   "lua >= 5.3",
-  "dkjson >= 2.5",
   "dkjson >= 2.5",
 }
 build = {

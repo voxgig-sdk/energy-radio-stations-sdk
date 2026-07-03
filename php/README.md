@@ -10,7 +10,7 @@ The PHP SDK for the EnergyRadioStations API — an entity-oriented client using 
 
 ## Install
 ```bash
-composer require voxgig/energy-radio-stations-sdk
+composer require voxgig-sdk/energy-radio-stations
 ```
 
 

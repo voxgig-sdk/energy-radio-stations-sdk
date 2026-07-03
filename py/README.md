@@ -10,7 +10,7 @@ The Python SDK for the EnergyRadioStations API — an entity-oriented client fol
 
 ## Install
 ```bash
-pip install energy-radio-stations-sdk
+pip install voxgig-sdk-energy-radio-stations
 ```
 
 Or install from source:
