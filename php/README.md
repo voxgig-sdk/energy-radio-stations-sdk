@@ -1,6 +1,11 @@
 # EnergyRadioStations PHP SDK
 
-The PHP SDK for the EnergyRadioStations API. Provides an entity-oriented interface using PHP conventions.
+
+
+The PHP SDK for the EnergyRadioStations API — an entity-oriented client using PHP conventions.
+
+> Other languages, the CLI, and MCP server live alongside this one — see
+> the [top-level README](../README.md).
 
 
 ## Install
@@ -20,13 +25,15 @@ loading a specific record.
 <?php
 require_once 'energyradiostations_sdk.php';
 
-$client = new EnergyRadioStationsSDK([]);
+$client = new EnergyRadioStationsSDK([
+    "apikey" => getenv("ENERGY-RADIO-STATIONS_APIKEY"),
+]);
 ```
 
 ### 2. List playouts
 
 ```php
-[$result, $err] = $client->Playout(null)->list(null, null);
+[$result, $err] = $client->Playout()->list();
 if ($err) { throw new \Exception($err); }
 
 if (is_array($result)) {
@@ -78,11 +85,9 @@ print_r($fetchdef["headers"]);
 Create a mock client for unit testing — no server required:
 
 ```php
-$client = EnergyRadioStationsSDK::test(null, null);
+$client = EnergyRadioStationsSDK::test();
 
-[$result, $err] = $client->EnergyRadioStations(null)->load(
-    ["id" => "test01"], null
-);
+[$result, $err] = $client->EnergyRadioStations()->load(["id" => "test01"]);
 // $result contains mock response data
 ```
 
@@ -117,6 +122,7 @@ Create a `.env.local` file at the project root:
 
 ```
 ENERGY-RADIO-STATIONS_TEST_LIVE=TRUE
+ENERGY-RADIO-STATIONS_APIKEY=<your-key>
 ```
 
 Then run:
@@ -139,6 +145,7 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
+| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |

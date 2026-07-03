@@ -73,12 +73,14 @@ def _playout_direct_setup(mockres):
     env = runner.env_override({
         "ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID": {},
         "ENERGYRADIOSTATIONS_TEST_LIVE": "FALSE",
+        "ENERGYRADIOSTATIONS_APIKEY": "NONE",
     })
 
     live = env.get("ENERGYRADIOSTATIONS_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
+            "apikey": env.get("ENERGYRADIOSTATIONS_APIKEY"),
         }
         client = EnergyRadioStationsSDK(merged_opts)
         return {

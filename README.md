@@ -1,19 +1,8 @@
 # EnergyRadioStations SDK
 
-Recently played songs from Swiss radio brand Energy's regional channels
+Energy Radio Stations client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About Energy Radio Stations
-
-Energy Radio Stations is a small JSON endpoint exposed by [Energy Schweiz](https://energy.ch), the Swiss media group behind the Energy radio brand. The brand operates regional stations for Zürich, Basel and Bern alongside dozens of curated online music channels covering eras (80s–20s), moods (Lounge, Workout, Party Vibes) and genres (Dance, Urban, Rock, Pop, Deutschrap).
-
-What you get from the API:
-
-- The most recently played tracks ("playouts") for a given regional channel, e.g. `GET https://energy.ch/api/channels/bern/playouts`.
-- Track metadata as broadcast on the station's live stream.
-
-The endpoint is not formally documented by Energy; it is catalogued on [freepublicapis.com](https://freepublicapis.com/energy-radio-stations) where it is reported as reliable (sub-500 ms response times). No authentication is required, but CORS is disabled, so call it from a server rather than a browser.
 
 ## Try it
 
@@ -47,29 +36,31 @@ gem install energy-radio-stations-sdk
 luarocks install energy-radio-stations-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { EnergyRadioStationsSDK } from 'energy-radio-stations'
 
-const client = new EnergyRadioStationsSDK({})
+const client = new EnergyRadioStationsSDK({
+  apikey: process.env.ENERGY-RADIO-STATIONS_APIKEY,
+})
 
 // List all playouts
 const playouts = await client.Playout().list()
+console.log(playouts.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -99,7 +90,7 @@ The API exposes one entity:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Playout** | A recently played track on an Energy regional channel, returned by `GET /api/channels/{channel}/playouts` (e.g. `bern`, `zuerich`, `basel`). | `/api/channels/{station}/playouts` |
+| **Playout** |  | `/api/channels/{station}/playouts` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -109,12 +100,16 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from energyradiostations_sdk import EnergyRadioStationsSDK
 
-client = EnergyRadioStationsSDK({})
+client = EnergyRadioStationsSDK({
+    "apikey": os.environ.get("ENERGY-RADIO-STATIONS_APIKEY"),
+})
 
 # List all playouts
-playouts, err = client.Playout(None).list(None, None)
+playouts, err = client.Playout().list()
+print(playouts)
 ```
 
 ### PHP
@@ -123,10 +118,13 @@ playouts, err = client.Playout(None).list(None, None)
 <?php
 require_once 'energyradiostations_sdk.php';
 
-$client = new EnergyRadioStationsSDK([]);
+$client = new EnergyRadioStationsSDK([
+    "apikey" => getenv("ENERGY-RADIO-STATIONS_APIKEY"),
+]);
 
 // List all playouts
-[$playouts, $err] = $client->Playout(null)->list(null, null);
+[$playouts, $err] = $client->Playout()->list();
+print_r($playouts);
 ```
 
 ### Golang
@@ -134,10 +132,13 @@ $client = new EnergyRadioStationsSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/energy-radio-stations-sdk/go"
 
-client := sdk.NewEnergyRadioStationsSDK(map[string]any{})
+client := sdk.NewEnergyRadioStationsSDK(map[string]any{
+    "apikey": os.Getenv("ENERGY-RADIO-STATIONS_APIKEY"),
+})
 
 // List all playouts
 playouts, err := client.Playout(nil).List(nil, nil)
+fmt.Println(playouts)
 ```
 
 ### Ruby
@@ -145,10 +146,13 @@ playouts, err := client.Playout(nil).List(nil, nil)
 ```ruby
 require_relative "EnergyRadioStations_sdk"
 
-client = EnergyRadioStationsSDK.new({})
+client = EnergyRadioStationsSDK.new({
+  "apikey" => ENV["ENERGY-RADIO-STATIONS_APIKEY"],
+})
 
 # List all playouts
-playouts, err = client.Playout(nil).list(nil, nil)
+playouts, err = client.Playout().list
+puts playouts
 ```
 
 ### Lua
@@ -156,10 +160,13 @@ playouts, err = client.Playout(nil).list(nil, nil)
 ```lua
 local sdk = require("energy-radio-stations_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("ENERGY-RADIO-STATIONS_APIKEY"),
+})
 
 -- List all playouts
-local playouts, err = client:Playout(nil):list(nil, nil)
+local playouts, err = client:Playout():list()
+print(playouts)
 ```
 
 ## Unit testing in offline mode
@@ -178,25 +185,21 @@ const result = await client.Playout().load({ id: 'test01' })
 ### Python
 
 ```python
-client = EnergyRadioStationsSDK.test(None, None)
-result, err = client.Playout(None).load(
-    {"id": "test01"}, None
-)
+client = EnergyRadioStationsSDK.test()
+result, err = client.Playout().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = EnergyRadioStationsSDK::test(null, null);
-[$result, $err] = $client->Playout(null)->load(
-    ["id" => "test01"], null
-);
+$client = EnergyRadioStationsSDK::test();
+[$result, $err] = $client->Playout()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.Playout(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -205,19 +208,15 @@ result, err := client.Playout(nil).Load(
 ### Ruby
 
 ```ruby
-client = EnergyRadioStationsSDK.test(nil, nil)
-result, err = client.Playout(nil).load(
-  { "id" => "test01" }, nil
-)
+client = EnergyRadioStationsSDK.test
+result, err = client.Playout().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:Playout(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:Playout():load({ id = "test01" })
 ```
 
 ## How it works
@@ -321,16 +320,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the Energy Radio Stations
-
-- Upstream: [https://energy.ch](https://energy.ch)
-- API docs: [https://freepublicapis.com/energy-radio-stations](https://freepublicapis.com/energy-radio-stations)
-
-- No explicit licence or terms of use are published for this endpoint.
-- Content (track metadata, station names) belongs to Energy Schweiz.
-- Treat as an undocumented/unofficial endpoint and check with the operator before redistribution or commercial use.
-- CORS is disabled, so browser-side calls from other origins will be blocked.
 
 ---
 

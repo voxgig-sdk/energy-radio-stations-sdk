@@ -86,12 +86,14 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID': {},
     'ENERGYRADIOSTATIONS_TEST_LIVE': 'FALSE',
+    'ENERGYRADIOSTATIONS_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.ENERGYRADIOSTATIONS_TEST_LIVE
 
   if (live) {
     const client = new EnergyRadioStationsSDK({
+      apikey: env.ENERGYRADIOSTATIONS_APIKEY,
     })
 
     let idmap: any = env['ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID']

@@ -121,6 +121,7 @@ func playoutBasicSetup(extra map[string]any) *entityTestSetup {
 		"ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID": idmap,
 		"ENERGYRADIOSTATIONS_TEST_LIVE":      "FALSE",
 		"ENERGYRADIOSTATIONS_TEST_EXPLAIN":   "FALSE",
+		"ENERGYRADIOSTATIONS_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID"])
@@ -131,6 +132,7 @@ func playoutBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["ENERGYRADIOSTATIONS_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
+				"apikey": env["ENERGYRADIOSTATIONS_APIKEY"],
 			},
 			extra,
 		})

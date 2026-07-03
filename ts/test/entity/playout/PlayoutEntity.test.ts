@@ -114,6 +114,7 @@ function basicSetup(extra?: any) {
     'ENERGY_RADIO_STATIONS_TEST_PLAYOUT_ENTID': idmap,
     'ENERGY_RADIO_STATIONS_TEST_LIVE': 'FALSE',
     'ENERGY_RADIO_STATIONS_TEST_EXPLAIN': 'FALSE',
+    'ENERGY_RADIO_STATIONS_APIKEY': 'NONE',
   })
 
   idmap = env['ENERGY_RADIO_STATIONS_TEST_PLAYOUT_ENTID']
@@ -123,6 +124,7 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new EnergyRadioStationsSDK(merge([
       {
+        apikey: env.ENERGY_RADIO_STATIONS_APIKEY,
       },
       extra
     ]))

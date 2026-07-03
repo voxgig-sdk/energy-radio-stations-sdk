@@ -94,6 +94,7 @@ def _playout_basic_setup(extra):
         "ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID": idmap,
         "ENERGYRADIOSTATIONS_TEST_LIVE": "FALSE",
         "ENERGYRADIOSTATIONS_TEST_EXPLAIN": "FALSE",
+        "ENERGYRADIOSTATIONS_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -104,6 +105,7 @@ def _playout_basic_setup(extra):
     if env.get("ENERGYRADIOSTATIONS_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
+                "apikey": env.get("ENERGYRADIOSTATIONS_APIKEY"),
             },
             extra or {},
         ])
