@@ -83,7 +83,7 @@ same parameters as `direct()`.
 ## PlayoutEntity
 
 ```lua
-local playout = client:playout(nil)
+local playout = client:Playout(nil)
 ```
 
 ### Fields
@@ -105,7 +105,7 @@ local playout = client:playout(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:playout():list()
+local results, err = client:Playout():list()
 ```
 
 ### Common Methods

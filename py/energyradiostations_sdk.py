@@ -220,25 +220,15 @@ class EnergyRadioStationsSDK:
         }
 
 
-    @property
-    def playout(self):
-        """Idiomatic facade: client.playout.list() / client.playout.load({"id": ...})."""
-        from entity.playout_entity import PlayoutEntity
-        cached = getattr(self, "_playout", None)
-        if cached is None:
-            cached = PlayoutEntity(self, None)
-            self._playout = cached
-        return cached
-
-    def Playout(self, data=None):
-        # Deprecated: use client.playout instead.
+    def Playout(self, data=None) -> "PlayoutEntity":
+        """Entity factory: client.Playout().list({}) / client.Playout().load({"id": ...})."""
         from entity.playout_entity import PlayoutEntity
         return PlayoutEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "EnergyRadioStationsSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -258,3 +248,9 @@ class EnergyRadioStationsSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.playout_entity import PlayoutEntity

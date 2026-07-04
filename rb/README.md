@@ -28,16 +28,14 @@ require_relative "EnergyRadioStations_sdk"
 client = EnergyRadioStationsSDK.new
 ```
 
-### 2. List playouts
+### 2. List playout records
 
 ```ruby
 begin
-  result = client.playout.list
-  if result.is_a?(Array)
-    result.each do |item|
-      d = item.data_get
-      puts "#{d["id"]} #{d["name"]}"
-    end
+  # list returns an Array of Playout records — iterate directly.
+  playouts = client.Playout.list
+  playouts.each do |item|
+    puts "#{item["id"]} #{item["name"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -85,13 +83,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = EnergyRadioStationsSDK.test
+client = EnergyRadioStationsSDK.test({
+  "entity" => { "playout" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.playout.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+playout = client.Playout.load({ "id" => "test01" })
+puts playout
 ```
 
 ### Use a custom fetch function
@@ -229,7 +231,7 @@ API path: `/api/channels/{station}/playouts`
 
 ### Playout
 
-Create an instance: `const playout = client.playout`
+Create an instance: `playout = client.Playout`
 
 #### Operations
 
@@ -251,8 +253,9 @@ Create an instance: `const playout = client.playout`
 
 #### Example: List
 
-```ts
-const playouts = await client.playout.list()
+```ruby
+# list returns an Array of Playout records (raises on error).
+playouts = client.Playout.list
 ```
 
 
@@ -327,7 +330,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-playout = client.playout
+playout = client.Playout
 playout.load({ "id" => "example_id" })
 
 # playout.data_get now returns the loaded playout data

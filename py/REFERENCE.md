@@ -80,7 +80,7 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 ## PlayoutEntity
 
 ```python
-playout = client.playout
+playout = client.Playout()
 ```
 
 ### Fields
@@ -102,7 +102,9 @@ playout = client.playout
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.playout.list({})
+results = client.Playout().list({})
+for playout in results:
+    print(playout)
 ```
 
 ### Common Methods

@@ -204,14 +204,7 @@ class EnergyRadioStationsSDK {
 
 
 
-  _playout?: PlayoutEntity
-
-  // Idiomatic facade: `client.playout.list()` / `client.playout.load({ id })`.
-  get playout(): PlayoutEntity {
-    return (this._playout ??= new PlayoutEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.playout` instead. */
+  // Entity access: `client.Playout().list()` / `client.Playout().load({ id })`.
   Playout(data?: any) {
     const self = this
     return new PlayoutEntity(self,data)

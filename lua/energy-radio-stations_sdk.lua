@@ -244,8 +244,9 @@ end
 
 
 
--- Idiomatic facade: client:playout():list() / client:playout():load({ id = ... })
-function EnergyRadioStationsSDK:playout(data)
+-- Idiomatic facade: client:Playout():list() / client:Playout():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function EnergyRadioStationsSDK:Playout(data)
   local EntityMod = require("entity.playout_entity")
   if data == nil then
     if self._playout == nil then
@@ -253,12 +254,6 @@ function EnergyRadioStationsSDK:playout(data)
     end
     return self._playout
   end
-  return EntityMod.new(self, data)
-end
-
--- Deprecated: use client:playout() instead.
-function EnergyRadioStationsSDK:Playout(data)
-  local EntityMod = require("entity.playout_entity")
   return EntityMod.new(self, data)
 end
 

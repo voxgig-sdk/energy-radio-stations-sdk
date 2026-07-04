@@ -86,7 +86,7 @@ same parameters as `direct()`. Raises on error.
 ## PlayoutEntity
 
 ```ruby
-playout = client.playout
+playout = client.Playout
 ```
 
 ### Fields
@@ -108,7 +108,7 @@ playout = client.playout
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.playout.list(nil)
+results = client.Playout.list(nil)
 ```
 
 ### Common Methods

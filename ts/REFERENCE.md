@@ -109,7 +109,7 @@ Alias for `EnergyRadioStationsSDK.test()`.
 ## PlayoutEntity
 
 ```ts
-const playout = client.playout
+const playout = client.Playout()
 ```
 
 ### Fields
@@ -131,7 +131,7 @@ const playout = client.playout
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.playout.list()
+const results = await client.Playout().list()
 ```
 
 ### Common Methods

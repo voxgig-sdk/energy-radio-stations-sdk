@@ -85,7 +85,7 @@ Prepare a fetch definition without sending the request. Returns the
 ## PlayoutEntity
 
 ```php
-$playout = $client->playout();
+$playout = $client->Playout();
 ```
 
 ### Fields
@@ -107,7 +107,7 @@ $playout = $client->playout();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->playout()->list([]);
+$results = $client->Playout()->list([]);
 ```
 
 ### Common Methods

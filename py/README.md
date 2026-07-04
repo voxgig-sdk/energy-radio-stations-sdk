@@ -31,14 +31,16 @@ from energyradiostations_sdk import EnergyRadioStationsSDK
 client = EnergyRadioStationsSDK()
 ```
 
-### 2. List playouts
+### 2. List playout records
+
+`list()` returns a `list` of records (each a `dict`) and raises on
+error — iterate it directly.
 
 ```python
 try:
-    result = client.playout.list()
-    for item in result:
-        d = item.data_get()
-        print(d["id"], d["name"])
+    playouts = client.Playout().list({})
+    for playout in playouts:
+        print(playout)
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -86,8 +88,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = EnergyRadioStationsSDK.test()
 
-result = client.playout.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+playout = client.Playout().load({"id": "test01"})
+# playout contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -226,7 +229,7 @@ API path: `/api/channels/{station}/playouts`
 
 ### Playout
 
-Create an instance: `const playout = client.playout`
+Create an instance: `playout = client.Playout()`
 
 #### Operations
 
@@ -248,8 +251,8 @@ Create an instance: `const playout = client.playout`
 
 #### Example: List
 
-```ts
-const playouts = await client.playout.list()
+```python
+playouts = client.Playout().list({})
 ```
 
 
@@ -323,7 +326,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-playout = client.playout
+playout = client.Playout()
 playout.load({"id": "example_id"})
 
 # playout.data_get() now returns the loaded playout data

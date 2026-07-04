@@ -208,13 +208,7 @@ class EnergyRadioStationsSDK
   end
 
 
-  # Idiomatic facade: client.playout.list / client.playout.load({ "id" => ... })
-  def playout
-    require_relative 'entity/playout_entity'
-    @playout ||= PlayoutEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.playout instead.
+  # Canonical facade: client.Playout.list / client.Playout.load({ "id" => ... })
   def Playout(data = nil)
     require_relative 'entity/playout_entity'
     PlayoutEntity.new(self, data)

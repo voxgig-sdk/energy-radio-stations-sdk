@@ -29,18 +29,16 @@ require_once 'energyradiostations_sdk.php';
 $client = new EnergyRadioStationsSDK();
 ```
 
-### 2. List playouts
+### 2. List playout records
 
 ```php
 try {
-    $result = $client->playout()->list();
-    if (is_array($result)) {
-        foreach ($result as $item) {
-            $d = $item->data_get();
-            echo $d["id"] . " " . $d["name"] . "\n";
-        }
+    // list() returns an array of Playout records — iterate directly.
+    $playouts = $client->Playout()->list();
+    foreach ($playouts as $item) {
+        echo $item["id"] . " " . $item["name"] . "\n";
     }
-} catch (\Exception $err) {
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -86,13 +84,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = EnergyRadioStationsSDK::test();
+$client = EnergyRadioStationsSDK::test([
+    "entity" => ["playout" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->playout()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$playout = $client->Playout()->load(["id" => "test01"]);
+print_r($playout);
 ```
 
 ### Use a custom fetch function
@@ -234,7 +236,7 @@ API path: `/api/channels/{station}/playouts`
 
 ### Playout
 
-Create an instance: `const playout = client.playout`
+Create an instance: `$playout = $client->Playout();`
 
 #### Operations
 
@@ -256,8 +258,9 @@ Create an instance: `const playout = client.playout`
 
 #### Example: List
 
-```ts
-const playouts = await client.playout.list()
+```php
+// list() returns an array of Playout records (throws on error).
+$playouts = $client->Playout()->list();
 ```
 
 
@@ -332,7 +335,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$playout = $client->playout();
+$playout = $client->Playout();
 $playout->load(["id" => "example_id"]);
 
 // $playout->dataGet() now returns the loaded playout data

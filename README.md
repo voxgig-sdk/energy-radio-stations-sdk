@@ -26,9 +26,11 @@ import { EnergyRadioStationsSDK } from '@voxgig-sdk/energy-radio-stations'
 
 const client = new EnergyRadioStationsSDK()
 
-// List all playouts
-const playouts = await client.playout.list()
-console.log(playouts.data)
+// List all playouts (returns Playout[])
+const playouts = await client.Playout().list()
+for (const playout of playouts) {
+  console.log(playout)
+}
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -83,9 +85,10 @@ from energyradiostations_sdk import EnergyRadioStationsSDK
 
 client = EnergyRadioStationsSDK()
 
-# List all playouts
-playouts = client.playout.list()
-print(playouts)
+# List all playouts (returns a list, raises on error)
+playouts = client.Playout().list({})
+for playout in playouts:
+    print(playout)
 ```
 
 ### PHP
@@ -96,8 +99,8 @@ require_once 'energyradiostations_sdk.php';
 
 $client = new EnergyRadioStationsSDK();
 
-// List all playouts (throws on error)
-$playouts = $client->playout()->list();
+// List all playouts (returns an array; throws on error)
+$playouts = $client->Playout()->list();
 print_r($playouts);
 ```
 
@@ -120,8 +123,8 @@ require_relative "EnergyRadioStations_sdk"
 
 client = EnergyRadioStationsSDK.new
 
-# List all playouts
-playouts = client.playout.list
+# List all playouts (returns an Array; raises on error)
+playouts = client.Playout.list
 puts playouts
 ```
 
@@ -133,7 +136,7 @@ local sdk = require("energy-radio-stations_sdk")
 local client = sdk.new()
 
 -- List all playouts
-local playouts, err = client:playout():list()
+local playouts, err = client:Playout():list()
 print(playouts)
 ```
 
@@ -146,22 +149,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = EnergyRadioStationsSDK.test()
-const result = await client.playout.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const playout = await client.Playout().load({ id: 'test01' })
+// playout is a bare Playout populated with mock data
+console.log(playout)
 ```
 
 ### Python
 
 ```python
 client = EnergyRadioStationsSDK.test()
-result = client.playout.load({"id": "test01"})
+playout = client.Playout().load({"id": "test01"})
+print(playout)
 ```
 
 ### PHP
 
 ```php
-$client = EnergyRadioStationsSDK::test();
-$result = $client->playout()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = EnergyRadioStationsSDK::test([
+    "entity" => ["playout" => ["test01" => ["id" => "test01"]]],
+]);
+$playout = $client->Playout()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -176,15 +184,18 @@ result, err := client.Playout(nil).Load(
 ### Ruby
 
 ```ruby
-client = EnergyRadioStationsSDK.test
-result = client.playout.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = EnergyRadioStationsSDK.test({
+  "entity" => { "playout" => { "test01" => { "id" => "test01" } } },
+})
+playout = client.Playout.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:playout():load({ id = "test01" })
+local result, err = client:Playout():load({ id = "test01" })
 ```
 
 ## How it works
@@ -232,6 +243,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

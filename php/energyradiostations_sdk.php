@@ -233,10 +233,10 @@ class EnergyRadioStationsSDK
 
     private $_playout = null;
 
-    // Idiomatic facade: $client->playout()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Playout() (PHP method
-    // names are case-insensitive).
-    public function playout($data = null)
+    // Canonical facade: $client->Playout()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->playout()
+    // resolves here too.
+    public function Playout($data = null)
     {
         require_once __DIR__ . '/entity/playout_entity.php';
         if ($data === null) {
