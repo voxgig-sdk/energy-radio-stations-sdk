@@ -19,7 +19,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `table` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -84,7 +83,7 @@ same parameters as `direct()`.
 ## PlayoutEntity
 
 ```lua
-local playout = client:Playout(nil)
+local playout = client:playout(nil)
 ```
 
 ### Fields
@@ -106,7 +105,7 @@ local playout = client:Playout(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Playout():list()
+local results, err = client:playout():list()
 ```
 
 ### Common Methods

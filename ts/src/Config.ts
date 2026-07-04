@@ -38,10 +38,6 @@ class Config {
   options = {
     base: 'https://energy.ch',
 
-    auth: {
-      prefix: 'Bearer',
-    },
-
     headers: {
       "content-type": "application/json"
     },
@@ -125,7 +121,8 @@ class Config {
                     "name": "station",
                     "orig": "station",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ],
                 "query": [

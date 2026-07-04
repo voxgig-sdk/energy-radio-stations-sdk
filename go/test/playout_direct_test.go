@@ -118,14 +118,12 @@ func playoutDirectSetup(mockres any) *playoutDirectSetupResult {
 	env := envOverride(map[string]any{
 		"ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID": map[string]any{},
 		"ENERGYRADIOSTATIONS_TEST_LIVE":    "FALSE",
-		"ENERGYRADIOSTATIONS_APIKEY":       "NONE",
 	})
 
 	live := env["ENERGYRADIOSTATIONS_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
-			"apikey": env["ENERGYRADIOSTATIONS_APIKEY"],
 		}
 		client := sdk.NewEnergyRadioStationsSDK(mergedOpts)
 

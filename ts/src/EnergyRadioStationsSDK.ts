@@ -2,6 +2,8 @@
 
 import { PlayoutEntity } from './entity/PlayoutEntity'
 
+export type * from './EnergyRadioStationsTypes'
+
 
 import { inspect } from 'node:util'
 
@@ -202,6 +204,14 @@ class EnergyRadioStationsSDK {
 
 
 
+  _playout?: PlayoutEntity
+
+  // Idiomatic facade: `client.playout.list()` / `client.playout.load({ id })`.
+  get playout(): PlayoutEntity {
+    return (this._playout ??= new PlayoutEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.playout` instead. */
   Playout(data?: any) {
     const self = this
     return new PlayoutEntity(self,data)

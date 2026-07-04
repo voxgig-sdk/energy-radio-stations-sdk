@@ -52,8 +52,7 @@ class PlayoutEntityTest extends TestCase
             "station" => $setup["idmap"]["station01"],
         ];
 
-        [$playout_ref01_list_result, $err] = $playout_ref01_ent->list($playout_ref01_match, null);
-        $this->assertNull($err);
+        $playout_ref01_list_result = $playout_ref01_ent->list($playout_ref01_match, null);
         $this->assertIsArray($playout_ref01_list_result);
 
     }
@@ -88,7 +87,6 @@ function playout_basic_setup($extra)
         "ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID" => $idmap,
         "ENERGYRADIOSTATIONS_TEST_LIVE" => "FALSE",
         "ENERGYRADIOSTATIONS_TEST_EXPLAIN" => "FALSE",
-        "ENERGYRADIOSTATIONS_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -100,7 +98,6 @@ function playout_basic_setup($extra)
     if ($env["ENERGYRADIOSTATIONS_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["ENERGYRADIOSTATIONS_APIKEY"],
             ],
             $extra ?? [],
         ]);

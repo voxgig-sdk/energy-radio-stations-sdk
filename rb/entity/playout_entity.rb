@@ -45,6 +45,7 @@ class PlayoutEntity
     end
   end
 
+  # @return [Playout, Hash] the current Playout data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,6 +58,7 @@ class PlayoutEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Playout fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -65,6 +67,11 @@ class PlayoutEntity
   
 
   
+  # List Playout items matching the given filter.
+  #
+  # @param reqmatch [PlayoutListMatch, Hash, nil] match filter (any subset of Playout fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<Playout>, Array] the matching Playout items; raises EnergyRadioStationsError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

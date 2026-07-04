@@ -9,9 +9,12 @@ The TypeScript SDK for the EnergyRadioStations API — a type-safe, entity-orien
 
 
 ## Install
-```bash
-npm install @voxgig-sdk/energy-radio-stations
-```
+This package is not yet published to npm. Install it from the GitHub
+release tag (`ts/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/energy-radio-stations-sdk/releases](https://github.com/voxgig-sdk/energy-radio-stations-sdk/releases)
+
+
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
@@ -20,17 +23,15 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { EnergyRadioStationsSDK } from 'energy-radio-stations'
+import { EnergyRadioStationsSDK } from '@voxgig-sdk/energy-radio-stations'
 
-const client = new EnergyRadioStationsSDK({
-  apikey: process.env.ENERGY-RADIO-STATIONS_APIKEY,
-})
+const client = new EnergyRadioStationsSDK()
 ```
 
 ### 2. List playouts
 
 ```ts
-const result = await client.Playout().list()
+const result = await client.playout.list()
 
 if (result.ok) {
   for (const item of result.data) {
@@ -81,7 +82,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = EnergyRadioStationsSDK.test()
 
-const result = await client.Planet().load({ id: 'test01' })
+const result = await client.playout.load({ id: 'test01' })
 // result.ok === true
 // result.data contains mock response data
 ```
@@ -89,7 +90,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new EnergyRadioStationsSDK({ apikey: '...' })
+const client = new EnergyRadioStationsSDK()
 const testClient = client.tester()
 ```
 
@@ -98,7 +99,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Planet()
+const entity = client.playout
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -125,7 +126,6 @@ const logger = {
 }
 
 const client = new EnergyRadioStationsSDK({
-  apikey: '...',
   extend: [logger],
 })
 ```
@@ -135,8 +135,7 @@ const client = new EnergyRadioStationsSDK({
 Create a `.env.local` file at the project root:
 
 ```
-ENERGY-RADIO-STATIONS_TEST_LIVE=TRUE
-ENERGY-RADIO-STATIONS_APIKEY=<your-key>
+ENERGY_RADIO_STATIONS_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -154,7 +153,6 @@ cd ts && npm test
 
 ```ts
 new EnergyRadioStationsSDK(options?: {
-  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -165,7 +163,6 @@ new EnergyRadioStationsSDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -274,7 +271,7 @@ API path: `/api/channels/{station}/playouts`
 
 ### Playout
 
-Create an instance: `const playout = client.Playout()`
+Create an instance: `const playout = client.playout`
 
 #### Operations
 
@@ -297,7 +294,7 @@ Create an instance: `const playout = client.Playout()`
 #### Example: List
 
 ```ts
-const playouts = await client.Playout().list()
+const playouts = await client.playout.list()
 ```
 
 
@@ -358,7 +355,7 @@ energy-radio-stations/
 Import the SDK from the package root:
 
 ```ts
-import { EnergyRadioStationsSDK } from 'energy-radio-stations'
+import { EnergyRadioStationsSDK } from '@voxgig-sdk/energy-radio-stations'
 ```
 
 ### Entity state
@@ -368,11 +365,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const moon = client.Moon()
-await moon.load({ planet_id: 'earth', id: 'luna' })
+const playout = client.playout
+await playout.load({ id: "example_id" })
 
-// moon.data() now returns the loaded moon data
-// moon.match() returns { planet_id: 'earth', id: 'luna' }
+// playout.data() now returns the loaded playout data
+// playout.match() returns { id: "example_id" }
 ```
 
 Call `make()` to create a fresh instance with the same configuration

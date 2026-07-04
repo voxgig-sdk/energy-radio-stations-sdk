@@ -20,9 +20,6 @@ class EnergyRadioStationsConfig
             ],
             "options" => [
                 "base" => "https://energy.ch",
-                "auth" => [
-                    "prefix" => "Bearer",
-                ],
                 "headers" => [
           'content-type' => 'application/json',
         ],
@@ -101,6 +98,7 @@ class EnergyRadioStationsConfig
                         'orig' => 'station',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                     ],
                     'query' => [

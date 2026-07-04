@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Playout,
+  PlayoutListMatch,
+} from '../EnergyRadioStationsTypes'
 
 // TODO: needs Entity superclass
-class PlayoutEntity extends EnergyRadioStationsEntityBase {
+class PlayoutEntity extends EnergyRadioStationsEntityBase<Playout> {
 
   constructor(client: EnergyRadioStationsSDK, entopts: any) {
     super(client, entopts)
@@ -33,7 +37,7 @@ class PlayoutEntity extends EnergyRadioStationsEntityBase {
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: PlayoutListMatch, ctrl?: Control): Promise<Playout[]> {
 
     const utility = this._utility
 
@@ -133,7 +137,9 @@ class PlayoutEntity extends EnergyRadioStationsEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Playout[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

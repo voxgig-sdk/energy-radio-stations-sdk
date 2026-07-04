@@ -14,9 +14,6 @@ local function make_config()
     },
     options = {
       base = "https://energy.ch",
-      auth = {
-        prefix = "Bearer",
-      },
       headers = {
         ["content-type"] = "application/json",
       },
@@ -95,6 +92,7 @@ local function make_config()
                       ["orig"] = "station",
                       ["reqd"] = true,
                       ["type"] = "`$STRING`",
+                      ["index$"] = 0,
                     },
                   },
                   ["query"] = {

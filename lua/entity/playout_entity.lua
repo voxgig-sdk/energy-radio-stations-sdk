@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch PlayoutListMatch
+---@param ctrl? table
+---@return Playout[]
+---@return string? err
 function PlayoutEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

@@ -38,7 +38,7 @@ class PlayoutDirectTest extends TestCase
             $params["station"] = "direct01";
         }
 
-        [$result, $err] = $client->direct([
+        $result = $client->direct([
             "path" => "api/channels/{station}/playouts",
             "method" => "GET",
             "params" => $params,
@@ -47,8 +47,8 @@ class PlayoutDirectTest extends TestCase
             // Live mode is lenient: synthetic IDs frequently 4xx and the
             // list-response shape varies wildly across public APIs. Skip
             // rather than fail when the call doesn't return a usable list.
-            if ($err !== null) {
-                $this->markTestSkipped("list call failed (likely synthetic IDs against live API): " . (string)$err);
+            if (!empty($result["err"])) {
+                $this->markTestSkipped("list call failed (likely synthetic IDs against live API): " . (string)$result["err"]);
                 return;
             }
             if (empty($result["ok"])) {
@@ -61,7 +61,7 @@ class PlayoutDirectTest extends TestCase
                 return;
             }
         } else {
-            $this->assertNull($err);
+            $this->assertArrayNotHasKey("err", $result);
             $this->assertTrue($result["ok"]);
             $this->assertEquals(200, Helpers::to_int($result["status"]));
             $this->assertIsArray($result["data"]);
@@ -82,14 +82,12 @@ function playout_direct_setup($mockres)
     $env = Runner::env_override([
         "ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID" => [],
         "ENERGYRADIOSTATIONS_TEST_LIVE" => "FALSE",
-        "ENERGYRADIOSTATIONS_APIKEY" => "NONE",
     ]);
 
     $live = $env["ENERGYRADIOSTATIONS_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [
-            "apikey" => $env["ENERGYRADIOSTATIONS_APIKEY"],
         ];
         $client = new EnergyRadioStationsSDK($merged_opts);
         return [

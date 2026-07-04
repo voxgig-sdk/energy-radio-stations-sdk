@@ -15,9 +15,6 @@ def make_config():
         },
         "options": {
             "base": "https://energy.ch",
-            "auth": {
-                "prefix": "Bearer",
-            },
             "headers": {
         "content-type": "application/json",
       },
@@ -96,6 +93,7 @@ def make_config():
                       "orig": "station",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                   ],
                   "query": [

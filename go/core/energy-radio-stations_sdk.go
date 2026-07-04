@@ -245,6 +245,9 @@ func (sdk *EnergyRadioStationsSDK) Direct(fetchargs map[string]any) (map[string]
 }
 
 
+// Playout returns a Playout entity bound to this client.
+// Idiomatic usage: client.Playout(nil).List(nil, nil) or
+// client.Playout(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *EnergyRadioStationsSDK) Playout(data map[string]any) EnergyRadioStationsEntity {
 	return NewPlayoutEntityFunc(sdk, data)
 }
