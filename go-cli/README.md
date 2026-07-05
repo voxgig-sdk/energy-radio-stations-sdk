@@ -17,8 +17,6 @@ go build -o energy-radio-stations-cli ./...
 ```sh
 # One-shot: arguments form a single AQL expression
 ./energy-radio-stations-cli list playout
-./energy-radio-stations-cli load 1 playout
-./energy-radio-stations-cli load '{id:1}' playout
 
 # REPL
 ./energy-radio-stations-cli
@@ -29,8 +27,6 @@ go build -o energy-radio-stations-cli ./...
 | Word     | Signatures                                   | Description                |
 |----------|----------------------------------------------|----------------------------|
 | `list`   | `[entity]` · `[query entity]`                | List records               |
-| `load`   | `[entity]` · `[query entity]`                | Load a single record       |
-| `update` | `[entity]` · `[query entity]`                | Update a record            |
 
 `query` is either a Map (`{id:1}`) or a Scalar (`1`, treated as `{id:1}`).
 `entity` is one of the SDK's entity names (auto-quoted as an atom).

@@ -221,7 +221,7 @@ class EnergyRadioStationsSDK:
 
 
     def Playout(self, data=None) -> "PlayoutEntity":
-        """Entity factory: client.Playout().list({}) / client.Playout().load({"id": ...})."""
+        """Entity factory: client.Playout().list() / client.Playout().load({"id": ...})."""
         from entity.playout_entity import PlayoutEntity
         return PlayoutEntity(self, data)
 

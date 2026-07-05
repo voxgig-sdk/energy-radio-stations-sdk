@@ -8,7 +8,7 @@ Complete API reference for the EnergyRadioStations Python SDK.
 ### Constructor
 
 ```python
-from energy-radio-stations_sdk import EnergyRadioStationsSDK
+from energyradiostations_sdk import EnergyRadioStationsSDK
 
 client = EnergyRadioStationsSDK(options)
 ```
@@ -87,22 +87,22 @@ playout = client.Playout()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `album` | ``$STRING`` | No |  |
-| `artist` | ``$STRING`` | Yes |  |
-| `cover_art` | ``$STRING`` | No |  |
-| `duration` | ``$INTEGER`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `played_at` | ``$STRING`` | Yes |  |
-| `title` | ``$STRING`` | Yes |  |
+| `album` | `str` | No |  |
+| `artist` | `str` | Yes |  |
+| `cover_art` | `str` | No |  |
+| `duration` | `int` | No |  |
+| `id` | `str` | No |  |
+| `played_at` | `str` | Yes |  |
+| `title` | `str` | Yes |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Playout().list({})
+results = client.Playout().list()
 for playout in results:
     print(playout)
 ```

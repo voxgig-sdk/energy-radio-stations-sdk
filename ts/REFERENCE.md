@@ -116,13 +116,13 @@ const playout = client.Playout()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `album` | ``$STRING`` | No |  |
-| `artist` | ``$STRING`` | Yes |  |
-| `cover_art` | ``$STRING`` | No |  |
-| `duration` | ``$INTEGER`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `played_at` | ``$STRING`` | Yes |  |
-| `title` | ``$STRING`` | Yes |  |
+| `album` | `string` | No |  |
+| `artist` | `string` | Yes |  |
+| `cover_art` | `string` | No |  |
+| `duration` | `number` | No |  |
+| `id` | `string` | No |  |
+| `played_at` | `string` | Yes |  |
+| `title` | `string` | Yes |  |
 
 ### Operations
 
