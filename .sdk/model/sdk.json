@@ -6,9 +6,6 @@
     },
     "kit": {
       "config": {
-        "auth": {
-          "prefix": "Bearer"
-        },
         "docs_order": [
           "ts",
           "py",
@@ -267,14 +264,17 @@
           "url": "https://energy.ch"
         },
         "description": "Provides various radio stations with different music genres and themes. Access to Energy Radio's playlist and station information.",
+        "meta_source": "https://www.freepublicapis.com",
         "servers": [
           {
             "description": "Production server",
             "url": "https://energy.ch"
           }
         ],
+        "summary": "Provides various radio stations with different music genres and themes.",
         "title": "Energy Radio Stations",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "website": "https://energy.ch"
       },
       "option": {},
       "target": {
@@ -327,6 +327,9 @@
           },
           "name": "go-cli",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
@@ -377,6 +380,9 @@
           },
           "name": "go-mcp",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },

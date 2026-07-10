@@ -15,9 +15,9 @@ main: {
           url: "https://energy.ch"
         }
       ]
+      summary: "Provides various radio stations with different music genres and themes."
       title: "Energy Radio Stations"
       version: "1.0.0"
+      website: "https://energy.ch"
     }
   }
-}
-
