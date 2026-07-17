@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- EnergyRadioStations SDK exists test
 
 local sdk = require("energy-radio-stations_sdk")
 
