@@ -94,10 +94,10 @@ $playout = $client->Playout();
 | --- | --- | --- | --- |
 | `album` | `string` | No |  |
 | `artist` | `string` | Yes |  |
-| `cover_art` | `string` | No |  |
+| `coverArt` | `string` | No |  |
 | `duration` | `int` | No |  |
 | `id` | `string` | No |  |
-| `played_at` | `string` | Yes |  |
+| `playedAt` | `string` | Yes |  |
 | `title` | `string` | Yes |  |
 
 ### Operations

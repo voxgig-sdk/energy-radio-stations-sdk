@@ -218,9 +218,9 @@ data **directly** — there is no wrapper:
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local playout, err = client:Playout():load()
+    local playout, err = client:Playout():list()
     if err then error(err) end
-    -- playout is the loaded record
+    -- playout is the record list
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
@@ -233,10 +233,10 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 | --- | --- |
 | `album` |  |
 | `artist` |  |
-| `cover_art` |  |
+| `coverArt` |  |
 | `duration` |  |
 | `id` |  |
-| `played_at` |  |
+| `playedAt` |  |
 | `title` |  |
 
 Operations: List.
@@ -264,10 +264,10 @@ Create an instance: `local playout = client:Playout(nil)`
 | --- | --- | --- |
 | `album` | `string` |  |
 | `artist` | `string` |  |
-| `cover_art` | `string` |  |
+| `coverArt` | `string` |  |
 | `duration` | `number` |  |
 | `id` | `string` |  |
-| `played_at` | `string` |  |
+| `playedAt` | `string` |  |
 | `title` | `string` |  |
 
 #### Example: List

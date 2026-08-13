@@ -9,10 +9,10 @@
 ---@class Playout
 ---@field album? string
 ---@field artist string
----@field cover_art? string
+---@field coverArt? string
 ---@field duration? number
 ---@field id? string
----@field played_at string
+---@field playedAt string
 ---@field title string
 
 ---@class PlayoutListMatch

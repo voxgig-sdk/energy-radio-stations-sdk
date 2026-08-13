@@ -43,7 +43,7 @@ error — iterate it directly.
 
 ```python
 try:
-    playouts = client.Playout().list()
+    playouts = client.Playout().list({"station": "example"})
     for playout in playouts:
         print(playout)
 except Exception as err:
@@ -124,7 +124,8 @@ Create a mock client for unit testing — no server required:
 ```python
 client = EnergyRadioStationsSDK.test()
 
-# Entity ops return the bare record and raise on error.
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
 playout = client.Playout().list()
 # playout contains the mock response record
 ```
@@ -220,7 +221,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -244,10 +245,10 @@ On error, `ok` is `False` and `err` contains the error value.
 | --- | --- |
 | `album` |  |
 | `artist` |  |
-| `cover_art` |  |
+| `coverArt` |  |
 | `duration` |  |
 | `id` |  |
-| `played_at` |  |
+| `playedAt` |  |
 | `title` |  |
 
 Operations: List.
@@ -275,16 +276,16 @@ Create an instance: `playout = client.Playout()`
 | --- | --- | --- |
 | `album` | `str` |  |
 | `artist` | `str` |  |
-| `cover_art` | `str` |  |
+| `coverArt` | `str` |  |
 | `duration` | `int` |  |
 | `id` | `str` |  |
-| `played_at` | `str` |  |
+| `playedAt` | `str` |  |
 | `title` | `str` |  |
 
 #### Example: List
 
 ```python
-playouts = client.Playout().list()
+playouts = client.Playout().list({"station": "example"})
 ```
 
 

@@ -95,10 +95,10 @@ playout = client.Playout
 | --- | --- | --- | --- |
 | `album` | `String` | No |  |
 | `artist` | `String` | Yes |  |
-| `cover_art` | `String` | No |  |
+| `coverArt` | `String` | No |  |
 | `duration` | `Integer` | No |  |
 | `id` | `String` | No |  |
-| `played_at` | `String` | Yes |  |
+| `playedAt` | `String` | Yes |  |
 | `title` | `String` | Yes |  |
 
 ### Operations

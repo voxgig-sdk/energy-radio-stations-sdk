@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ EnergyRadioStationsUtility.registrar = ->(u) {
   u.prepare_params = EnergyRadioStationsUtilities::PrepareParams
   u.prepare_path = EnergyRadioStationsUtilities::PreparePath
   u.prepare_query = EnergyRadioStationsUtilities::PrepareQuery
+  u.graphql_body = EnergyRadioStationsUtilities::GraphqlBody
+  u.graphql_errors = EnergyRadioStationsUtilities::GraphqlErrors
   u.result_basic = EnergyRadioStationsUtilities::ResultBasic
   u.result_body = EnergyRadioStationsUtilities::ResultBody
   u.result_headers = EnergyRadioStationsUtilities::ResultHeaders

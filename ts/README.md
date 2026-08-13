@@ -35,10 +35,12 @@ const client = new EnergyRadioStationsSDK()
 
 ### 2. List playout records
 
-`list()` resolves to an array of Playout objects — iterate it directly:
+`list()` resolves to an array of Playout ENTITIES — every operation
+resolves to entities, not raw records. Iterate them directly, and call
+`.data()` on one for the record it holds:
 
 ```ts
-const playouts = await client.Playout().list()
+const playouts = await client.Playout().list({ station: "example" })
 
 for (const playout of playouts) {
   console.log(playout)
@@ -120,7 +122,8 @@ Create a mock client for unit testing — no server required:
 const client = EnergyRadioStationsSDK.test()
 
 const playout = await client.Playout().list()
-// playout is a bare entity populated with mock response data
+// playout is the entity, populated with mock response data
+// — call playout.data() for the record itself
 console.log(playout)
 ```
 
@@ -286,10 +289,10 @@ The `prepare()` method returns:
 | --- | --- |
 | `album` |  |
 | `artist` |  |
-| `cover_art` |  |
+| `coverArt` |  |
 | `duration` |  |
 | `id` |  |
-| `played_at` |  |
+| `playedAt` |  |
 | `title` |  |
 
 Operations: list.
@@ -317,16 +320,16 @@ Create an instance: `const playout = client.Playout()`
 | --- | --- | --- |
 | `album` | `string` |  |
 | `artist` | `string` |  |
-| `cover_art` | `string` |  |
+| `coverArt` | `string` |  |
 | `duration` | `number` |  |
 | `id` | `string` |  |
-| `played_at` | `string` |  |
+| `playedAt` | `string` |  |
 | `title` | `string` |  |
 
 #### Example: List
 
 ```ts
-const playouts = await client.Playout().list()
+const playouts = await client.Playout().list({ station: "example" })
 ```
 
 

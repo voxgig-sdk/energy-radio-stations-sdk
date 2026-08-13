@@ -16,7 +16,7 @@
 # @!attribute [rw] artist
 #   @return [String]
 #
-# @!attribute [rw] cover_art
+# @!attribute [rw] coverArt
 #   @return [String, nil]
 #
 # @!attribute [rw] duration
@@ -25,7 +25,7 @@
 # @!attribute [rw] id
 #   @return [String, nil]
 #
-# @!attribute [rw] played_at
+# @!attribute [rw] playedAt
 #   @return [String]
 #
 # @!attribute [rw] title
@@ -33,10 +33,10 @@
 Playout = Struct.new(
   :album,
   :artist,
-  :cover_art,
+  :coverArt,
   :duration,
   :id,
-  :played_at,
+  :playedAt,
   :title,
   keyword_init: true
 )

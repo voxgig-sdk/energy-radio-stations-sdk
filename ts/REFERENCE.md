@@ -118,10 +118,10 @@ const playout = client.Playout()
 | --- | --- | --- | --- |
 | `album` | `string` | No |  |
 | `artist` | `string` | Yes |  |
-| `cover_art` | `string` | No |  |
+| `coverArt` | `string` | No |  |
 | `duration` | `number` | No |  |
 | `id` | `string` | No |  |
-| `played_at` | `string` | Yes |  |
+| `playedAt` | `string` | Yes |  |
 | `title` | `string` | Yes |  |
 
 ### Operations
@@ -131,7 +131,7 @@ const playout = client.Playout()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Playout().list()
+const results = await client.Playout().list({ station: "example" })
 ```
 
 ### Common Methods

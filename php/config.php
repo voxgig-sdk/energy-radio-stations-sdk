@@ -46,7 +46,7 @@ class EnergyRadioStationsConfig
             ],
             [
               'active' => true,
-              'name' => 'cover_art',
+              'name' => 'coverArt',
               'req' => false,
               'type' => '`$STRING`',
               'index$' => 2,
@@ -67,7 +67,7 @@ class EnergyRadioStationsConfig
             ],
             [
               'active' => true,
-              'name' => 'played_at',
+              'name' => 'playedAt',
               'req' => true,
               'type' => '`$STRING`',
               'index$' => 5,
@@ -113,6 +113,7 @@ class EnergyRadioStationsConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/api/channels/{station}/playouts',
                   'parts' => [

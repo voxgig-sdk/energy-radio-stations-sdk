@@ -89,10 +89,10 @@ playout = client.Playout()
 | --- | --- | --- | --- |
 | `album` | `str` | No |  |
 | `artist` | `str` | Yes |  |
-| `cover_art` | `str` | No |  |
+| `coverArt` | `str` | No |  |
 | `duration` | `int` | No |  |
 | `id` | `str` | No |  |
-| `played_at` | `str` | Yes |  |
+| `playedAt` | `str` | Yes |  |
 | `title` | `str` | Yes |  |
 
 ### Operations
@@ -102,7 +102,7 @@ playout = client.Playout()
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Playout().list()
+results = client.Playout().list({"station": "example"})
 for playout in results:
     print(playout)
 ```

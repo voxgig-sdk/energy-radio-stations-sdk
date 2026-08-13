@@ -50,9 +50,10 @@ func TestPlayoutDirect(t *testing.T) {
 			"params": params,
 		})
 		if setup.live {
-			// Live mode is lenient: synthetic IDs frequently 4xx and the
-			// list-response shape varies wildly across public APIs. Skip
-			// rather than fail when the call doesn't return a usable list.
+			// Live-mode leniency is a model decision
+			// (main.kit.test.live.strict): synthetic IDs 4xx constantly
+			// against an arbitrary public API, so the default SKIPS here.
+			// A project that owns its test server sets strict and FAILS.
 			if err != nil {
 				t.Skipf("list call failed (likely synthetic IDs against live API): %v", err)
 			}
@@ -116,11 +117,11 @@ func playoutDirectSetup(mockres any) *playoutDirectSetupResult {
 	calls := &[]map[string]any{}
 
 	env := envOverride(map[string]any{
-		"ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID": map[string]any{},
-		"ENERGYRADIOSTATIONS_TEST_LIVE":    "FALSE",
+		"ENERGY_RADIO_STATIONS_TEST_PLAYOUT_ENTID": map[string]any{},
+		"ENERGY_RADIO_STATIONS_TEST_LIVE":    "FALSE",
 	})
 
-	live := env["ENERGYRADIOSTATIONS_TEST_LIVE"] == "TRUE"
+	live := env["ENERGY_RADIO_STATIONS_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
@@ -128,7 +129,7 @@ func playoutDirectSetup(mockres any) *playoutDirectSetupResult {
 		client := sdk.NewEnergyRadioStationsSDK(mergedOpts)
 
 		idmap := map[string]any{}
-		if entidRaw, ok := env["ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID"]; ok {
+		if entidRaw, ok := env["ENERGY_RADIO_STATIONS_TEST_PLAYOUT_ENTID"]; ok {
 			if entidStr, ok := entidRaw.(string); ok && strings.HasPrefix(entidStr, "{") {
 				json.Unmarshal([]byte(entidStr), &idmap)
 			} else if entidMap, ok := entidRaw.(map[string]any); ok {

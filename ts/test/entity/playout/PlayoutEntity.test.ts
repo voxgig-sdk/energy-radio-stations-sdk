@@ -26,8 +26,8 @@ import {
 describe('PlayoutEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when ENERGYRADIOSTATIONS_TEST_LIVE=TRUE.
-  afterEach(liveDelay('ENERGYRADIOSTATIONS_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when ENERGY_RADIO_STATIONS_TEST_LIVE=TRUE.
+  afterEach(liveDelay('ENERGY_RADIO_STATIONS_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = EnergyRadioStationsSDK.test()
@@ -64,7 +64,7 @@ describe('PlayoutEntity', async () => {
     const playout_ref01_match: any = {}
     playout_ref01_match['station'] = setup.idmap['station01']
 
-    const playout_ref01_list = await playout_ref01_ent.list(playout_ref01_match)
+    const playout_ref01_list = (await playout_ref01_ent.list(playout_ref01_match)).map((e: any) => e.data())
 
 
   })

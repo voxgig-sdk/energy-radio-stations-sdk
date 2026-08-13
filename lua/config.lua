@@ -40,7 +40,7 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "cover_art",
+            ["name"] = "coverArt",
             ["req"] = false,
             ["type"] = "`$STRING`",
             ["index$"] = 2,
@@ -61,7 +61,7 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "played_at",
+            ["name"] = "playedAt",
             ["req"] = true,
             ["type"] = "`$STRING`",
             ["index$"] = 5,
@@ -107,6 +107,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/channels/{station}/playouts",
                 ["parts"] = {

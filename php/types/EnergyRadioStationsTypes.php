@@ -17,10 +17,10 @@ class Playout
 {
     public ?string $album = null;
     public string $artist;
-    public ?string $cover_art = null;
+    public ?string $coverArt = null;
     public ?int $duration = null;
     public ?string $id = null;
-    public string $played_at;
+    public string $playedAt;
     public string $title;
 }
 

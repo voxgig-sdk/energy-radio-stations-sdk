@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'EnergyRadioStations',
   }
 
 
@@ -70,7 +70,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "cover_art",
+          "name": "coverArt",
           "req": false,
           "type": "`$STRING`",
           "index$": 2
@@ -91,7 +91,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "played_at",
+          "name": "playedAt",
           "req": true,
           "type": "`$STRING`",
           "index$": 5
@@ -137,6 +137,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/api/channels/{station}/playouts",
               "parts": [

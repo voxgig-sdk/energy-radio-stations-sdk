@@ -23,7 +23,7 @@ support (`list`):
 
 ```ts
 const client = new EnergyRadioStationsSDK()
-const items = await client.Playout().list()
+const items = await client.Playout().list({ station: "example" })
 ```
 
 Thinking in entities keeps the mental model small — for people and AI agents alike —
@@ -38,9 +38,18 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = EnergyRadioStationsSDK.test()
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = EnergyRadioStationsSDK.test({
+  entity: {
+    playout: {
+      test01: { id: 'test01' },
+    },
+  },
+})
 const playouts = await client.Playout().list()
-// playouts is an array of bare Playout records populated with mock data
+// playouts is an array of Playout entities, populated with mock data
+// — call playouts[0].data() for the record itself
 console.log(playouts)
 ```
 
@@ -110,8 +119,8 @@ import { EnergyRadioStationsSDK } from '@voxgig-sdk/energy-radio-stations'
 
 const client = new EnergyRadioStationsSDK()
 
-// List all playouts (returns Playout[])
-const playouts = await client.Playout().list()
+// List all playouts (returns PlayoutEntity[] — .data() for the record)
+const playouts = await client.Playout().list({ station: "example" })
 for (const playout of playouts) {
   console.log(playout)
 }
@@ -170,7 +179,7 @@ from energyradiostations_sdk import EnergyRadioStationsSDK
 client = EnergyRadioStationsSDK()
 
 # List all playouts (returns a list, raises on error)
-playouts = client.Playout().list()
+playouts = client.Playout().list({"station": "example"})
 for playout in playouts:
     print(playout)
 ```
@@ -343,6 +352,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://energy.ch](https://energy.ch)
 

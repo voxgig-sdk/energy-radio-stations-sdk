@@ -16,11 +16,11 @@
 import pytest
 
 from energyradiostations_sdk import EnergyRadioStationsSDK
-from core.error import EnergyRadioStationsError
-from core.result import EnergyRadioStationsResult
-from core.response import EnergyRadioStationsResponse
-from core.spec import EnergyRadioStationsSpec
-from feature.base_feature import EnergyRadioStationsBaseFeature
+from energyradiostations_sdk.core.error import EnergyRadioStationsError
+from energyradiostations_sdk.core.result import EnergyRadioStationsResult
+from energyradiostations_sdk.core.response import EnergyRadioStationsResponse
+from energyradiostations_sdk.core.spec import EnergyRadioStationsSpec
+from energyradiostations_sdk.feature.base_feature import EnergyRadioStationsBaseFeature
 
 
 def _client():

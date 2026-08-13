@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from energyradiostations_sdk.utility.voxgig_struct import voxgig_struct as vs
 from energyradiostations_sdk import EnergyRadioStationsSDK
-from core import helpers
+from energyradiostations_sdk.core import helpers
 from test import runner
 
 
@@ -70,11 +70,11 @@ def _playout_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID": {},
-        "ENERGYRADIOSTATIONS_TEST_LIVE": "FALSE",
+        "ENERGY_RADIO_STATIONS_TEST_PLAYOUT_ENTID": {},
+        "ENERGY_RADIO_STATIONS_TEST_LIVE": "FALSE",
     })
 
-    live = env.get("ENERGYRADIOSTATIONS_TEST_LIVE") == "TRUE"
+    live = env.get("ENERGY_RADIO_STATIONS_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {

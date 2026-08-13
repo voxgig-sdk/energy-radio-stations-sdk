@@ -16,7 +16,7 @@ main: kit: entity: playout: {
       type: "`$STRING`"
     }
     {
-      name: "cover_art"
+      name: "coverArt"
       req: false
       type: "`$STRING`"
     }
@@ -31,7 +31,7 @@ main: kit: entity: playout: {
       type: "`$STRING`"
     }
     {
-      name: "played_at"
+      name: "playedAt"
       req: true
       type: "`$STRING`"
     }

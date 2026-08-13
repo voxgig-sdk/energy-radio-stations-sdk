@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# EnergyRadioStations SDK exists test
 
 import pytest
 from energyradiostations_sdk import EnergyRadioStationsSDK

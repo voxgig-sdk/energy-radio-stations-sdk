@@ -19,11 +19,15 @@ import {
 describe('PlayoutDirect', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when ENERGYRADIOSTATIONS_TEST_LIVE=TRUE.
-  afterEach(liveDelay('ENERGYRADIOSTATIONS_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when ENERGY_RADIO_STATIONS_TEST_LIVE=TRUE.
+  afterEach(liveDelay('ENERGY_RADIO_STATIONS_TEST_LIVE'))
 
   test('direct-exists', async () => {
     const sdk = new EnergyRadioStationsSDK({
+      // Concrete base: a live construction must satisfy any server
+      // variables a templated base URL declares; overriding base with a
+      // literal (as the direct flow tests do) sidesteps the requirement.
+      base: 'http://localhost:8080',
       system: { fetch: async () => ({}) }
     })
     assert('function' === typeof sdk.direct)
@@ -84,17 +88,17 @@ function directSetup(mockres?: any) {
   const calls: any[] = []
 
   const env = envOverride({
-    'ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID': {},
-    'ENERGYRADIOSTATIONS_TEST_LIVE': 'FALSE',
+    'ENERGY_RADIO_STATIONS_TEST_PLAYOUT_ENTID': {},
+    'ENERGY_RADIO_STATIONS_TEST_LIVE': 'FALSE',
   })
 
-  const live = 'TRUE' === env.ENERGYRADIOSTATIONS_TEST_LIVE
+  const live = 'TRUE' === env.ENERGY_RADIO_STATIONS_TEST_LIVE
 
   if (live) {
     const client = new EnergyRadioStationsSDK({
     })
 
-    let idmap: any = env['ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID']
+    let idmap: any = env['ENERGY_RADIO_STATIONS_TEST_PLAYOUT_ENTID']
     if ('string' === typeof idmap && idmap.startsWith('{')) {
       idmap = JSON.parse(idmap)
     }

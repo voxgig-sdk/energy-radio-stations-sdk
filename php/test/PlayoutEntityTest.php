@@ -72,7 +72,7 @@ class PlayoutEntityTest extends TestCase
         // The basic flow consumes synthetic IDs from the fixture. In live mode
         // without an *_ENTID env override, those IDs hit the live API and 4xx.
         if (!empty($setup["synthetic_only"])) {
-            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID JSON to run live");
+            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set ENERGY_RADIO_STATIONS_TEST_PLAYOUT_ENTID JSON to run live");
             return;
         }
         $client = $setup["client"];
@@ -119,22 +119,22 @@ function playout_basic_setup($extra)
     // Detect ENTID env override before envOverride consumes it. When live
     // mode is on without a real override, the basic test runs against synthetic
     // IDs from the fixture and 4xx's. Surface this so the test can skip.
-    $entid_env_raw = getenv("ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID");
+    $entid_env_raw = getenv("ENERGY_RADIO_STATIONS_TEST_PLAYOUT_ENTID");
     $idmap_overridden = $entid_env_raw !== false && str_starts_with(trim($entid_env_raw), "{");
 
     $env = Runner::env_override([
-        "ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID" => $idmap,
-        "ENERGYRADIOSTATIONS_TEST_LIVE" => "FALSE",
-        "ENERGYRADIOSTATIONS_TEST_EXPLAIN" => "FALSE",
+        "ENERGY_RADIO_STATIONS_TEST_PLAYOUT_ENTID" => $idmap,
+        "ENERGY_RADIO_STATIONS_TEST_LIVE" => "FALSE",
+        "ENERGY_RADIO_STATIONS_TEST_EXPLAIN" => "FALSE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
-        $env["ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID"]);
+        $env["ENERGY_RADIO_STATIONS_TEST_PLAYOUT_ENTID"]);
     if ($idmap_resolved === null) {
         $idmap_resolved = Helpers::to_map($idmap);
     }
 
-    if ($env["ENERGYRADIOSTATIONS_TEST_LIVE"] === "TRUE") {
+    if ($env["ENERGY_RADIO_STATIONS_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
             ],
@@ -143,13 +143,13 @@ function playout_basic_setup($extra)
         $client = new EnergyRadioStationsSDK(Helpers::to_map($merged_opts));
     }
 
-    $live = $env["ENERGYRADIOSTATIONS_TEST_LIVE"] === "TRUE";
+    $live = $env["ENERGY_RADIO_STATIONS_TEST_LIVE"] === "TRUE";
     return [
         "client" => $client,
         "data" => $entity_data,
         "idmap" => $idmap_resolved,
         "env" => $env,
-        "explain" => $env["ENERGYRADIOSTATIONS_TEST_EXPLAIN"] === "TRUE",
+        "explain" => $env["ENERGY_RADIO_STATIONS_TEST_EXPLAIN"] === "TRUE",
         "live" => $live,
         "synthetic_only" => $live && !$idmap_overridden,
         "now" => (int)(microtime(true) * 1000),

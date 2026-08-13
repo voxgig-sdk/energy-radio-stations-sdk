@@ -40,7 +40,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "cover_art",
+						"name": "coverArt",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 2,
@@ -61,7 +61,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "played_at",
+						"name": "playedAt",
 						"req": true,
 						"type": "`$STRING`",
 						"index$": 5,
@@ -107,6 +107,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/api/channels/{station}/playouts",
 								"parts": []any{
@@ -128,7 +129,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "list",
 					},
 				},
 				"relations": map[string]any{

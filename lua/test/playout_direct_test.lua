@@ -75,11 +75,11 @@ function playout_direct_setup(mockres)
   local calls = {}
 
   local env = runner.env_override({
-    ["ENERGYRADIOSTATIONS_TEST_PLAYOUT_ENTID"] = {},
-    ["ENERGYRADIOSTATIONS_TEST_LIVE"] = "FALSE",
+    ["ENERGY_RADIO_STATIONS_TEST_PLAYOUT_ENTID"] = {},
+    ["ENERGY_RADIO_STATIONS_TEST_LIVE"] = "FALSE",
   })
 
-  local live = env["ENERGYRADIOSTATIONS_TEST_LIVE"] == "TRUE"
+  local live = env["ENERGY_RADIO_STATIONS_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {

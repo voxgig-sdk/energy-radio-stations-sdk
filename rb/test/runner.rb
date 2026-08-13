@@ -23,8 +23,8 @@ module EnergyRadioStationsTestRunner
   end
 
   def self.env_override(m)
-    live = getenv("ENERGYRADIOSTATIONS_TEST_LIVE")
-    override = getenv("ENERGYRADIOSTATIONS_TEST_OVERRIDE")
+    live = getenv("ENERGY_RADIO_STATIONS_TEST_LIVE")
+    override = getenv("ENERGY_RADIO_STATIONS_TEST_OVERRIDE")
 
     if live == "TRUE" || override == "TRUE"
       m.each_key do |key|
@@ -44,8 +44,8 @@ module EnergyRadioStationsTestRunner
       end
     end
 
-    explain = getenv("ENERGYRADIOSTATIONS_TEST_EXPLAIN")
-    m["ENERGYRADIOSTATIONS_TEST_EXPLAIN"] = explain if explain && !explain.empty?
+    explain = getenv("ENERGY_RADIO_STATIONS_TEST_EXPLAIN")
+    m["ENERGY_RADIO_STATIONS_TEST_EXPLAIN"] = explain if explain && !explain.empty?
 
     m
   end

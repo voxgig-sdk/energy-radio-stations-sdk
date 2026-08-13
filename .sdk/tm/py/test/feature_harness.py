@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import EnergyRadioStationsControl
-from core.error import EnergyRadioStationsError
-from core.result import EnergyRadioStationsResult
-from core.spec import EnergyRadioStationsSpec
+from projectname_sdk.config import make_config
+from projectname_sdk.features import _make_feature
+from projectname_sdk.core.control import EnergyRadioStationsControl
+from projectname_sdk.core.error import EnergyRadioStationsError
+from projectname_sdk.core.result import EnergyRadioStationsResult
+from projectname_sdk.core.spec import EnergyRadioStationsSpec
 
 
 # True when this SDK was generated with the named feature.

@@ -37,7 +37,7 @@ class PlayoutEntity extends EnergyRadioStationsEntityBase<Playout> {
 
 
 
-  async list(this: any, reqmatch?: PlayoutListMatch, ctrl?: Control): Promise<Playout[]> {
+  async list(this: any, reqmatch?: PlayoutListMatch, ctrl?: Control): Promise<PlayoutEntity[]> {
 
     const utility = this._utility
 

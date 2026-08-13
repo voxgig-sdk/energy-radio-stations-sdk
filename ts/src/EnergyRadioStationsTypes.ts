@@ -8,10 +8,10 @@
 export interface Playout {
   album?: string
   artist: string
-  cover_art?: string
+  coverArt?: string
   duration?: number
   id?: string
-  played_at: string
+  playedAt: string
   title: string
 }
 
