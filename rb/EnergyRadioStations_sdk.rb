@@ -28,7 +28,7 @@ class EnergyRadioStationsSDK
     utility = EnergyRadioStationsUtility.new
     @_utility = utility
 
-    config = EnergyRadioStationsConfig.make_config
+    config = EnergyRadioStationsConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

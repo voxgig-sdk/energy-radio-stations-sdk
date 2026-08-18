@@ -40,7 +40,7 @@ class EnergyRadioStationsSDK
         $utility = new EnergyRadioStationsUtility();
         $this->_utility = $utility;
 
-        $config = EnergyRadioStationsConfig::make_config();
+        $config = EnergyRadioStationsConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,
