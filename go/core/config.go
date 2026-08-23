@@ -11,6 +11,9 @@ func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
 			"name": "EnergyRadioStations",
+			"slug": "energy-radio-stations",
+			"version": "0.0.1",
+			"target": "go",
 		},
 		"feature": map[string]any{
 			"test": map[string]any{
@@ -33,33 +36,40 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "album",
+						"short": "Album name",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "artist",
 						"req": true,
+						"short": "Artist name",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "coverArt",
+						"short": "URL to album cover image",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "duration",
+						"short": "Song duration in seconds",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "id",
+						"short": "Unique identifier for the playlist entry",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "playedAt",
 						"req": true,
+						"short": "Timestamp when the song was played",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "title",
 						"req": true,
+						"short": "Song title",
 						"type": "`$STRING`",
 					},
 				},

@@ -87,13 +87,13 @@ playout = client.Playout()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `album` | `str` | No |  |
-| `artist` | `str` | Yes |  |
-| `coverArt` | `str` | No |  |
-| `duration` | `int` | No |  |
-| `id` | `str` | No |  |
-| `playedAt` | `str` | Yes |  |
-| `title` | `str` | Yes |  |
+| `album` | `str` | No | Album name |
+| `artist` | `str` | Yes | Artist name |
+| `coverArt` | `str` | No | URL to album cover image |
+| `duration` | `int` | No | Song duration in seconds |
+| `id` | `str` | No | Unique identifier for the playlist entry |
+| `playedAt` | `str` | Yes | Timestamp when the song was played |
+| `title` | `str` | Yes | Song title |
 
 ### Operations
 

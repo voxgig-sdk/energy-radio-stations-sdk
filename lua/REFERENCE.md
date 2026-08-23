@@ -90,13 +90,13 @@ local playout = client:Playout(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `album` | `string` | No |  |
-| `artist` | `string` | Yes |  |
-| `coverArt` | `string` | No |  |
-| `duration` | `number` | No |  |
-| `id` | `string` | No |  |
-| `playedAt` | `string` | Yes |  |
-| `title` | `string` | Yes |  |
+| `album` | `string` | No | Album name |
+| `artist` | `string` | Yes | Artist name |
+| `coverArt` | `string` | No | URL to album cover image |
+| `duration` | `number` | No | Song duration in seconds |
+| `id` | `string` | No | Unique identifier for the playlist entry |
+| `playedAt` | `string` | Yes | Timestamp when the song was played |
+| `title` | `string` | Yes | Song title |
 
 ### Operations
 

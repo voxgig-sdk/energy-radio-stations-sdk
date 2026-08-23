@@ -36,42 +36,49 @@
               "active": true,
               "name": "album",
               "req": false,
+              "short": "Album name",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "artist",
               "req": true,
+              "short": "Artist name",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "coverArt",
               "req": false,
+              "short": "URL to album cover image",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "duration",
               "req": false,
+              "short": "Song duration in seconds",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "id",
               "req": false,
+              "short": "Unique identifier for the playlist entry",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "playedAt",
               "req": true,
+              "short": "Timestamp when the song was played",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "title",
               "req": true,
+              "short": "Song title",
               "type": "`$STRING`"
             }
           ],

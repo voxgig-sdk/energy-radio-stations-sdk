@@ -6,7 +6,7 @@ The Golang SDK for the EnergyRadioStations API — an entity-oriented client usi
 
 It exposes the API as capitalised, semantic **Entities** — e.g. `client.Playout(nil)` — each with the same small set of operations (`List`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb`, `ts` — see
 > the [top-level README](../README.md).
 
 
@@ -260,13 +260,13 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
-| `"album"` |  |
-| `"artist"` |  |
-| `"coverArt"` |  |
-| `"duration"` |  |
-| `"id"` |  |
-| `"playedAt"` |  |
-| `"title"` |  |
+| `"album"` | Album name |
+| `"artist"` | Artist name |
+| `"coverArt"` | URL to album cover image |
+| `"duration"` | Song duration in seconds |
+| `"id"` | Unique identifier for the playlist entry |
+| `"playedAt"` | Timestamp when the song was played |
+| `"title"` | Song title |
 
 Operations: List.
 
@@ -291,13 +291,13 @@ Create an instance: `playout := client.Playout(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `album` | `string` |  |
-| `artist` | `string` |  |
-| `coverArt` | `string` |  |
-| `duration` | `int` |  |
-| `id` | `string` |  |
-| `playedAt` | `string` |  |
-| `title` | `string` |  |
+| `album` | `string` | Album name |
+| `artist` | `string` | Artist name |
+| `coverArt` | `string` | URL to album cover image |
+| `duration` | `int` | Song duration in seconds |
+| `id` | `string` | Unique identifier for the playlist entry |
+| `playedAt` | `string` | Timestamp when the song was played |
+| `title` | `string` | Song title |
 
 #### Example: List
 

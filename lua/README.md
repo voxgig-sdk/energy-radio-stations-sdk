@@ -231,13 +231,13 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `album` |  |
-| `artist` |  |
-| `coverArt` |  |
-| `duration` |  |
-| `id` |  |
-| `playedAt` |  |
-| `title` |  |
+| `album` | Album name |
+| `artist` | Artist name |
+| `coverArt` | URL to album cover image |
+| `duration` | Song duration in seconds |
+| `id` | Unique identifier for the playlist entry |
+| `playedAt` | Timestamp when the song was played |
+| `title` | Song title |
 
 Operations: List.
 
@@ -262,13 +262,13 @@ Create an instance: `local playout = client:Playout(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `album` | `string` |  |
-| `artist` | `string` |  |
-| `coverArt` | `string` |  |
-| `duration` | `number` |  |
-| `id` | `string` |  |
-| `playedAt` | `string` |  |
-| `title` | `string` |  |
+| `album` | `string` | Album name |
+| `artist` | `string` | Artist name |
+| `coverArt` | `string` | URL to album cover image |
+| `duration` | `number` | Song duration in seconds |
+| `id` | `string` | Unique identifier for the playlist entry |
+| `playedAt` | `string` | Timestamp when the song was played |
+| `title` | `string` | Song title |
 
 #### Example: List
 

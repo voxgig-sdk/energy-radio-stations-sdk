@@ -243,13 +243,13 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `album` |  |
-| `artist` |  |
-| `coverArt` |  |
-| `duration` |  |
-| `id` |  |
-| `playedAt` |  |
-| `title` |  |
+| `album` | Album name |
+| `artist` | Artist name |
+| `coverArt` | URL to album cover image |
+| `duration` | Song duration in seconds |
+| `id` | Unique identifier for the playlist entry |
+| `playedAt` | Timestamp when the song was played |
+| `title` | Song title |
 
 Operations: List.
 
@@ -274,13 +274,13 @@ Create an instance: `playout = client.Playout()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `album` | `str` |  |
-| `artist` | `str` |  |
-| `coverArt` | `str` |  |
-| `duration` | `int` |  |
-| `id` | `str` |  |
-| `playedAt` | `str` |  |
-| `title` | `str` |  |
+| `album` | `str` | Album name |
+| `artist` | `str` | Artist name |
+| `coverArt` | `str` | URL to album cover image |
+| `duration` | `int` | Song duration in seconds |
+| `id` | `str` | Unique identifier for the playlist entry |
+| `playedAt` | `str` | Timestamp when the song was played |
+| `title` | `str` | Song title |
 
 #### Example: List
 

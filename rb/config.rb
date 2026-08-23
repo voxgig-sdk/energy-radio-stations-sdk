@@ -19,6 +19,9 @@ module EnergyRadioStationsConfig
     {
       "main" => {
         "name" => "EnergyRadioStations",
+        "slug" => "energy-radio-stations",
+        "version" => "0.0.1",
+        "target" => "rb",
       },
       "feature" => {
         "test" => {
@@ -41,33 +44,40 @@ module EnergyRadioStationsConfig
           "fields" => [
             {
               "name" => "album",
+              "short" => "Album name",
               "type" => "`$STRING`",
             },
             {
               "name" => "artist",
               "req" => true,
+              "short" => "Artist name",
               "type" => "`$STRING`",
             },
             {
               "name" => "coverArt",
+              "short" => "URL to album cover image",
               "type" => "`$STRING`",
             },
             {
               "name" => "duration",
+              "short" => "Song duration in seconds",
               "type" => "`$INTEGER`",
             },
             {
               "name" => "id",
+              "short" => "Unique identifier for the playlist entry",
               "type" => "`$STRING`",
             },
             {
               "name" => "playedAt",
               "req" => true,
+              "short" => "Timestamp when the song was played",
               "type" => "`$STRING`",
             },
             {
               "name" => "title",
               "req" => true,
+              "short" => "Song title",
               "type" => "`$STRING`",
             },
           ],
