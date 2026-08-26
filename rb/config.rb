@@ -28,6 +28,7 @@ module EnergyRadioStationsConfig
           "options" => {
             "active" => false,
           },
+          "transport" => "base",
         },
       },
       "options" => {
