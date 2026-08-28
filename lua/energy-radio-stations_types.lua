@@ -17,6 +17,7 @@
 
 ---@class PlayoutListMatch
 ---@field station string
+---@field limit? number
 
 local M = {}
 

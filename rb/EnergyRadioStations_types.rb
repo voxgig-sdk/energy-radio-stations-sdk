@@ -45,8 +45,12 @@ Playout = Struct.new(
 #
 # @!attribute [rw] station
 #   @return [String]
+#
+# @!attribute [rw] limit
+#   @return [Integer, nil]
 PlayoutListMatch = Struct.new(
   :station,
+  :limit,
   keyword_init: true
 )
 

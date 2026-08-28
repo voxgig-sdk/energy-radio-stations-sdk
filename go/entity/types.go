@@ -26,6 +26,7 @@ type Playout struct {
 // PlayoutListMatch is the typed request payload for Playout.ListTyped.
 type PlayoutListMatch struct {
 	Station string `json:"station"`
+	Limit *int `json:"limit,omitempty"`
 }
 
 // asMap turns a typed request/data struct into the map[string]any the

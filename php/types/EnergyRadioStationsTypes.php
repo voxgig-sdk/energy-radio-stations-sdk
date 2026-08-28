@@ -28,5 +28,6 @@ class Playout
 class PlayoutListMatch
 {
     public string $station;
+    public ?int $limit = null;
 }
 

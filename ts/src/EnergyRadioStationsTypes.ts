@@ -17,5 +17,6 @@ export interface Playout {
 
 export interface PlayoutListMatch {
   station: string
+  limit?: number
 }
 

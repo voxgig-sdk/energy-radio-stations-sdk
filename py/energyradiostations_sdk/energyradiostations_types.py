@@ -29,5 +29,9 @@ class Playout(PlayoutRequired, total=False):
     id: str
 
 
-class PlayoutListMatch(TypedDict):
+class PlayoutListMatchRequired(TypedDict):
     station: str
+
+
+class PlayoutListMatch(PlayoutListMatchRequired, total=False):
+    limit: int
