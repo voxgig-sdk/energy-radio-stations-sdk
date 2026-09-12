@@ -18,6 +18,7 @@ main: kit: entity: playout: {
       type: "`$STRING`"
     }
     {
+      format: "uri"
       name: "coverArt"
       req: false
       short: "URL to album cover image"
@@ -36,6 +37,7 @@ main: kit: entity: playout: {
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "playedAt"
       req: true
       short: "Timestamp when the song was played"
@@ -84,11 +86,19 @@ main: kit: entity: playout: {
           }
           method: "GET"
           orig: "/api/channels/{station}/playouts"
-          parts: [
-            "api"
-            "channels"
-            "{station}"
-            "playouts"
+          segments: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "channels"
+            }
+            {
+              var: "station"
+            }
+            {
+              lit: "playouts"
+            }
           ]
           select: {
             exist: [

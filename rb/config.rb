@@ -55,6 +55,7 @@ module EnergyRadioStationsConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "uri",
               "name" => "coverArt",
               "short" => "URL to album cover image",
               "type" => "`$STRING`",
@@ -70,6 +71,7 @@ module EnergyRadioStationsConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "date-time",
               "name" => "playedAt",
               "req" => true,
               "short" => "Timestamp when the song was played",
@@ -82,6 +84,10 @@ module EnergyRadioStationsConfig
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "playout",
           "op" => {
             "list" => {
@@ -113,11 +119,19 @@ module EnergyRadioStationsConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/api/channels/{station}/playouts",
-                  "parts" => [
-                    "api",
-                    "channels",
-                    "{station}",
-                    "playouts",
+                  "segments" => [
+                    {
+                      "lit" => "api",
+                    },
+                    {
+                      "lit" => "channels",
+                    },
+                    {
+                      "var" => "station",
+                    },
+                    {
+                      "lit" => "playouts",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -129,6 +143,12 @@ module EnergyRadioStationsConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "api",
+                    "channels",
+                    "{station}",
+                    "playouts",
+                  ],
                 },
               ],
             },

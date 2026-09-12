@@ -43,6 +43,7 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "uri",
             ["name"] = "coverArt",
             ["short"] = "URL to album cover image",
             ["type"] = "`$STRING`",
@@ -58,6 +59,7 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "playedAt",
             ["req"] = true,
             ["short"] = "Timestamp when the song was played",
@@ -69,6 +71,10 @@ local function make_config()
             ["short"] = "Song title",
             ["type"] = "`$STRING`",
           },
+        },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
         },
         ["name"] = "playout",
         ["op"] = {
@@ -101,11 +107,19 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/channels/{station}/playouts",
-                ["parts"] = {
-                  "api",
-                  "channels",
-                  "{station}",
-                  "playouts",
+                ["segments"] = {
+                  {
+                    ["lit"] = "api",
+                  },
+                  {
+                    ["lit"] = "channels",
+                  },
+                  {
+                    ["var"] = "station",
+                  },
+                  {
+                    ["lit"] = "playouts",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -116,6 +130,12 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "api",
+                  "channels",
+                  "{station}",
+                  "playouts",
                 },
               },
             },

@@ -47,6 +47,7 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 					},
 					map[string]any{
+						"format": "uri",
 						"name": "coverArt",
 						"short": "URL to album cover image",
 						"type": "`$STRING`",
@@ -62,6 +63,7 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 					},
 					map[string]any{
+						"format": "date-time",
 						"name": "playedAt",
 						"req": true,
 						"short": "Timestamp when the song was played",
@@ -73,6 +75,10 @@ func MakeConfig() map[string]any {
 						"short": "Song title",
 						"type": "`$STRING`",
 					},
+				},
+				"id": map[string]any{
+					"field": "id",
+					"name": "id",
 				},
 				"name": "playout",
 				"op": map[string]any{
@@ -105,11 +111,19 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/api/channels/{station}/playouts",
-								"parts": []any{
-									"api",
-									"channels",
-									"{station}",
-									"playouts",
+								"segments": []any{
+									map[string]any{
+										"lit": "api",
+									},
+									map[string]any{
+										"lit": "channels",
+									},
+									map[string]any{
+										"var": "station",
+									},
+									map[string]any{
+										"lit": "playouts",
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
@@ -120,6 +134,12 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"api",
+									"channels",
+									"{station}",
+									"playouts",
 								},
 							},
 						},
@@ -135,6 +155,17 @@ func MakeConfig() map[string]any {
 			},
 		},
 	}
+}
+
+// The plugin definitions the model selected per feature, as []any so a
+// feature package can consume them without core naming its types. Empty
+// when no active feature declares active plugin groups for this target.
+var featurePlugins = map[string][]any{
+}
+
+// FeaturePlugins is the definitions list for one feature's chain.
+func FeaturePlugins(name string) []any {
+	return featurePlugins[name]
 }
 
 var (
