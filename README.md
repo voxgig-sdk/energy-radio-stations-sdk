@@ -105,7 +105,7 @@ local results, err = client:Playout():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/energy-radio-stations` | publish pending — [install from git tag](https://github.com/voxgig-sdk/energy-radio-stations-sdk/releases) |
+| TypeScript | `@voxgig-sdk/energy-radio-stations-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/energy-radio-stations-sdk/releases) |
 | Python | `voxgig-sdk-energy-radio-stations` | publish pending — [install from git tag](https://github.com/voxgig-sdk/energy-radio-stations-sdk/releases) |
 | PHP | `voxgig-sdk/energy-radio-stations` | publish pending — [install from git tag](https://github.com/voxgig-sdk/energy-radio-stations-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/energy-radio-stations-sdk/go` | `go get github.com/voxgig-sdk/energy-radio-stations-sdk/go@latest` |
@@ -119,7 +119,7 @@ local results, err = client:Playout():list()
 ### TypeScript
 
 ```ts
-import { EnergyRadioStationsSDK } from '@voxgig-sdk/energy-radio-stations'
+import { EnergyRadioStationsSDK } from '@voxgig-sdk/energy-radio-stations-sdk'
 
 const client = new EnergyRadioStationsSDK()
 

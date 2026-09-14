@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { EnergyRadioStationsSDK } from '@voxgig-sdk/energy-radio-stations'
+import { EnergyRadioStationsSDK } from '@voxgig-sdk/energy-radio-stations-sdk'
 
 const client = new EnergyRadioStationsSDK()
 ```
@@ -415,7 +415,7 @@ energy-radio-stations/
 Import the SDK from the package root:
 
 ```ts
-import { EnergyRadioStationsSDK } from '@voxgig-sdk/energy-radio-stations'
+import { EnergyRadioStationsSDK } from '@voxgig-sdk/energy-radio-stations-sdk'
 ```
 
 ### Entity state
