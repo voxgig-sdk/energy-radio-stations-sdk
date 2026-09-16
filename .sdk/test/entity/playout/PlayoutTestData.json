@@ -5,7 +5,7 @@
         "album": "s46",
         "artist": "s47",
         "coverArt": "s48",
-        "duration": "s49",
+        "duration": 73,
         "id": "PLAYOUT00",
         "playedAt": "s4b",
         "title": "s4c",
@@ -15,7 +15,7 @@
         "album": "s8c",
         "artist": "s8d",
         "coverArt": "s8e",
-        "duration": "s8f",
+        "duration": 143,
         "id": "PLAYOUT01",
         "playedAt": "s91",
         "title": "s92",
@@ -25,7 +25,7 @@
         "album": "sd2",
         "artist": "sd3",
         "coverArt": "sd4",
-        "duration": "sd5",
+        "duration": 213,
         "id": "PLAYOUT02",
         "playedAt": "sd7",
         "title": "sd8",
@@ -39,9 +39,202 @@
         "album": "s118",
         "artist": "s119",
         "coverArt": "s11a",
-        "duration": "s11b",
+        "duration": 283,
         "playedAt": "s11d",
         "title": "s11e"
+      }
+    }
+  },
+  "requests": {
+    "GET /api/channels/{station}/playouts": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getStationPlaylist",
+        "parameters": [
+          {
+            "description": "The station identifier",
+            "in": "path",
+            "name": "station",
+            "required": true,
+            "schema": {
+              "enum": [
+                "energy-zurich",
+                "energy-basel",
+                "energy-bern",
+                "energy-me-time",
+                "energy-love",
+                "energy-at-work",
+                "energy-hits",
+                "made-in-switzerland",
+                "energy-workout",
+                "energy-latin",
+                "energy-party-vibes",
+                "energy-summer-vibes",
+                "energy-pop",
+                "energy-top-30",
+                "energy-90s",
+                "energy-80s",
+                "energy-00s",
+                "energy-10s",
+                "energy-dance",
+                "energy-20s",
+                "energy-italy",
+                "energy-deutsch-pop",
+                "energy-womxn",
+                "energy-lounge",
+                "friends-cooking",
+                "energy-deutschrap",
+                "energy-balkan-hits",
+                "energy-rock",
+                "energy-urban",
+                "energy-x-mas"
+              ],
+              "example": "energy-bern",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Number of playlist entries to return",
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "playlist": {
+                      "items": {
+                        "properties": {
+                          "album": {
+                            "description": "Album name",
+                            "example": "25",
+                            "type": "string"
+                          },
+                          "artist": {
+                            "description": "Artist name",
+                            "example": "Adele",
+                            "type": "string"
+                          },
+                          "coverArt": {
+                            "description": "URL to album cover image",
+                            "format": "uri",
+                            "type": "string"
+                          },
+                          "duration": {
+                            "description": "Song duration in seconds",
+                            "type": "integer"
+                          },
+                          "id": {
+                            "description": "Unique identifier for the playlist entry",
+                            "type": "string"
+                          },
+                          "playedAt": {
+                            "description": "Timestamp when the song was played",
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "title": {
+                            "description": "Song title",
+                            "example": "Hello",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "artist",
+                          "title",
+                          "playedAt"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "station": {
+                      "properties": {
+                        "description": {
+                          "example": "Die Nummer 1 aus der Hauptstadt.",
+                          "type": "string"
+                        },
+                        "frequency": {
+                          "example": "101.7 MHz",
+                          "type": "string"
+                        },
+                        "id": {
+                          "example": "energy-bern",
+                          "type": "string"
+                        },
+                        "name": {
+                          "example": "Energy Bern",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response with playlist data"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "description": "Error code",
+                      "type": "string"
+                    },
+                    "error": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Station not found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "description": "Error code",
+                      "type": "string"
+                    },
+                    "error": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Internal server error"
+          }
+        },
+        "securitySource": "unspecified"
       }
     }
   }

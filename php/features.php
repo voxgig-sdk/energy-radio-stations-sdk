@@ -4,7 +4,10 @@ declare(strict_types=1);
 // EnergyRadioStations SDK feature factory
 
 require_once __DIR__ . '/feature/BaseFeature.php';
+require_once __DIR__ . '/feature/RatelimitFeature.php';
+require_once __DIR__ . '/feature/RetryFeature.php';
 require_once __DIR__ . '/feature/TestFeature.php';
+require_once __DIR__ . '/feature/TimeoutFeature.php';
 
 
 class EnergyRadioStationsFeatures
@@ -14,8 +17,14 @@ class EnergyRadioStationsFeatures
         switch ($name) {
             case "base":
                 return new EnergyRadioStationsBaseFeature();
+            case "ratelimit":
+                return new EnergyRadioStationsRatelimitFeature();
+            case "retry":
+                return new EnergyRadioStationsRetryFeature();
             case "test":
                 return new EnergyRadioStationsTestFeature();
+            case "timeout":
+                return new EnergyRadioStationsTimeoutFeature();
             default:
                 return new EnergyRadioStationsBaseFeature();
         }
@@ -31,7 +40,10 @@ class EnergyRadioStationsFeatures
     {
         switch ($name) {
             case "base":
+            case "ratelimit":
+            case "retry":
             case "test":
+            case "timeout":
                 return true;
             default:
                 return false;

@@ -1,12 +1,18 @@
 # EnergyRadioStations SDK feature factory
 
 from energyradiostations_sdk.feature.base_feature import EnergyRadioStationsBaseFeature
+from energyradiostations_sdk.feature.ratelimit_feature import EnergyRadioStationsRatelimitFeature
+from energyradiostations_sdk.feature.retry_feature import EnergyRadioStationsRetryFeature
 from energyradiostations_sdk.feature.test_feature import EnergyRadioStationsTestFeature
+from energyradiostations_sdk.feature.timeout_feature import EnergyRadioStationsTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: EnergyRadioStationsBaseFeature(),
+    "ratelimit": lambda: EnergyRadioStationsRatelimitFeature(),
+    "retry": lambda: EnergyRadioStationsRetryFeature(),
     "test": lambda: EnergyRadioStationsTestFeature(),
+    "timeout": lambda: EnergyRadioStationsTimeoutFeature(),
 }
 
 
