@@ -113,43 +113,50 @@ class EnergyRadioStationsConfig
           'fields' => [
             [
               'name' => 'album',
-              'short' => 'Album name',
+              'title' => 'Album',
               'type' => '`$STRING`',
+              'short' => 'Album name',
             ],
             [
               'name' => 'artist',
+              'title' => 'Artist',
+              'type' => '`$STRING`',
               'req' => true,
               'short' => 'Artist name',
-              'type' => '`$STRING`',
             ],
             [
-              'format' => 'uri',
               'name' => 'coverArt',
-              'short' => 'URL to album cover image',
+              'title' => 'Cover Art',
               'type' => '`$STRING`',
+              'short' => 'URL to album cover image',
+              'format' => 'uri',
             ],
             [
               'name' => 'duration',
-              'short' => 'Song duration in seconds',
+              'title' => 'Duration',
               'type' => '`$INTEGER`',
+              'short' => 'Song duration in seconds',
             ],
             [
               'name' => 'id',
-              'short' => 'Unique identifier for the playlist entry',
+              'title' => 'Id',
               'type' => '`$STRING`',
+              'short' => 'Unique identifier for the playlist entry',
             ],
             [
-              'format' => 'date-time',
               'name' => 'playedAt',
+              'title' => 'Played At',
+              'type' => '`$STRING`',
               'req' => true,
               'short' => 'Timestamp when the song was played',
-              'type' => '`$STRING`',
+              'format' => 'date-time',
             ],
             [
               'name' => 'title',
+              'title' => 'Title',
+              'type' => '`$STRING`',
               'req' => true,
               'short' => 'Song title',
-              'type' => '`$STRING`',
             ],
           ],
           'id' => [
@@ -163,27 +170,6 @@ class EnergyRadioStationsConfig
               'name' => 'list',
               'points' => [
                 [
-                  'args' => [
-                    'params' => [
-                      [
-                        'example' => 'energy-bern',
-                        'kind' => 'param',
-                        'name' => 'station',
-                        'orig' => 'station',
-                        'reqd' => true,
-                        'type' => '`$STRING`',
-                      ],
-                    ],
-                    'query' => [
-                      [
-                        'example' => 20,
-                        'kind' => 'query',
-                        'name' => 'limit',
-                        'orig' => 'limit',
-                        'type' => '`$INTEGER`',
-                      ],
-                    ],
-                  ],
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/api/channels/{station}/playouts',
@@ -201,32 +187,50 @@ class EnergyRadioStationsConfig
                       'lit' => 'playouts',
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'limit',
-                      'station',
-                    ],
-                  ],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
                   'parts' => [
                     'api',
                     'channels',
                     '{station}',
                     'playouts',
                   ],
+                  'rename' => [],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'station',
+                        'orig' => 'station',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                        'example' => 'energy-bern',
+                      ],
+                    ],
+                    'query' => [
+                      [
+                        'name' => 'limit',
+                        'orig' => 'limit',
+                        'type' => '`$INTEGER`',
+                        'kind' => 'query',
+                        'example' => 20,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'limit',
+                      'station',
+                    ],
+                  ],
                 ],
               ],
             ],
           ],
           'relations' => [
-            'ancestors' => [
-              [
-                'channel',
-              ],
-            ],
+            'ancestors' => [],
           ],
         ],
       ],

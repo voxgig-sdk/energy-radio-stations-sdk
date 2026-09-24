@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PlayoutEntity = void 0;
 const EnergyRadioStationsEntityBase_1 = require("../EnergyRadioStationsEntityBase");
-// TODO: needs Entity superclass
 class PlayoutEntity extends EnergyRadioStationsEntityBase_1.EnergyRadioStationsEntityBase {
     constructor(client, entopts) {
         super(client, entopts);

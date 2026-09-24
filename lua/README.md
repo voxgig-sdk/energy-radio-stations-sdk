@@ -43,7 +43,7 @@ local playouts, err = client:Playout():list()
 if err then error(err) end
 
 for _, item in ipairs(playouts) do
-  print(item["id"], item["album"])
+  print(item["id"])
 end
 ```
 

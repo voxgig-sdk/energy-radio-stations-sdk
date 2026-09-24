@@ -116,7 +116,7 @@ function playout_basic_setup(extra)
 
   -- Generate idmap via transform.
   local idmap = vs.transform(
-    { "playout01", "playout02", "playout03", "channel01", "channel02", "channel03", "station01" },
+    { "playout01", "playout02", "playout03", "station01" },
     {
       ["`$PACK`"] = { "", {
         ["`$KEY`"] = "`$COPY`",

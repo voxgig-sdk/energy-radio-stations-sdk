@@ -112,7 +112,7 @@ function playout_basic_setup($extra)
 
     // Generate idmap.
     $idmap = [];
-    foreach (["playout01", "playout02", "playout03", "channel01", "channel02", "channel03", "station01"] as $k) {
+    foreach (["playout01", "playout02", "playout03", "station01"] as $k) {
         $idmap[$k] = strtoupper($k);
     }
 

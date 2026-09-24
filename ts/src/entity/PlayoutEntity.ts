@@ -19,7 +19,6 @@ import type {
   PlayoutListMatch,
 } from '../EnergyRadioStationsTypes'
 
-// TODO: needs Entity superclass
 class PlayoutEntity extends EnergyRadioStationsEntityBase<Playout> {
 
   constructor(client: EnergyRadioStationsSDK, entopts: any) {

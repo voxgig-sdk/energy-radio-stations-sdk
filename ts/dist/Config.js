@@ -11,19 +11,12 @@ const FEATURE_CLASS = {
     test: TestFeature_1.TestFeature,
     timeout: TimeoutFeature_1.TimeoutFeature,
 };
-// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
-// the model's active plugin groups. A feature that takes a `plugins` option
-// (secrets over sekreto) reads its own entry; a feature with no plugins has
-// none. Named imports above make each definition statically reachable, so
-// an SDK carries exactly the plugin modules its model selects — the same
-// leanness the old side-effect registry imports bought, without a registry.
 const FEATURE_PLUGINS = {};
 exports.FEATURE_PLUGINS = FEATURE_PLUGINS;
 class Config {
     makeFeature(fn) {
         const fc = FEATURE_CLASS[fn];
         const fi = new fc();
-        // TODO: errors etc
         return fi;
     }
     // False for a feature added at runtime via options.extend (station's
@@ -114,43 +107,50 @@ class Config {
             "fields": [
                 {
                     "name": "album",
-                    "short": "Album name",
-                    "type": "`$STRING`"
+                    "title": "Album",
+                    "type": "`$STRING`",
+                    "short": "Album name"
                 },
                 {
                     "name": "artist",
+                    "title": "Artist",
+                    "type": "`$STRING`",
                     "req": true,
-                    "short": "Artist name",
-                    "type": "`$STRING`"
+                    "short": "Artist name"
                 },
                 {
-                    "format": "uri",
                     "name": "coverArt",
+                    "title": "Cover Art",
+                    "type": "`$STRING`",
                     "short": "URL to album cover image",
-                    "type": "`$STRING`"
+                    "format": "uri"
                 },
                 {
                     "name": "duration",
-                    "short": "Song duration in seconds",
-                    "type": "`$INTEGER`"
+                    "title": "Duration",
+                    "type": "`$INTEGER`",
+                    "short": "Song duration in seconds"
                 },
                 {
                     "name": "id",
-                    "short": "Unique identifier for the playlist entry",
-                    "type": "`$STRING`"
+                    "title": "Id",
+                    "type": "`$STRING`",
+                    "short": "Unique identifier for the playlist entry"
                 },
                 {
-                    "format": "date-time",
                     "name": "playedAt",
+                    "title": "Played At",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Timestamp when the song was played",
-                    "type": "`$STRING`"
+                    "format": "date-time"
                 },
                 {
                     "name": "title",
+                    "title": "Title",
+                    "type": "`$STRING`",
                     "req": true,
-                    "short": "Song title",
-                    "type": "`$STRING`"
+                    "short": "Song title"
                 }
             ],
             "id": {
@@ -164,27 +164,6 @@ class Config {
                     "name": "list",
                     "points": [
                         {
-                            "args": {
-                                "params": [
-                                    {
-                                        "example": "energy-bern",
-                                        "kind": "param",
-                                        "name": "station",
-                                        "orig": "station",
-                                        "reqd": true,
-                                        "type": "`$STRING`"
-                                    }
-                                ],
-                                "query": [
-                                    {
-                                        "example": 20,
-                                        "kind": "query",
-                                        "name": "limit",
-                                        "orig": "limit",
-                                        "type": "`$INTEGER`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/api/channels/{station}/playouts",
@@ -202,32 +181,50 @@ class Config {
                                     "lit": "playouts"
                                 }
                             ],
-                            "select": {
-                                "exist": [
-                                    "limit",
-                                    "station"
-                                ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
                             "parts": [
                                 "api",
                                 "channels",
                                 "{station}",
                                 "playouts"
-                            ]
+                            ],
+                            "rename": {},
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "params": [
+                                    {
+                                        "name": "station",
+                                        "orig": "station",
+                                        "type": "`$STRING`",
+                                        "kind": "param",
+                                        "reqd": true,
+                                        "example": "energy-bern"
+                                    }
+                                ],
+                                "query": [
+                                    {
+                                        "name": "limit",
+                                        "orig": "limit",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 20
+                                    }
+                                ]
+                            },
+                            "select": {
+                                "exist": [
+                                    "limit",
+                                    "station"
+                                ]
+                            }
                         }
                     ]
                 }
             },
             "relations": {
-                "ancestors": [
-                    [
-                        "channel"
-                    ]
-                ]
+                "ancestors": []
             }
         }
     };

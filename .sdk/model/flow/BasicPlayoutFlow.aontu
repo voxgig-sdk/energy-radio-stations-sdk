@@ -1,0 +1,26 @@
+# BasicPlayoutFlow
+
+main: kit: flow: BasicPlayoutFlow:
+{
+  entity: "playout",
+  kind: "basic",
+  name: "BasicPlayoutFlow",
+  step: [
+    {
+      m: {
+        station: "station01"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "playout_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicPlayoutFlow"
+}

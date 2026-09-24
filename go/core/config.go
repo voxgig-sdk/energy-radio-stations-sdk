@@ -91,43 +91,50 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "album",
-						"short": "Album name",
+						"title": "Album",
 						"type": "`$STRING`",
+						"short": "Album name",
 					},
 					map[string]any{
 						"name": "artist",
+						"title": "Artist",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "Artist name",
-						"type": "`$STRING`",
 					},
 					map[string]any{
-						"format": "uri",
 						"name": "coverArt",
-						"short": "URL to album cover image",
+						"title": "Cover Art",
 						"type": "`$STRING`",
+						"short": "URL to album cover image",
+						"format": "uri",
 					},
 					map[string]any{
 						"name": "duration",
-						"short": "Song duration in seconds",
+						"title": "Duration",
 						"type": "`$INTEGER`",
+						"short": "Song duration in seconds",
 					},
 					map[string]any{
 						"name": "id",
-						"short": "Unique identifier for the playlist entry",
+						"title": "Id",
 						"type": "`$STRING`",
+						"short": "Unique identifier for the playlist entry",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "playedAt",
+						"title": "Played At",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "Timestamp when the song was played",
-						"type": "`$STRING`",
+						"format": "date-time",
 					},
 					map[string]any{
 						"name": "title",
+						"title": "Title",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "Song title",
-						"type": "`$STRING`",
 					},
 				},
 				"id": map[string]any{
@@ -141,27 +148,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": "energy-bern",
-											"kind": "param",
-											"name": "station",
-											"orig": "station",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-									"query": []any{
-										map[string]any{
-											"example": 20,
-											"kind": "query",
-											"name": "limit",
-											"orig": "limit",
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/api/channels/{station}/playouts",
@@ -179,32 +165,50 @@ func MakeConfig() map[string]any {
 										"lit": "playouts",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"limit",
-										"station",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"api",
 									"channels",
 									"{station}",
 									"playouts",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "station",
+											"orig": "station",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": "energy-bern",
+										},
+									},
+									"query": []any{
+										map[string]any{
+											"name": "limit",
+											"orig": "limit",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 20,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"limit",
+										"station",
+									},
+								},
 							},
 						},
 					},
 				},
 				"relations": map[string]any{
-					"ancestors": []any{
-						[]any{
-							"channel",
-						},
-					},
+					"ancestors": []any{},
 				},
 			},
 		},

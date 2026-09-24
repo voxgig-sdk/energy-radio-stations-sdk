@@ -150,7 +150,7 @@ func playoutBasicSetup(extra map[string]any) *entityTestSetup {
 
 	// Generate idmap via transform, matching TS pattern.
 	idmap, _ := vs.Transform(
-		[]any{"playout01", "playout02", "playout03", "channel01", "channel02", "channel03", "station01"},
+		[]any{"playout01", "playout02", "playout03", "station01"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
 				"`$KEY`": "`$COPY`",

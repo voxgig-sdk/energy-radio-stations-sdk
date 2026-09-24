@@ -1,0 +1,132 @@
+# Entity: playout
+
+main: kit: entity: playout: {
+
+  alias: field: {}
+
+  fields: {
+    album: {
+      h: "Album"
+      n: "album"
+      r: false
+      sh: "Album name"
+      t: "`$STRING`"
+    }
+    artist: {
+      h: "Artist"
+      n: "artist"
+      r: true
+      sh: "Artist name"
+      t: "`$STRING`"
+    }
+    coverArt: {
+      fo: "uri"
+      h: "Cover Art"
+      n: "coverArt"
+      r: false
+      sh: "URL to album cover image"
+      t: "`$STRING`"
+    }
+    duration: {
+      h: "Duration"
+      n: "duration"
+      r: false
+      sh: "Song duration in seconds"
+      t: "`$INTEGER`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      sh: "Unique identifier for the playlist entry"
+      t: "`$STRING`"
+    }
+    playedAt: {
+      fo: "date-time"
+      h: "Played At"
+      n: "playedAt"
+      r: true
+      sh: "Timestamp when the song was played"
+      t: "`$STRING`"
+    }
+    title: {
+      h: "Title"
+      n: "title"
+      r: true
+      sh: "Song title"
+      t: "`$STRING`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "playout"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /api/channels/{station}/playouts"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: "energy-bern"
+                k: "param"
+                n: "station"
+                or: "station"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                ex: 20
+                k: "query"
+                n: "limit"
+                or: "limit"
+                r: false
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/api/channels/{station}/playouts"
+          q: {
+            exist: [
+              "limit"
+              "station"
+            ]
+          }
+          s: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "channels"
+            }
+            {
+              var: "station"
+            }
+            {
+              lit: "playouts"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

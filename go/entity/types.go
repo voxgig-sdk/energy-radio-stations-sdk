@@ -1,7 +1,7 @@
 // Typed models for the EnergyRadioStations SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,13 +14,6 @@ import (
 
 // Playout is the typed data model for the playout entity.
 type Playout struct {
-	Album *string `json:"album,omitempty"`
-	Artist string `json:"artist"`
-	CoverArt *string `json:"coverArt,omitempty"`
-	Duration *int `json:"duration,omitempty"`
-	Id *string `json:"id,omitempty"`
-	PlayedAt string `json:"playedAt"`
-	Title string `json:"title"`
 }
 
 // PlayoutListMatch is the typed request payload for Playout.ListTyped.
