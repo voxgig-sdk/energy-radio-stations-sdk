@@ -11,6 +11,7 @@ guide: {
   entity: playout: {
     path: "/api/channels/{station}/playouts": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.playlist`")|top
     }
   }
 

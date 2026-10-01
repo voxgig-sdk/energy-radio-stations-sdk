@@ -37,6 +37,8 @@ require_once __DIR__ . '/TransformResponse.php';
 
 EnergyRadioStationsUtility::setRegistrar(function (EnergyRadioStationsUtility $u): void {
     $u->clean = [EnergyRadioStationsClean::class, 'call'];
+    $u->clean_add = [EnergyRadioStationsClean::class, 'add'];
+    $u->clean_explain = [EnergyRadioStationsDone::class, 'clean_explain'];
     $u->done = [EnergyRadioStationsDone::class, 'call'];
     $u->make_error = [EnergyRadioStationsMakeError::class, 'call'];
     $u->feature_add = [EnergyRadioStationsFeatureAdd::class, 'call'];

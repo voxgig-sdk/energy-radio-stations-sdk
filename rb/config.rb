@@ -182,7 +182,7 @@ module EnergyRadioStationsConfig
                   "rename" => {},
                   "transform" => {
                     "req" => "`reqdata`",
-                    "res" => "`body`",
+                    "res" => "`body.playlist`",
                   },
                   "args" => {
                     "params" => [

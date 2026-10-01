@@ -120,7 +120,7 @@ main: kit: entity: playout: {
           ]
           t: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.playlist`"
           }
         }
       ]

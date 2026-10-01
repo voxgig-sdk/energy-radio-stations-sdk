@@ -33,6 +33,8 @@ require_relative 'transform_response'
 
 EnergyRadioStationsUtility.registrar = ->(u) {
   u.clean = EnergyRadioStationsUtilities::Clean
+  u.clean_add = EnergyRadioStationsUtilities::CleanAdd
+  u.clean_explain = EnergyRadioStationsUtilities::CleanExplain
   u.done = EnergyRadioStationsUtilities::Done
   u.make_error = EnergyRadioStationsUtilities::MakeError
   u.feature_add = EnergyRadioStationsUtilities::FeatureAdd
