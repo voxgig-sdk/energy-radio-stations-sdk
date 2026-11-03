@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { EnergyRadioStationsSDK, BaseFeature, stdutil } from '../../..'
+import { EnergyRadioStationsSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,6 +41,18 @@ describe('PlayoutEntity', async () => {
   })
 
 
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = EnergyRadioStationsSDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.Playout().list({"station":1} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.ENERGY_RADIO_STATIONS_TEST_LIVE
@@ -51,7 +63,7 @@ describe('PlayoutEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"album":{"a":true,"h":"Album","n":"album","r":false,"sh":"Album name","t":"`$STRING`","key$":"album","index$":0},"artist":{"a":true,"h":"Artist","n":"artist","r":true,"sh":"Artist name","t":"`$STRING`","key$":"artist","index$":1},"coverArt":{"a":true,"fo":"uri","h":"Cover Art","n":"coverArt","r":false,"sh":"URL to album cover image","t":"`$STRING`","key$":"coverArt","index$":2},"duration":{"a":true,"h":"Duration","n":"duration","r":false,"sh":"Song duration in seconds","t":"`$INTEGER`","key$":"duration","index$":3},"id":{"a":true,"h":"Id","n":"id","r":false,"sh":"Unique identifier for the playlist entry","t":"`$STRING`","key$":"id","index$":4},"playedAt":{"a":true,"fo":"date-time","h":"Played At","n":"playedAt","r":true,"sh":"Timestamp when the song was played","t":"`$STRING`","key$":"playedAt","index$":5},"title":{"a":true,"h":"Title","n":"title","r":true,"sh":"Song title","t":"`$STRING`","key$":"title","index$":6}},"id":{"field":"id","name":"id"},"name":"playout","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /api/channels/{station}/playouts","source":"openapi3","version":2},"g":{"params":[{"a":true,"ex":"energy-bern","k":"param","n":"station","or":"station","r":true,"t":"`$STRING`","index$":0}],"query":[{"a":true,"ex":20,"k":"query","n":"limit","or":"limit","r":false,"t":"`$INTEGER`","index$":0}]},"k":"http","m":"GET","o":"/api/channels/{station}/playouts","q":{"exist":["limit","station"]},"r":{},"s":[{"lit":"api"},{"lit":"channels"},{"var":"station"},{"lit":"playouts"}],"t":{"req":"`reqdata`","res":"`body.playlist`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"playout","name__orig":"playout","Name":"Playout","name_":"playout","name-":"playout","NAME":"PLAYOUT","index$":0}, {"active":true,"entity":"playout","key$":"BasicPlayoutFlow","kind":"basic","name":"BasicPlayoutFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{"station":"station01"},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"playout_ref01"}}],"index$":0}]}, 'Playout', {"GET /api/channels/{station}/playouts":{"protocol":"http","parameters":[{"name":"station","in":"path","required":true,"description":"The station identifier","schema":{"type":"string","enum":["energy-zurich","energy-basel","energy-bern","energy-me-time","energy-love","energy-at-work","energy-hits","made-in-switzerland","energy-workout","energy-latin","energy-party-vibes","energy-summer-vibes","energy-pop","energy-top-30","energy-90s","energy-80s","energy-00s","energy-10s","energy-dance","energy-20s","energy-italy","energy-deutsch-pop","energy-womxn","energy-lounge","friends-cooking","energy-deutschrap","energy-balkan-hits","energy-rock","energy-urban","energy-x-mas"],"example":"energy-bern"},"index$":0},{"name":"limit","in":"query","required":false,"description":"Number of playlist entries to return","schema":{"type":"integer","default":20,"minimum":1,"maximum":100},"index$":1}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"album":{"a":true,"h":"Album","n":"album","r":false,"sh":"Album name","t":"`$STRING`","key$":"album","index$":0},"artist":{"a":true,"h":"Artist","n":"artist","r":true,"sh":"Artist name","t":"`$STRING`","key$":"artist","index$":1},"coverArt":{"a":true,"fo":"uri","h":"Cover Art","n":"coverArt","r":false,"sh":"URL to album cover image","t":"`$STRING`","key$":"coverArt","index$":2},"duration":{"a":true,"h":"Duration","n":"duration","r":false,"sh":"Song duration in seconds","t":"`$INTEGER`","key$":"duration","index$":3},"id":{"a":true,"h":"Id","n":"id","r":false,"sh":"Unique identifier for the playlist entry","t":"`$STRING`","key$":"id","index$":4},"playedAt":{"a":true,"fo":"date-time","h":"Played At","n":"playedAt","r":true,"sh":"Timestamp when the song was played","t":"`$STRING`","key$":"playedAt","index$":5},"title":{"a":true,"h":"Title","n":"title","r":true,"sh":"Song title","t":"`$STRING`","key$":"title","index$":6}},"id":{"field":"id","name":"id"},"name":"playout","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /api/channels/{station}/playouts","source":"openapi3","version":2},"g":{"params":[{"a":true,"ex":"energy-bern","k":"param","n":"station","or":"station","r":true,"t":"`$STRING`","index$":0}],"query":[{"a":true,"ex":20,"k":"query","n":"limit","or":"limit","r":false,"t":"`$INTEGER`","index$":0}]},"k":"http","m":"GET","o":"/api/channels/{station}/playouts","q":{"exist":["station"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"api"},{"lit":"channels"},{"var":"station"},{"lit":"playouts"}],"t":{"req":"`reqdata`","res":"`body.playlist`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"playout","name__orig":"playout","Name":"Playout","name_":"playout","name-":"playout","NAME":"PLAYOUT","index$":0}, {"active":true,"entity":"playout","key$":"BasicPlayoutFlow","kind":"basic","name":"BasicPlayoutFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{"station":"station01"},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"playout_ref01"}}],"index$":0}]}, 'Playout', {"GET /api/channels/{station}/playouts":{"protocol":"http","parameters":[{"name":"station","in":"path","required":true,"description":"The station identifier","schema":{"type":"string","enum":["energy-zurich","energy-basel","energy-bern","energy-me-time","energy-love","energy-at-work","energy-hits","made-in-switzerland","energy-workout","energy-latin","energy-party-vibes","energy-summer-vibes","energy-pop","energy-top-30","energy-90s","energy-80s","energy-00s","energy-10s","energy-dance","energy-20s","energy-italy","energy-deutsch-pop","energy-womxn","energy-lounge","friends-cooking","energy-deutschrap","energy-balkan-hits","energy-rock","energy-urban","energy-x-mas"],"example":"energy-bern"},"index$":0},{"name":"limit","in":"query","required":false,"description":"Number of playlist entries to return","schema":{"type":"integer","default":20,"minimum":1,"maximum":100},"index$":1}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -73,6 +85,12 @@ describe('PlayoutEntity', async () => {
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options

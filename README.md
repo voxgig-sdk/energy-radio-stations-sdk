@@ -47,22 +47,21 @@ network, and no credentials:
 const client = EnergyRadioStationsSDK.test({
   entity: {
     playout: {
-      test01: { id: 'test01' },
+      test01: { id: 'test01', station: 'example_station' },
     },
   },
 })
-const playouts = await client.Playout().list()
-// playouts is an array of Playout entities, populated with mock data
-// — call playouts[0].data() for the record itself
-console.log(playouts)
+const playouts = await client.Playout().list({ station: 'example_station' })
+// playouts is an array of Playout entities, one per mock record
+console.log(playouts.map((playout) => playout.data()))
 ```
 
 ### Python
 
 ```python
 client = EnergyRadioStationsSDK.test()
-playouts = client.Playout().list()
-print(playouts)
+playouts = client.Playout().list({"station": "example"})
+print([item.data_get() for item in playouts])
 ```
 
 ### PHP
@@ -70,9 +69,9 @@ print(playouts)
 ```php
 // Seed fixture data so offline calls resolve without a live server.
 $client = EnergyRadioStationsSDK::test([
-    "entity" => ["playout" => ["test01" => []]],
+    "entity" => ["playout" => ["test01" => ["station" => "example"]]],
 ]);
-$playouts = $client->Playout()->list();
+$playouts = $client->Playout()->list(["station" => "example"]);
 ```
 
 ### Golang
@@ -80,7 +79,7 @@ $playouts = $client->Playout()->list();
 ```go
 client := sdk.Test()
 result, err := client.Playout(nil).List(
-    nil, nil,
+    map[string]any{"station": "example"}, nil,
 )
 ```
 
@@ -89,16 +88,16 @@ result, err := client.Playout(nil).List(
 ```ruby
 # Seed fixture data so offline calls resolve without a live server.
 client = EnergyRadioStationsSDK.test({
-  "entity" => { "playout" => { "test01" => {} } },
+  "entity" => { "playout" => { "test01" => { "station" => "example" } } },
 })
-playouts = client.Playout.list()
+playouts = client.Playout.list({ "station" => "example" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local results, err = client:Playout():list()
+local results, err = client:Playout():list({ station = "example" })
 ```
 
 ## Packages
@@ -111,8 +110,8 @@ local results, err = client:Playout():list()
 | Golang | `github.com/voxgig-sdk/energy-radio-stations-sdk/go` | `go get github.com/voxgig-sdk/energy-radio-stations-sdk/go@latest` |
 | Ruby | `voxgig-sdk-energy-radio-stations-sdk` | publish pending — [install from source](rb/README.md#install) |
 | Lua | `voxgig-sdk-energy-radio-stations-sdk` | publish pending — [install from source](lua/README.md#install) |
-| Go CLI | `github.com/voxgig-sdk/energy-radio-stations-sdk/go-cli` | `go install github.com/voxgig-sdk/energy-radio-stations-sdk/go-cli/cmd/energy-radio-stations@latest` |
-| Go MCP server | `github.com/voxgig-sdk/energy-radio-stations-sdk/go-mcp` | `go get github.com/voxgig-sdk/energy-radio-stations-sdk/go-mcp@latest` |
+| Go CLI | `github.com/voxgig-sdk/energy-radio-stations-sdk/go-cli` | build from source — [go-cli/README.md](go-cli/README.md) |
+| Go MCP server | `github.com/voxgig-sdk/energy-radio-stations-sdk/go-mcp` | build from source — [go-mcp/README.md](go-mcp/README.md) |
 
 ## Quickstart
 
@@ -123,10 +122,10 @@ import { EnergyRadioStationsSDK } from '@voxgig-sdk/energy-radio-stations-sdk'
 
 const client = new EnergyRadioStationsSDK()
 
-// List all playouts (returns PlayoutEntity[] — .data() for the record)
+// List all playouts (returns PlayoutEntity[], one entity per record)
 const playouts = await client.Playout().list({ station: "example" })
 for (const playout of playouts) {
-  console.log(playout)
+  console.log(playout.data())
 }
 ```
 
@@ -142,9 +141,10 @@ See the [TypeScript README](ts/README.md) for the full guide.
 
 ## Use it from an AI agent (MCP)
 
-The generated MCP server exposes every operation in this SDK as an
-[MCP](https://modelcontextprotocol.io) tool that Claude, Cursor or Cline
-can call directly. Build and register it:
+The generated MCP server exposes this SDK's list operations as
+[MCP](https://modelcontextprotocol.io) tools that Claude, Cursor or Cline
+can call directly. It only reads: create, update, patch and remove become tools when the SDK's model sets
+`main: kit: target: 'go-mcp': tool: write: true`. Build and register it:
 
 ```bash
 cd go-mcp && go build -o energy-radio-stations-mcp .
@@ -182,10 +182,10 @@ from energyradiostations_sdk import EnergyRadioStationsSDK
 
 client = EnergyRadioStationsSDK()
 
-# List all playouts (returns a list, raises on error)
+# List all playouts (a list of entities, one per record; raises on error)
 playouts = client.Playout().list({"station": "example"})
 for playout in playouts:
-    print(playout)
+    print(playout.data_get())
 ```
 
 ### PHP
@@ -196,8 +196,8 @@ require_once 'energyradiostations_sdk.php';
 
 $client = new EnergyRadioStationsSDK();
 
-// List all playouts (returns an array; throws on error)
-$playouts = $client->Playout()->list();
+// List all playouts (an array of entities, one per record; throws on error)
+$playouts = $client->Playout()->list(["station" => "example"]);
 print_r(array_map(fn($item) => $item->data_get(), $playouts));
 ```
 
@@ -208,12 +208,14 @@ import sdk "github.com/voxgig-sdk/energy-radio-stations-sdk/go"
 
 client := sdk.New()
 
-// List all playouts
-playouts, err := client.Playout(nil).List(nil, nil)
+// List all playouts (one entity per record; err is non-nil on failure)
+playouts, err := client.Playout(nil).List(map[string]any{"station": "example"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(playouts)
+for _, playout := range playouts.([]any) {
+    fmt.Println(playout.(sdk.Entity).Data())
+}
 ```
 
 ### Ruby
@@ -223,21 +225,25 @@ require_relative "EnergyRadioStations_sdk"
 
 client = EnergyRadioStationsSDK.new
 
-# List all playouts (returns an Array; raises on error)
-playouts = client.Playout.list
-puts playouts
+# List all playouts (an Array of entities, one per record; raises on error)
+playouts = client.Playout.list({ "station" => "example" })
+playouts.each { |item| puts item.data_get }
 ```
 
 ### Lua
 
 ```lua
 local sdk = require("energy-radio-stations_sdk")
+local json = require("dkjson")
 
 local client = sdk.new()
 
--- List all playouts
-local playouts, err = client:Playout():list()
-print(playouts)
+-- List all playouts (an array of entities, one per record; err on failure)
+local playouts, err = client:Playout():list({ station = "example" })
+if err then error(err) end
+for _, playout in ipairs(playouts) do
+  print(json.encode(playout:data_get()))
+end
 ```
 
 ## Direct and prepare
@@ -263,10 +269,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
-if (result instanceof Error) {
-  throw result
+if (result.ok) {
+  console.log(result.data)
 }
-console.log(result.data)
 ```
 
 **Python:**
@@ -351,23 +356,52 @@ Pass custom features via the `extend` option at construction time.
 This repository contains its own generator (`.sdk/`), so the SDK is
 customizable without forking any upstream tool:
 
-- **The model** (`.sdk/model/`) declares everything this project owns:
-  package names, versions, active features, per-target settings. It is
-  written in [aontu](https://aontu.dev), a JSON-based
+- **The model** (`.sdk/model/`) is what generation reads: the API's
+  entities and operations, the targets, the features, and this project's
+  own settings. It is written in [aontu](https://aontu.dev), a JSON-based
   specification language designed for building ontologies: easy to edit
   by hand, and files unify rather than override, so small declarations
   compose into one model. Regeneration re-reads it every time.
 - **Templates** (`.sdk/tm/`) and **components** (`.sdk/src/cmp/`) are
   the two layers of generation, copied into this repo: templates are the
   literal per-language source, components generate the API-shaped parts.
-- **Regeneration merges.** By default, newly generated content is
-  three-way merged into existing files, so generator updates and local
-  edits usually converge without manual conflict handling. A project can
-  opt for plain overwrite instead.
+- **Regeneration overwrites.** Each run rewrites every generated file from
+  the model, the templates and the components, so an edit made to
+  generated output is lost. Say what this project needs in its own model
+  (`.sdk/model/project.aontu`), or extend a target with a component of its
+  own in `.sdk/src/cmp/<target>/`, registered with `registerComponent`,
+  which `voxgig-sdkgen doctor` reports as an addition rather than drift.
 - **Custom features and entire custom targets** arrive through sdkgen
   packages (`voxgig-sdkgen package add`), on the same rails as the
   bundled languages, and `voxgig-sdkgen doctor` reports any drift from
   what a resync would write.
+
+### Project map
+
+| Path | What it holds | Edit it? |
+| --- | --- | --- |
+| `.sdk/model/project.aontu` | This project's own decisions: package names, versions, features and per-target settings | Yes. The scaffold writes it once and never again. |
+| `.sdk/model/text.aontu` | The README wording, in `main.kit.text`: the tagline, the summary and the entity descriptions | Yes. The scaffold writes it once and never again. |
+| `.sdk/model/guide/guide.aontu` | How the spec's paths map onto entities and operations | Yes. The scaffold writes it once and never again. |
+| `.sdk/model/`, the rest | The API model built from the spec, and the target and feature definitions | Not by hand. Generation, `target add` and a new scaffold run rewrite it. |
+| `.sdk/def/` | The OpenAPI spec | Replace it when the API changes. Generation rebuilds the model from it. |
+| `.sdk/src/cmp/<target>/`, `.sdk/tm/<target>/` | The components and templates that generate each target | Only to add a component of your own. `target add` overwrites the copies. |
+| `.sdk/test/` | The shared test cases the generated tests run | No. |
+| `<target>/`, such as `ts/` | One generated SDK per target, with its own tests | No. Generation overwrites it. |
+| `README.md`, `LICENSE`, `Makefile` and the other root files | The repository's generated files | No. Generation overwrites them. |
+
+### Common commands
+
+Run these from `.sdk/`:
+
+```bash
+npm run generate               # regenerate every target from the model
+npm run add-target <target>    # add a target, or resync one after an sdkgen update
+npm run add-feature <feature>  # add a feature to every target
+npx voxgig-sdkgen doctor       # report where .sdk/ differs from what a resync writes
+```
+
+In an SDK directory, `make test` runs that SDK's tests.
 
 How-to: [customize and propagate templates](https://github.com/voxgig/sdkgen/blob/main/docs/how-to/customize-and-propagate-templates.md).
 The full story: [voxgig.com/sdk/custom](https://voxgig.com/sdk/custom).

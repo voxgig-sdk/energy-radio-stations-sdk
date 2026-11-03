@@ -10,6 +10,12 @@ import (
 	"github.com/voxgig-sdk/energy-radio-stations-sdk/go/core"
 )
 
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const playoutDirectLiveStrict = true
+
 func TestPlayoutDirect(t *testing.T) {
 	t.Run("direct-list-playout", func(t *testing.T) {
 		setup := playoutDirectSetup([]any{
@@ -30,7 +36,7 @@ func TestPlayoutDirect(t *testing.T) {
 		if setup.live {
 			for _, _liveKey := range []string{"station01"} {
 				if v := setup.idmap[_liveKey]; v == nil {
-					t.Skipf("live test needs %s via *_ENTID env var (synthetic IDs only)", _liveKey)
+					liveMiss(t, playoutDirectLiveStrict, "Live test blocked: needs %s via ENERGY_RADIO_STATIONS_TEST_PLAYOUT_ENTID", _liveKey)
 					return
 				}
 			}
@@ -38,6 +44,7 @@ func TestPlayoutDirect(t *testing.T) {
 		client := setup.client
 
 		params := map[string]any{}
+		query := map[string]any{}
 		if setup.live {
 			params["station"] = setup.idmap["station01"]
 		} else {
@@ -48,21 +55,17 @@ func TestPlayoutDirect(t *testing.T) {
 			"path":   "api/channels/{station}/playouts",
 			"method": "GET",
 			"params": params,
+			"query":  query,
 		})
 		if setup.live {
-			// Live-mode leniency is a model decision
-			// (main.kit.test.live.strict): synthetic IDs 4xx constantly
-			// against an arbitrary public API, so the default SKIPS here.
-			// A project that owns its test server sets strict and FAILS.
 			if err != nil {
-				t.Fatalf("list call failed (likely synthetic IDs against live API): %v", err)
+				liveMiss(t, playoutDirectLiveStrict, "Live list failed: %v", err)
 			}
-			if result["ok"] != true {
-				t.Fatalf("list call not ok (likely synthetic IDs against live API): %v", result)
+			if status := core.ToInt(result["status"]); result["ok"] != true || status < 200 || status >= 300 {
+				liveMiss(t, playoutDirectLiveStrict, "Live list failed: %s", liveDescribe(result))
 			}
-			status := core.ToInt(result["status"])
-			if status < 200 || status >= 300 {
-				t.Fatalf("expected 2xx status, got %v", result["status"])
+			if _, ok := liveList(result["data"]); !ok {
+				liveMiss(t, playoutDirectLiveStrict, "Live list returned no list: %s", liveDescribe(result))
 			}
 		} else {
 			if err != nil {
@@ -142,6 +145,12 @@ func playoutDirectSetup(mockres any) *playoutDirectSetupResult {
 				json.Unmarshal([]byte(entidStr), &idmap)
 			} else if entidMap, ok := entidRaw.(map[string]any); ok {
 				idmap = entidMap
+			}
+		}
+		// A path parameter's example stands in for an id *_ENTID does not give.
+		for k, v := range map[string]any{"station01": "energy-bern"} {
+			if idmap[k] == nil {
+				idmap[k] = v
 			}
 		}
 

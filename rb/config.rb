@@ -79,6 +79,7 @@ module EnergyRadioStationsConfig
           },
           "optspec" => {
             "clearTimer" => "`$FUNCTION`",
+            "now" => "`$FUNCTION`",
             "setTimer" => "`$FUNCTION`",
           },
           "strict" => false,
@@ -207,9 +208,12 @@ module EnergyRadioStationsConfig
                   },
                   "select" => {
                     "exist" => [
-                      "limit",
                       "station",
                     ],
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],

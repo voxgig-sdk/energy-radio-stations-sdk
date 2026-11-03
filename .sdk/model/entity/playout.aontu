@@ -100,9 +100,12 @@ main: kit: entity: playout: {
           o: "/api/channels/{station}/playouts"
           q: {
             exist: [
-              "limit"
               "station"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

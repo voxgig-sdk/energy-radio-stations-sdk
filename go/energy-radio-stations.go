@@ -13,7 +13,12 @@ type Context = core.Context
 type Utility = core.Utility
 type Feature = core.Feature
 type Entity = core.Entity
-type EnergyRadioStationsEntity = core.EnergyRadioStationsEntity
+type EnergyRadioStationsEntityBase = core.EnergyRadioStationsEntityBase
+
+// Deprecated: use EnergyRadioStationsEntityBase.
+type EnergyRadioStationsEntity = core.EnergyRadioStationsEntityBase
+
+type StreamItem = core.StreamItem
 type FetcherFunc = core.FetcherFunc
 type Spec = core.Spec
 type Result = core.Result
@@ -41,7 +46,7 @@ func init() {
 	core.NewTimeoutFeatureFunc = func() core.Feature {
 		return feature.NewTimeoutFeature()
 	}
-	core.NewPlayoutEntityFunc = func(client *core.EnergyRadioStationsSDK, entopts map[string]any) core.EnergyRadioStationsEntity {
+	core.NewPlayoutEntityFunc = func(client *core.EnergyRadioStationsSDK, entopts map[string]any) core.EnergyRadioStationsEntityBase {
 		return entity.NewPlayoutEntity(client, entopts)
 	}
 }

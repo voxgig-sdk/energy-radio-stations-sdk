@@ -75,7 +75,7 @@ func runOp(client *sdk.EnergyRadioStationsSDK, op string, query *eng.Value, enti
 
 // entityFor dispatches on the lowercase entity name. The generator
 // emits one `case "<name>":` per entity defined in the SDK model.
-func entityFor(client *sdk.EnergyRadioStationsSDK, name string) (sdk.EnergyRadioStationsEntity, error) {
+func entityFor(client *sdk.EnergyRadioStationsSDK, name string) (sdk.EnergyRadioStationsEntityBase, error) {
 	switch strings.ToLower(name) {
 	case "playout":
 		return client.Playout(nil), nil

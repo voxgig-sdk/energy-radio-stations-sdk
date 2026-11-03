@@ -12,6 +12,8 @@ type EnergyRadioStationsError struct {
 	Ctx    *Context `json:"-"`
 	Result any
 	Spec   any
+	// The HTTP status, -1 when there was no response.
+	Status int
 }
 
 func NewEnergyRadioStationsError(code string, msg string, ctx *Context) *EnergyRadioStationsError {
@@ -21,7 +23,12 @@ func NewEnergyRadioStationsError(code string, msg string, ctx *Context) *EnergyR
 		Code:               code,
 		Msg:                msg,
 		Ctx:                ctx,
+		Status:             -1,
 	}
+}
+
+func (e *EnergyRadioStationsError) NotFound() bool {
+	return 404 == e.Status
 }
 
 func (e *EnergyRadioStationsError) Error() string {
@@ -35,6 +42,7 @@ func (e *EnergyRadioStationsError) Record() map[string]any {
 		"sdk":     e.Sdk,
 		"code":    e.Code,
 		"message": e.Msg,
+		"status":  e.Status,
 		"result":  e.Result,
 		"spec":    e.Spec,
 	}

@@ -12,5 +12,5 @@ var NewTestFeatureFunc func() Feature
 
 var NewTimeoutFeatureFunc func() Feature
 
-var NewPlayoutEntityFunc func(client *EnergyRadioStationsSDK, entopts map[string]any) EnergyRadioStationsEntity
+var NewPlayoutEntityFunc func(client *EnergyRadioStationsSDK, entopts map[string]any) EnergyRadioStationsEntityBase
 

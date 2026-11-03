@@ -3,5 +3,17 @@
     "SUMMARY.md"
   ],
   "config": ".sdk/doc/qa/vale.ini",
-  "routes": {}
+  "routes": {},
+  "quoted": {
+    "SUMMARY.md": [
+      "Album name",
+      "Artist name",
+      "Production server",
+      "Provides various radio stations with different music genres and themes. Access to Energy Radio&#39;s playlist and station information.",
+      "Song duration in seconds",
+      "Successful response with playlist data",
+      "URL to album cover image",
+      "Unique identifier for the playlist entry"
+    ]
+  }
 }

@@ -22,30 +22,40 @@ const PLAN: any[] = [
       }
     ],
     "select": {
-      "limit": "v1"
+      "limit": 20
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [
       "limit"
+    ],
+    "queryArgs": [
+      {
+        "name": "limit",
+        "wire": "limit"
+      }
     ],
     "auth": null,
     "status": 200,
     "sample": {
       "station": {
-        "description": "Die Nummer 1 aus der Hauptstadt.",
-        "frequency": "101.7 MHz",
         "id": "energy-bern",
-        "name": "Energy Bern"
+        "name": "Energy Bern",
+        "description": "Die Nummer 1 aus der Hauptstadt.",
+        "frequency": "101.7 MHz"
       },
       "playlist": [
         {
-          "album": "25",
-          "artist": "Adele",
-          "coverArt": "x",
-          "duration": 1,
           "id": "x",
+          "artist": "Adele",
+          "title": "Hello",
+          "album": "25",
           "playedAt": "2026-01-01T00:00:00Z",
-          "title": "Hello"
+          "coverArt": "x",
+          "duration": 1
         }
       ]
     },
